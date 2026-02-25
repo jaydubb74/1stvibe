@@ -1,26 +1,31 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --font-sans: var(--font-geist-sans);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
-}
+/* MDX prose styling */
+.prose h1 { font-size: 1.875rem; font-weight: 700; margin-bottom: 1rem; line-height: 1.2; }
+.prose h2 { font-size: 1.5rem; font-weight: 700; margin-top: 2rem; margin-bottom: 0.75rem; }
+.prose h3 { font-size: 1.25rem; font-weight: 600; margin-top: 1.5rem; margin-bottom: 0.5rem; }
+.prose p { margin-bottom: 1rem; line-height: 1.75; color: #374151; }
+.prose ul { list-style-type: disc; padding-left: 1.5rem; margin-bottom: 1rem; }
+.prose ol { list-style-type: decimal; padding-left: 1.5rem; margin-bottom: 1rem; }
+.prose li { margin-bottom: 0.35rem; line-height: 1.65; color: #374151; }
+.prose code { background: #f3f4f6; border-radius: 4px; padding: 0.1em 0.35em; font-size: 0.875em; color: #4f46e5; font-family: ui-monospace, monospace; }
+.prose pre { background: #1e1e2e; color: #cdd6f4; border-radius: 8px; padding: 1.25rem; overflow-x: auto; margin-bottom: 1.25rem; }
+.prose pre code { background: none; color: inherit; padding: 0; font-size: 0.875rem; }
+.prose a { color: #4f46e5; text-decoration: underline; text-underline-offset: 2px; }
+.prose a:hover { color: #3730a3; }
+.prose blockquote { border-left: 4px solid #e0e7ff; padding-left: 1rem; color: #4b5563; font-style: italic; margin: 1.25rem 0; }
+.prose strong { font-weight: 600; color: #111827; }
+.prose hr { border: none; border-top: 1px solid #e5e7eb; margin: 2rem 0; }

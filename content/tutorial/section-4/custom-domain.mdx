@@ -1,0 +1,40 @@
+# Buy a custom domain *(optional)*
+
+Your Vercel URL works, but `yourname.com` looks a lot better in an email signature. Here's how to get one.
+
+## What is a domain?
+
+A **domain** (like `joshwetzel.com` or `flyfish-montana.com`) is the address people type into their browser. When you own a domain, you can point it at any server — including your Vercel project.
+
+Domains cost about **$10–15/year** for a `.com`. Other extensions like `.ai`, `.io`, `.me`, or `.co` vary in price.
+
+## Step 1: Buy a domain
+
+Two solid registrars (where you buy domains):
+
+- **[Namecheap](https://namecheap.com)** — good prices, clean interface
+- **[GoDaddy](https://godaddy.com)** — well-known, slightly pricier
+
+Search for the domain you want, add it to your cart, and check out. Skip the upsells (privacy protection is usually free or included).
+
+## Step 2: Add the domain to Vercel
+
+1. In your Vercel project, go to **Settings → Domains**
+2. Type in your domain (e.g. `yourname.com`) and click **Add**
+3. Vercel will show you **DNS records** — these are like a forwarding address that tells the internet to send traffic for your domain to Vercel's servers
+
+## Step 3: Update your DNS
+
+1. Log into your domain registrar (Namecheap or GoDaddy)
+2. Find the **DNS settings** for your domain
+3. Add the records that Vercel gave you (usually an **A record** and a **CNAME record**)
+
+The exact steps vary by registrar. If you get stuck, paste a screenshot into Claude Code and ask: *"I'm trying to add DNS records to my domain at [registrar]. Here's what the DNS settings page looks like. I need to add these records: [paste Vercel's records]. Can you walk me through exactly what to do?"*
+
+## Step 4: Wait for propagation
+
+DNS changes take **5 minutes to 48 hours** to take effect worldwide (usually faster). Once it's live, your domain will forward to your Vercel site automatically.
+
+---
+
+Custom domain is live? Nice. You've got a real website at a real address.

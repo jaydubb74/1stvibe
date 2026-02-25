@@ -1,17 +1,35 @@
 {
-  "name": "1stvibe-scaffold",
+  "name": "1stvibe-ai",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:studio": "drizzle-kit studio"
   },
   "dependencies": {
-    "next": "16.1.6",
+    "@auth/core": "^0.41.0",
+    "@mdx-js/loader": "^3.1.1",
+    "@mdx-js/react": "^3.1.1",
+    "@neondatabase/serverless": "^1.0.2",
+    "@next/mdx": "^15.1.7",
+    "clsx": "^2.1.1",
+    "drizzle-kit": "^0.31.9",
+    "drizzle-orm": "^0.45.1",
+    "gray-matter": "^4.0.3",
+    "lucide-react": "^0.575.0",
+    "next": "^15.1.7",
+    "next-auth": "^5.0.0-beta.30",
+    "next-mdx-remote": "^6.0.0",
+    "openai": "^6.25.0",
     "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "react-dom": "19.2.3",
+    "resend": "^6.9.2",
+    "tailwind-merge": "^3.5.0"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
@@ -19,7 +37,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
-    "eslint-config-next": "16.1.6",
+    "eslint-config-next": "^15.1.7",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

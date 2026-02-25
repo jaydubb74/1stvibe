@@ -1,0 +1,39 @@
+# Push your code to GitHub
+
+Your website files are still sitting on your computer. This step moves them to GitHub, where Vercel can find them and publish them.
+
+The good news: you don't need to know any terminal commands. Claude Code will do this for you.
+
+## Step 1: First, create a GitHub repository
+
+1. Go to **[github.com/new](https://github.com/new)**
+2. Repository name: `my-website` (or whatever you want to call it)
+3. Keep it **Public** (required for free Vercel deployment)
+4. Don't add a README, .gitignore, or license — just create the empty repo
+5. Click **Create repository**
+
+GitHub will show you a page with setup instructions. **Leave this page open** — you'll need the URL in a moment.
+
+## Step 2: Ask Claude Code to push your files
+
+Go back to Claude Code and send this message:
+
+> *"I just created a GitHub repository. Here's the URL: [paste the GitHub URL here]. Can you initialize a git repository in my project folder and push all my files to GitHub?"*
+
+Claude Code will:
+1. Initialize your project as a git repository
+2. Add all your files
+3. Make your first commit
+4. Push everything to GitHub
+
+It may ask you to authenticate with GitHub — if so, follow the prompts it gives you (usually involves logging in via browser or entering a token).
+
+## Step 3: Verify it worked
+
+Go back to your GitHub repository page and refresh. You should see your files listed there — `index.html`, `styles.css` (if applicable), etc.
+
+If the files are there, it worked. 🎉
+
+---
+
+Once you can see your files on GitHub, mark this complete. Now let's deploy.
