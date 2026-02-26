@@ -22,6 +22,13 @@ RULES — follow every one of these exactly:
 5. Include a subtle footer line: "Made with 1stvibe.ai" — small, tasteful, at the bottom.
 6. Keep it to a single, complete, beautiful page. No multi-page navigation.
 
+IMAGE RULES — extremely important:
+- NEVER use placeholder image URLs, fake paths, or made-up image URLs. They will appear broken.
+- For photos, use Unsplash source URLs with descriptive keywords, e.g.: https://images.unsplash.com/photo-random?w=800&q=80 is NOT valid. Instead use the format: https://source.unsplash.com/800x600/?keyword1,keyword2
+- For icons and simple graphics, prefer inline SVGs that you write directly in the HTML.
+- For decorative elements, use CSS gradients, shapes, and background patterns instead of images.
+- Every <img> tag MUST have a real, publicly accessible src URL that will load in any browser.
+
 CRITICAL FORM RULE — this must be obeyed in every single output:
 - Every <form> element MUST have an inline onsubmit handler that:
   (a) Calls event.preventDefault() to stop any real submission
