@@ -37,10 +37,6 @@ export async function searchPhotos(
  * for a specific size. For now, just return the URL as-is since
  * largeImageURL is typically ~1280px wide which works for most layouts.
  */
-export function pexelsImageUrl(
-  baseUrl: string,
-  _width: number,
-  _height: number,
-): string {
+export function pexelsImageUrl(baseUrl: string): string {
   return baseUrl;
 }

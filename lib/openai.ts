@@ -109,7 +109,7 @@ async function resolveImagePlaceholders(html: string): Promise<string> {
       usageIndex.set(keyword, idx + 1);
 
       if (urls.length > 0) {
-        return pexelsImageUrl(urls[idx % urls.length], parseInt(w), parseInt(h));
+        return pexelsImageUrl(urls[idx % urls.length]);
       }
       // Fallback: picsum with keyword seed (random but at least not broken)
       return `https://picsum.photos/seed/${keyword}/${w}/${h}`;
