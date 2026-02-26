@@ -1,4 +1,5 @@
 import OpenAI from "openai";
+import { searchPhotos, pexelsImageUrl } from "./pexels";
 
 let _client: OpenAI | null = null;
 
@@ -23,12 +24,35 @@ RULES — follow every one of these exactly:
 6. Keep it to a single, complete, beautiful page. No multi-page navigation.
 
 IMAGE RULES — extremely important, follow exactly:
-- NEVER invent image URLs. NEVER use unsplash.com, placeholder.com, or any URL you aren't 100% sure is live. Fake URLs show as broken images and ruin the page.
-- For ALL photos use Lorem Picsum with a seed: https://picsum.photos/seed/{descriptive-word}/800/600 — this ALWAYS returns a real photo. Change the seed word to match context (e.g. "ocean", "city", "dog"). Change dimensions as needed.
-  Examples: https://picsum.photos/seed/sunset/800/600  https://picsum.photos/seed/forest/400/300  https://picsum.photos/seed/puppy/600/400
-- For icons and simple graphics, use inline SVGs written directly in the HTML.
+- NEVER invent image URLs. NEVER use unsplash.com, placeholder.com, picsum.photos, or any image URL directly.
+- For ALL photos, use this exact placeholder syntax: {{photo:keyword:WIDTHxHEIGHT}}
+  These placeholders are automatically replaced with real, keyword-matched photos.
+- Use specific, descriptive hyphenated keywords for best results:
+  Good: "sunset-over-ocean", "modern-office-space", "fresh-pasta-dish", "golden-retriever-puppy"
+  Bad: "image1", "photo", "background"
+- Use DIFFERENT keywords for every image, even related ones (e.g. "team-meeting", "team-brainstorm", "team-celebration" — not "team" three times).
+- Choose dimensions appropriate to the layout:
+  Hero/banner: {{photo:sunset-over-ocean:1200x600}}
+  Card/feature image: {{photo:modern-laptop-desk:800x500}}
+  Thumbnail/avatar: {{photo:professional-headshot:400x400}}
+  Gallery item: {{photo:mountain-lake-reflection:600x400}}
 - For decorative elements, use CSS gradients, shapes, and background patterns — not images.
-- NEVER use <img> with any src other than picsum.photos/seed/ or an inline data URI.
+- NEVER use <img> with any src other than a {{photo:...}} placeholder.
+
+ICON RULES — use Lucide Icons for a polished, professional look:
+- Include in <head>: <script src="https://unpkg.com/lucide@latest"></script>
+- Place just before </body>: <script>lucide.createIcons();</script>
+- Use icons as: <i data-lucide="icon-name" class="w-5 h-5"></i>
+- ALWAYS set an explicit size via Tailwind w-* h-* classes:
+  Small inline: w-4 h-4    Standard: w-5 h-5    Medium: w-6 h-6
+  Large feature: w-8 h-8   Hero highlight: w-10 h-10 or w-12 h-12
+- Color with Tailwind text-color classes: class="w-5 h-5 text-indigo-600"
+- Design best practices:
+  • Always pair icons WITH text labels — never use a bare icon as the only way to convey meaning
+  • Great places for icons: feature/benefit cards, bulleted lists, nav links, CTAs, stat blocks, testimonials, section headings
+  • Keep icon sizes consistent within each section
+  • Limit to 1-2 icons per content block — less is more
+- Common icon names: heart, star, sun, moon, mail, phone, map-pin, arrow-right, check, x, menu, search, user, home, settings, globe, camera, code, zap, shield, clock, calendar, gift, trending-up, layers, palette, coffee, book, briefcase, award, rocket, send, shopping-cart, message-circle, play, lock, eye, download, upload, wifi, monitor, smartphone, truck, credit-card, bar-chart, activity, target, compass, feather, flag, link, tool, umbrella, music, image, pen-tool, film, headphones, mic, speaker, database, server, cpu
 
 CRITICAL FORM RULE — this must be obeyed in every single output:
 - Every <form> element MUST have an inline onsubmit handler that:
@@ -47,6 +71,53 @@ function stripFences(raw: string): string {
     .replace(/\s*```$/i, "")
     .trim();
 }
+
+// ── Image placeholder resolution ─────────────────────────────────────────────
+
+const PLACEHOLDER_RE = /\{\{photo:([\w-]+):(\d+)x(\d+)\}\}/g;
+
+/**
+ * Find all {{photo:keyword:WxH}} placeholders in the generated HTML,
+ * batch-fetch matching photos from Pexels, and replace with real URLs.
+ * Falls back to picsum.photos if Pexels returns no results.
+ */
+async function resolveImagePlaceholders(html: string): Promise<string> {
+  const matches = [...html.matchAll(PLACEHOLDER_RE)];
+  if (matches.length === 0) return html;
+
+  // Deduplicate keywords
+  const keywords = [...new Set(matches.map((m) => m[1]))];
+
+  // Fetch all keywords in parallel
+  const photoMap = new Map<string, string[]>();
+  await Promise.all(
+    keywords.map(async (keyword) => {
+      const query = keyword.replace(/-/g, " ");
+      const urls = await searchPhotos(query);
+      photoMap.set(keyword, urls);
+    }),
+  );
+
+  // Track per-keyword index so repeated keywords get different photos
+  const usageIndex = new Map<string, number>();
+
+  return html.replace(
+    PLACEHOLDER_RE,
+    (_match, keyword: string, w: string, h: string) => {
+      const urls = photoMap.get(keyword) ?? [];
+      const idx = usageIndex.get(keyword) ?? 0;
+      usageIndex.set(keyword, idx + 1);
+
+      if (urls.length > 0) {
+        return pexelsImageUrl(urls[idx % urls.length], parseInt(w), parseInt(h));
+      }
+      // Fallback: picsum with keyword seed (random but at least not broken)
+      return `https://picsum.photos/seed/${keyword}/${w}/${h}`;
+    },
+  );
+}
+
+// ── Page generation ──────────────────────────────────────────────────────────
 
 export async function generateDemoPage(
   prompt: string,
@@ -68,7 +139,8 @@ export async function generateDemoPage(
     temperature: 0.7,
   });
 
-  return stripFences(response.choices[0].message.content ?? "");
+  const html = stripFences(response.choices[0].message.content ?? "");
+  return resolveImagePlaceholders(html);
 }
 
 // ── Moderation ────────────────────────────────────────────────────────────────
