@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Heart, ExternalLink } from "lucide-react";
+import { Heart, ExternalLink, Linkedin } from "lucide-react";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -30,7 +30,7 @@ export default function AboutPage() {
         </p>
 
         <p>
-          One of those people was Josh. He was a teenager, not a programmer, and
+          One of those people was Mike. He was a teenager, not a programmer, and
           he stumbled onto a WebMonkey tutorial that showed him how to make a
           dropdown menu with JavaScript. It was stupid simple. But something
           clicked: <em>I just made the computer do something.</em>
@@ -38,7 +38,8 @@ export default function AboutPage() {
 
         <p>
           That moment set a direction. Not immediately, not in a straight line —
-          but eventually, toward a career in tech.
+          but eventually, toward a career building products at the intersection
+          of technology and healthcare.
         </p>
 
         <div className="bg-indigo-50 border border-indigo-100 rounded-xl p-5 flex flex-col sm:flex-row gap-4 items-start">
@@ -81,26 +82,40 @@ export default function AboutPage() {
         <div className="grid sm:grid-cols-2 gap-6">
           {[
             {
-              name: "Josh Wetzel",
-              role: "Co-founder",
-              bio: "Product and technology background. First coding memory: a WebMonkey JavaScript dropdown in 1999. Still gets unreasonably excited when something deploys successfully.",
-            },
-            {
               name: "Mike Tadlock",
               role: "Co-founder",
-              bio: "Builder and problem-solver. Believes the best products are the ones that teach you something while solving a real problem. Here to help more people have that first 'I built a thing' moment.",
+              initial: "M",
+              bio: "Product and digital health leader with patents in health tech and electronic communications. Based in San Francisco, Mike has spent his career building products at the intersection of technology and human wellbeing. When he's not at his day job, he's vibe coding passion projects with Claude Code and Gemini — which is exactly how 1stvibe.ai came to be.",
+              linkedin: "https://www.linkedin.com/in/miketadlock/",
             },
-          ].map(({ name, role, bio }) => (
+            {
+              name: "Josh Wetzel",
+              role: "Co-founder",
+              initial: "J",
+              bio: "Go-to-market leader and builder at Wetzel Ventures in Palo Alto. Josh has spent his career scaling businesses and revenue teams, and more recently leading the implementation of AI-driven tools for sales and customer engagement. He believes the best way to understand what's coming is to build with it yourself.",
+              linkedin: "https://www.linkedin.com/in/joshwetzel/",
+            },
+          ].map(({ name, role, initial, bio, linkedin }) => (
             <div
               key={name}
-              className="bg-gray-50 rounded-2xl p-6 border border-gray-100"
+              className="bg-gray-50 rounded-2xl p-6 border border-gray-100 flex flex-col"
             >
               <div className="w-12 h-12 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold text-lg mb-3">
-                {name[0]}
+                {initial}
               </div>
               <p className="font-bold text-gray-900">{name}</p>
               <p className="text-sm text-indigo-600 font-medium mb-3">{role}</p>
-              <p className="text-sm text-gray-600 leading-relaxed">{bio}</p>
+              <p className="text-sm text-gray-600 leading-relaxed mb-4">{bio}</p>
+              <a
+                href={linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-auto inline-flex items-center gap-1.5 text-sm text-indigo-600 hover:text-indigo-800 font-medium transition-colors"
+              >
+                <Linkedin size={14} />
+                LinkedIn
+                <ExternalLink size={11} />
+              </a>
             </div>
           ))}
         </div>

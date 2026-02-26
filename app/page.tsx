@@ -36,16 +36,20 @@ export default function HomePage() {
             <DemoForm />
           </div>
 
-          {/* Or jump to tutorial */}
-          <p className="mt-6 text-sm text-gray-500">
-            Want the full guided experience?{" "}
+          {/* Start Tutorial CTA */}
+          <div className="mt-8 flex flex-col items-center gap-3">
             <Link
               href="/tutorial/welcome"
-              className="text-indigo-600 font-medium hover:underline"
+              className="inline-flex items-center gap-3 bg-indigo-600 text-white text-xl font-bold px-10 py-5 rounded-2xl hover:bg-indigo-700 active:scale-95 transition-all shadow-lg shadow-indigo-200"
             >
-              Start the tutorial →
+              <BookOpen size={24} />
+              Start the Tutorial
+              <ArrowRight size={24} />
             </Link>
-          </p>
+            <p className="text-sm text-gray-400">
+              Free · No credit card · Takes about an hour
+            </p>
+          </div>
         </div>
       </section>
 
@@ -130,20 +134,24 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── Social Proof / Quote ─────────────────────────────────── */}
-      <section className="px-4 py-20 max-w-3xl mx-auto w-full text-center">
-        <blockquote className="text-2xl sm:text-3xl font-medium text-gray-800 leading-relaxed mb-6">
+      {/* ── Final CTA ────────────────────────────────────────────── */}
+      <section className="px-4 py-24 bg-indigo-600 text-center">
+        <blockquote className="text-2xl sm:text-4xl font-bold text-white leading-tight mb-4">
           "See what all the hype is about.
           <br className="hidden sm:block" /> Build your first thing."
         </blockquote>
+        <p className="text-indigo-200 text-lg mb-10">
+          Try the demo above, then follow the tutorial to do it yourself — for real.
+        </p>
         <Link
           href="/tutorial/welcome"
-          className="inline-flex items-center gap-2 bg-indigo-600 text-white text-lg font-semibold px-8 py-4 rounded-xl hover:bg-indigo-700 transition-colors shadow-sm"
+          className="inline-flex items-center gap-3 bg-white text-indigo-600 text-2xl font-extrabold px-12 py-6 rounded-2xl hover:bg-indigo-50 active:scale-95 transition-all shadow-xl"
         >
-          Start the tutorial
-          <ArrowRight size={20} />
+          <BookOpen size={28} />
+          Start the Tutorial
+          <ArrowRight size={28} />
         </Link>
-        <p className="mt-4 text-sm text-gray-400">Free. No credit card. No fluff.</p>
+        <p className="mt-6 text-indigo-300 text-sm">Free. No credit card. No fluff.</p>
       </section>
     </div>
   );
