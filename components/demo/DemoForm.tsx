@@ -125,7 +125,7 @@ export default function DemoForm() {
       )}
 
       <p className="mt-2 text-xs text-gray-400 text-center">
-        Free to try · No account required · Takes ~15 seconds
+        If you can describe it, you can build it.
       </p>
     </form>
   );

@@ -47,7 +47,7 @@ export default function HomePage() {
               <ArrowRight size={24} />
             </Link>
             <p className="text-sm text-gray-400">
-              Free · No credit card · Takes about an hour
+              If you can describe it, you can build it.
             </p>
           </div>
         </div>
