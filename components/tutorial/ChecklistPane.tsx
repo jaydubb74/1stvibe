@@ -3,7 +3,7 @@
 import { TUTORIAL_SECTIONS } from "@/content/tutorial/steps";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { CheckCircle2, Circle, Lock } from "lucide-react";
+import { CheckCircle2, Circle } from "lucide-react";
 
 interface Props {
   currentStepId: string;

@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getDb } from "@/lib/db";
 import { demoPages } from "@/drizzle/schema";
 import { eq } from "drizzle-orm";
+import Link from "next/link";
 import DemoViewer from "./DemoViewer";
 
 const SESSION_COOKIE = "demo_session";
@@ -36,12 +37,12 @@ export default async function DemoPage({ params }: Props) {
             Demo pages are temporary. Create an account to save your creations
             permanently.
           </p>
-          <a
+          <Link
             href="/"
             className="inline-block bg-indigo-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-indigo-700 transition-colors"
           >
             Build a new one →
-          </a>
+          </Link>
         </div>
       </div>
     );

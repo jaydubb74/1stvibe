@@ -26,7 +26,7 @@ export default function HomePage() {
           </h1>
 
           <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto mb-10 leading-relaxed">
-            You've heard the hype about AI coding tools. Here's the fastest way
+            You&apos;ve heard the hype about AI coding tools. Here&apos;s the fastest way
             to see it for yourself — no setup, no CS degree, no BS. Just type
             what you want and watch it appear.
           </p>
@@ -69,12 +69,12 @@ export default function HomePage() {
             Most people hear about this on a podcast, maybe try ChatGPT once,
             and then go back to their day. They never have the moment where it
             clicks. We built 1stvibe.ai because that moment is worth having — and
-            it's closer than you think.
+            it&apos;s closer than you think.
           </p>
           <p>
-            You don't need a computer science degree. You don't need to
+            You don&apos;t need a computer science degree. You don&apos;t need to
             understand how servers work. You need about an hour, some curiosity,
-            and this guide. We'll handle everything else.
+            and this guide. We&apos;ll handle everything else.
           </p>
         </div>
       </section>
@@ -83,7 +83,7 @@ export default function HomePage() {
       <section className="bg-gray-50 px-4 py-20">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold text-gray-900 mb-4 text-center">
-            Here's what you're about to do
+            Here&apos;s what you&apos;re about to do
           </h2>
           <p className="text-center text-gray-600 mb-12 text-lg">
             Four steps. One hour. A real live URL you can share with anyone.
@@ -137,8 +137,8 @@ export default function HomePage() {
       {/* ── Final CTA ────────────────────────────────────────────── */}
       <section className="px-4 py-24 bg-indigo-600 text-center">
         <blockquote className="text-2xl sm:text-4xl font-bold text-white leading-tight mb-4">
-          "See what all the hype is about.
-          <br className="hidden sm:block" /> Build your first thing."
+          &ldquo;See what all the hype is about.
+          <br className="hidden sm:block" /> Build your first thing.&rdquo;
         </blockquote>
         <p className="text-indigo-200 text-lg mb-10">
           Try the demo above, then follow the tutorial to do it yourself — for real.

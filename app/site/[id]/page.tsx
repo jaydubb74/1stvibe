@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getDb } from "@/lib/db";
 import { demoPages } from "@/drizzle/schema";
 import { eq } from "drizzle-orm";
+import Link from "next/link";
 import SiteViewer from "./SiteViewer";
 
 const SESSION_COOKIE = "demo_session";
@@ -38,12 +39,12 @@ export default async function SitePage({ params, searchParams }: Props) {
             AI-generated sites are stored for 7 days. This one has passed its
             expiry. Build a new one in seconds!
           </p>
-          <a
+          <Link
             href="/"
             className="inline-flex items-center gap-2 bg-indigo-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-indigo-700 transition-colors"
           >
             Build a new one →
-          </a>
+          </Link>
         </div>
       </div>
     );

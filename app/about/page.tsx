@@ -47,7 +47,7 @@ export default function AboutPage() {
           <div>
             <p className="text-sm font-semibold text-indigo-700 mb-1">WebMonkey, circa 1999</p>
             <p className="text-sm text-indigo-800/80">
-              The original "learn to build stuff on the internet" guide for the
+              The original &ldquo;learn to build stuff on the internet&rdquo; guide for the
               non-programmer generation.{" "}
               <a
                 href="https://web.archive.org/web/19991012062637*/webmonkey.com"
@@ -64,15 +64,15 @@ export default function AboutPage() {
         <p>
           Thirty years later, the tools have changed completely. But the feeling
           — the moment when something you described becomes a real thing on the
-          internet — that feeling hasn't changed at all. It's still the best
+          internet — that feeling hasn&apos;t changed at all. It&apos;s still the best
           feeling in tech.
         </p>
 
         <p>
           We built 1stvibe.ai to give that moment to a new generation. The AI
           coding era means that moment is now accessible to anyone — not just
-          people who went to school for this, not just developers. Anyone who's
-          curious enough to try.
+          people who went to school for this, not just developers. Anyone
+          who&apos;s curious enough to try.
         </p>
       </section>
 
@@ -125,13 +125,13 @@ export default function AboutPage() {
       <section className="mb-12 space-y-4 text-gray-700 text-lg leading-relaxed">
         <h2 className="text-2xl font-bold text-gray-900">Our approach</h2>
         <p>
-          We're not trying to build the most powerful AI coding tool. We're
+          We&apos;re not trying to build the most powerful AI coding tool. We&apos;re
           trying to build the most accessible on-ramp to the AI coding era.
         </p>
         <p>
           That means: no ads, no dark patterns, no upsells at every turn. Just a
-          well-designed, honest path from "I've heard about this AI coding thing"
-          to "I just shipped something." If we do our job right, you leave here
+          well-designed, honest path from &ldquo;I&apos;ve heard about this AI coding thing&rdquo;
+          to &ldquo;I just shipped something.&rdquo; If we do our job right, you leave here
           with a live website and enough confidence to build the next thing on
           your own.
         </p>
