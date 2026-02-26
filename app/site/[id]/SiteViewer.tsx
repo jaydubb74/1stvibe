@@ -116,7 +116,11 @@ export default function SiteViewer({ demo, canEdit, fromShare }: Props) {
     const shareUrl = `${window.location.origin}/site/${demo.id}?from=share`;
     if (navigator.share) {
       navigator
-        .share({ title: "I built this with AI!", url: shareUrl })
+        .share({
+          title: "1stvibe.ai",
+          text: "I made this in ~15 seconds with 1stvibe.ai - check it out!",
+          url: shareUrl,
+        })
         .then(() => setShareState("shared"))
         .catch(() => {}); // user cancelled — no-op
     } else {
@@ -138,13 +142,16 @@ export default function SiteViewer({ demo, canEdit, fromShare }: Props) {
       {/* ── Friend-shared banner ──────────────────────────────── */}
       {fromShare && !friendBannerDismissed && (
         <div className="bg-gradient-to-r from-violet-600 via-indigo-600 to-purple-600 text-white px-4 py-2.5 flex items-center justify-between gap-3 shrink-0">
-          <p className="text-sm font-medium text-center flex-1 leading-snug">
-            ✨ Your friend built this in ~15 seconds with AI.{" "}
+          <p className="text-sm font-medium text-center flex-1 leading-snug flex items-center justify-center gap-2 flex-wrap">
+            <span className="font-black text-base tracking-tight">1stvibe.ai</span>
+            <span className="opacity-90">
+              ✨ Your friend built this in ~15 seconds with AI.
+            </span>{" "}
             <Link
               href="/"
               className="underline font-bold hover:text-indigo-100 transition-colors"
             >
-              Try vibecoding your own at 1stvibe.ai →
+              Try vibecoding your own site now →
             </Link>
           </p>
           <button

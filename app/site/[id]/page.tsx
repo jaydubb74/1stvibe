@@ -30,10 +30,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const demo = await getDemo(id);
   if (!demo) return {};
 
-  const truncatedPrompt =
-    demo.prompt.length > 70 ? demo.prompt.slice(0, 67) + "…" : demo.prompt;
-  const title = `"${truncatedPrompt}" — Built with AI | 1stvibe.ai`;
-  const description = `Someone described a website and AI built it in seconds. See what was created from: "${demo.prompt}"`;
+  const title = "I made this in ~15 seconds with 1stvibe.ai — check it out!";
+  const description = "Someone described a website and AI built it in seconds. See what they created — then try building your own for free.";
   const ogImageUrl = `https://1stvibe.ai/api/og?prompt=${encodeURIComponent(demo.prompt)}`;
   const pageUrl = `https://1stvibe.ai/site/${id}`;
 
@@ -51,7 +49,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
           url: ogImageUrl,
           width: 1200,
           height: 630,
-          alt: `AI-generated site: ${truncatedPrompt}`,
+          alt: "A website built with AI in ~15 seconds on 1stvibe.ai",
         },
       ],
     },

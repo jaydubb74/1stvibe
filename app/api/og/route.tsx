@@ -4,11 +4,10 @@ import { NextRequest } from "next/server";
 export const runtime = "edge";
 
 export async function GET(req: NextRequest) {
-  const prompt = req.nextUrl.searchParams.get("prompt") ?? "My AI-Generated Website";
+  const prompt = req.nextUrl.searchParams.get("prompt") ?? "";
 
-  // Truncate long prompts
-  const displayPrompt =
-    prompt.length > 180 ? prompt.slice(0, 177) + "…" : prompt;
+  // Short description for context — but NOT the raw prompt
+  const hasPrompt = prompt.length > 0;
 
   return new ImageResponse(
     (
@@ -26,11 +25,11 @@ export async function GET(req: NextRequest) {
         }}
       >
         {/* Branding */}
-        <div style={{ display: "flex", fontSize: 28, fontWeight: 700, opacity: 0.9 }}>
+        <div style={{ display: "flex", fontSize: 40, fontWeight: 900, letterSpacing: "-0.02em" }}>
           1stvibe.ai
         </div>
 
-        {/* Prompt card */}
+        {/* Main message */}
         <div
           style={{
             display: "flex",
@@ -44,31 +43,49 @@ export async function GET(req: NextRequest) {
           <div
             style={{
               display: "flex",
-              background: "rgba(255,255,255,0.15)",
-              borderRadius: 24,
-              padding: "40px 48px",
-              maxWidth: "100%",
-              textAlign: "center",
-              fontSize: 36,
-              fontWeight: 600,
-              lineHeight: 1.4,
+              flexDirection: "column",
+              alignItems: "center",
+              gap: "16px",
             }}
           >
-            &ldquo;{displayPrompt}&rdquo;
+            <div
+              style={{
+                display: "flex",
+                fontSize: 64,
+              }}
+            >
+              ✨
+            </div>
+            <div
+              style={{
+                display: "flex",
+                textAlign: "center",
+                fontSize: hasPrompt ? 42 : 48,
+                fontWeight: 700,
+                lineHeight: 1.3,
+                maxWidth: "900px",
+              }}
+            >
+              {hasPrompt
+                ? "I made this website in ~15 seconds"
+                : "Build a website in ~15 seconds with AI"}
+            </div>
           </div>
         </div>
 
-        {/* Tagline */}
+        {/* Bottom tagline */}
         <div
           style={{
             display: "flex",
             justifyContent: "center",
-            fontSize: 22,
-            opacity: 0.85,
+            fontSize: 24,
+            opacity: 0.9,
             fontWeight: 500,
           }}
         >
-          Built with AI in ~15 seconds
+          {hasPrompt
+            ? "Check it out — then build your own for free"
+            : "No coding required. Just describe what you want."}
         </div>
       </div>
     ),

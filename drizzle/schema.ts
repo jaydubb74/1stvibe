@@ -26,3 +26,11 @@ export const emailCaptures = pgTable("email_captures", {
   source: text("source").default("tutorial_completion"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
+
+export const pushes = pgTable("pushes", {
+  id: text("id").primaryKey(),
+  author: text("author").notNull(),
+  summary: text("summary").notNull(),
+  commitHash: text("commit_hash"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});

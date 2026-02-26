@@ -1,36 +1,89 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 1stvibe.ai
 
-## Getting Started
+The fastest path from "I want a website" to a real, deployed site on the internet. Type what you want, see an AI-generated website in ~15 seconds, then follow a guided tutorial to build and deploy your own — no coding experience required.
 
-First, run the development server:
+**Live at [1stvibe.ai](https://1stvibe.ai)**
+
+## Quick Start
 
 ```bash
+# Clone the repo
+git clone <repo-url>
+cd 1stvibe
+
+# Install dependencies
+npm install
+
+# Set up environment variables
+cp .env.local.example .env.local
+# Fill in: DATABASE_URL, OPENAI_API_KEY, RESEND_API_KEY, NEXTAUTH_SECRET, CRON_SECRET
+
+# Push database schema
+npx drizzle-kit push
+
+# Start dev server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## What It Does
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. **Instant demo** — Describe a website, get a real one in ~15 seconds (GPT-4o generates HTML with stock photos)
+2. **Guided tutorial** — 19-step walkthrough: install tools, build with AI, push to GitHub, deploy on Vercel
+3. **Real deployment** — Users end up with their own code, their own site, their own domain
 
-## Learn More
+## Tech Stack
 
-To learn more about Next.js, take a look at the following resources:
+| Layer | Technology |
+|-------|-----------|
+| Framework | Next.js 15 (App Router) |
+| UI | React 19 + Tailwind CSS 4 |
+| Database | Neon PostgreSQL + Drizzle ORM |
+| Auth | NextAuth v5 + Resend (magic link) |
+| AI | OpenAI GPT-4o |
+| Deployment | Vercel |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Project Structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+app/                  # Pages + API routes
+components/           # React components (demo/, tutorial/, ui/)
+lib/                  # Shared utilities (openai, auth, db, ratelimit)
+content/tutorial/     # MDX tutorial content (5 sections, 19 steps)
+drizzle/              # Database schema
+docs/                 # Full project documentation
+```
 
-## Deploy on Vercel
+## Key Commands
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+npm run dev            # Development server
+npm run build          # Production build
+npx drizzle-kit push   # Push schema to database
+npx drizzle-kit studio # Database browser
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Environment Variables
+
+| Variable | Purpose |
+|----------|---------|
+| `DATABASE_URL` | Neon PostgreSQL connection string |
+| `OPENAI_API_KEY` | GPT-4o generation + moderation |
+| `RESEND_API_KEY` | Magic link email |
+| `NEXTAUTH_URL` | Base URL for auth |
+| `NEXTAUTH_SECRET` | Session encryption |
+| `CRON_SECRET` | Cron job auth |
+| `PIXABAY_API_KEY` | Stock photos (optional) |
+
+## Documentation
+
+Full documentation lives in [`docs/INDEX.md`](docs/INDEX.md) — strategy, architecture, guides, and feature docs.
+
+## Contributing
+
+This project is maintained by two co-founders working in Claude Code. If you're one of us:
+- Run `/restart` in Claude Code to get up to speed at the start of a session
+- Run `/onboard-partner` to see what your partner has been working on
+- See `docs/guides/code-standards.md` for conventions
+- See `docs/guides/code-review-checklist.md` before merging
