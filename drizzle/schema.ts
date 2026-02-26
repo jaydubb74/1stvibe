@@ -1,4 +1,4 @@
-import { pgTable, text, timestamp, json, boolean } from "drizzle-orm/pg-core";
+import { pgTable, text, timestamp, json, boolean, integer } from "drizzle-orm/pg-core";
 
 export const users = pgTable("users", {
   id: text("id").primaryKey(),
@@ -16,6 +16,8 @@ export const demoPages = pgTable("demo_pages", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
   expiresAt: timestamp("expires_at").notNull(),
   persisted: boolean("persisted").default(false),
+  /** Number of AI-powered tweaks applied to this page. */
+  iterationCount: integer("iteration_count").default(0).notNull(),
 });
 
 export const emailCaptures = pgTable("email_captures", {
