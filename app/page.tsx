@@ -17,10 +17,10 @@ export default function HomePage() {
         <div className="relative max-w-4xl mx-auto text-center">
           <div className="flex justify-center mb-8">
             <Image
-              src="/donkey.png"
-              alt="A donkey doing a spread eagle off a ski jump"
-              width={896}
-              height={512}
+              src="/donkey.jpg"
+              alt="A giant donkey"
+              width={600}
+              height={429}
               className="rounded-2xl shadow-xl"
               priority
             />
