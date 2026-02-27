@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 
@@ -13,9 +14,17 @@ export default function Nav() {
         <div className="flex items-center justify-between h-16">
           <Link
             href="/"
-            className="text-xl font-bold text-indigo-600 tracking-tight"
+            className="flex items-center gap-2 group"
           >
-            1stvibe.ai
+            <Image
+              src="/mascot.png"
+              alt="1stvibe.ai mascot"
+              width={36}
+              height={36}
+              className="rounded-full object-cover transition-transform duration-200 group-hover:scale-110"
+              priority
+            />
+            <span className="text-xl font-bold text-indigo-600 tracking-tight">1stvibe.ai</span>
           </Link>
 
           {/* Desktop nav */}

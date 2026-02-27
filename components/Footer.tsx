@@ -19,13 +19,13 @@ export default function Footer() {
               Tutorial
             </Link>
             <a
-              href="https://patreon.com/1stvibe"
+              href="https://ko-fi.com/1stvibe"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-1 hover:text-gray-800 transition-colors"
             >
               <Heart size={13} className="text-rose-400" />
-              Help us keep this free
+              Support Us
             </a>
             <Link href="/privacy" className="hover:text-gray-800 transition-colors">
               Privacy

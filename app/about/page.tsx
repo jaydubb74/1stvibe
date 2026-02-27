@@ -32,7 +32,7 @@ export default function AboutPage() {
           your own.
         </p>
         <p>
-          The platform is free. We run on Patreon support from people who found
+          The platform is free. We run on community support from people who found
           value here and want to help others have the same experience.
         </p>
       </section>
@@ -179,13 +179,13 @@ export default function AboutPage() {
             Start the tutorial →
           </Link>
           <a
-            href="https://patreon.com/1stvibe"
+            href="https://ko-fi.com/1stvibe"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center justify-center gap-2 border border-white/30 text-white px-6 py-3 rounded-xl hover:bg-white/10 transition-colors"
           >
             <Heart size={16} />
-            Support on Patreon
+            Support Us
           </a>
         </div>
       </div>
