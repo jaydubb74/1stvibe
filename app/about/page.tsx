@@ -17,6 +17,26 @@ export default function AboutPage() {
         No ads. No fluff. Just the fastest path to your first build.
       </p>
 
+      {/* Mission */}
+      <section className="mb-12 space-y-4 text-gray-700 text-lg leading-relaxed">
+        <h2 className="text-2xl font-bold text-gray-900">Our approach</h2>
+        <p>
+          We&apos;re not trying to build the most powerful AI coding tool. We&apos;re
+          trying to build the most accessible on-ramp to the AI coding era.
+        </p>
+        <p>
+          That means: no ads, no dark patterns, no upsells at every turn. Just a
+          well-designed, honest path from &ldquo;I&apos;ve heard about this AI coding thing&rdquo;
+          to &ldquo;I just shipped something.&rdquo; If we do our job right, you leave here
+          with a live website and enough confidence to build the next thing on
+          your own.
+        </p>
+        <p>
+          The platform is free. We run on Patreon support from people who found
+          value here and want to help others have the same experience.
+        </p>
+      </section>
+
       {/* Origin story */}
       <section className="mb-12 space-y-5 text-gray-700 text-lg leading-relaxed">
         <h2 className="text-2xl font-bold text-gray-900">Where this started</h2>
@@ -142,26 +162,6 @@ export default function AboutPage() {
             here
           </Link>
           .
-        </p>
-      </section>
-
-      {/* Mission */}
-      <section className="mb-12 space-y-4 text-gray-700 text-lg leading-relaxed">
-        <h2 className="text-2xl font-bold text-gray-900">Our approach</h2>
-        <p>
-          We&apos;re not trying to build the most powerful AI coding tool. We&apos;re
-          trying to build the most accessible on-ramp to the AI coding era.
-        </p>
-        <p>
-          That means: no ads, no dark patterns, no upsells at every turn. Just a
-          well-designed, honest path from &ldquo;I&apos;ve heard about this AI coding thing&rdquo;
-          to &ldquo;I just shipped something.&rdquo; If we do our job right, you leave here
-          with a live website and enough confidence to build the next thing on
-          your own.
-        </p>
-        <p>
-          The platform is free. We run on Patreon support from people who found
-          value here and want to help others have the same experience.
         </p>
       </section>
 
