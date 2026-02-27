@@ -1,5 +1,6 @@
 import OpenAI from "openai";
 import { searchPhotos, pexelsImageUrl } from "./pexels";
+import { getActivePrompt } from "./prompt";
 
 let _client: OpenAI | null = null;
 
@@ -12,7 +13,7 @@ function getClient(): OpenAI {
   return _client;
 }
 
-const SYSTEM_PROMPT = `You are an expert web developer generating beautiful, complete, self-contained HTML pages.
+export const HARDCODED_SYSTEM_PROMPT = `You are an expert web developer generating beautiful, complete, self-contained HTML pages.
 
 RULES — follow every one of these exactly:
 
@@ -125,6 +126,10 @@ export async function generateDemoPage(
 ): Promise<string> {
   const client = getClient();
 
+  // Read from DB (cached 60 s), fall back to hardcoded constant
+  const systemPrompt =
+    (await getActivePrompt()) ?? HARDCODED_SYSTEM_PROMPT;
+
   const userMessage = existingHtml
     ? `Here is an existing webpage:\n\n${existingHtml}\n\nThe user wants this change: ${prompt}\n\nReturn the full updated HTML page, following all system rules exactly.`
     : `Create a webpage for this idea: ${prompt}`;
@@ -132,7 +137,7 @@ export async function generateDemoPage(
   const response = await client.chat.completions.create({
     model: "gpt-4o",
     messages: [
-      { role: "system", content: SYSTEM_PROMPT },
+      { role: "system", content: systemPrompt },
       { role: "user", content: userMessage },
     ],
     max_tokens: 4096,

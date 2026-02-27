@@ -34,3 +34,12 @@ export const pushes = pgTable("pushes", {
   commitHash: text("commit_hash"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
+
+export const systemPrompts = pgTable("system_prompts", {
+  id: text("id").primaryKey(),
+  content: text("content").notNull(),
+  label: text("label"),
+  version: integer("version").notNull(),
+  isActive: boolean("is_active").default(false).notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});

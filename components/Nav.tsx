@@ -38,6 +38,12 @@ export default function Nav() {
             <Link href="/about" className="hover:text-indigo-600 transition-colors">
               About
             </Link>
+            <Link href="/pushes" className="hover:text-indigo-600 transition-colors">
+              Pushes
+            </Link>
+            <Link href="/prompt" className="hover:text-indigo-600 transition-colors">
+              Prompt
+            </Link>
             <Link
               href="/tutorial/welcome"
               className="ml-2 bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors"
@@ -68,6 +74,12 @@ export default function Nav() {
           </Link>
           <Link href="/about" onClick={() => setOpen(false)}>
             About
+          </Link>
+          <Link href="/pushes" onClick={() => setOpen(false)}>
+            Pushes
+          </Link>
+          <Link href="/prompt" onClick={() => setOpen(false)}>
+            Prompt
           </Link>
           <Link
             href="/tutorial/welcome"

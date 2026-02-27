@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Rocket, Clock, User } from "lucide-react";
+import { Rocket, Clock, User, GitBranch } from "lucide-react";
 
 interface PushEntry {
   id: string;
@@ -62,6 +62,19 @@ export default function PushFeed({ entries }: { entries: PushEntry[] }) {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-2xl mx-auto px-4 py-12 sm:py-16">
+        {/* Git pull reminder */}
+        <div className="mb-8 rounded-xl border border-indigo-200 bg-indigo-50/70 p-4 flex items-start gap-3">
+          <GitBranch size={18} className="text-indigo-600 mt-0.5 shrink-0" />
+          <p className="text-sm text-indigo-900 leading-relaxed">
+            <strong>Before building anything new,</strong> start each Claude Code session by
+            pulling the latest code from GitHub (e.g.{" "}
+            <code className="rounded bg-indigo-100 px-1.5 py-0.5 text-xs font-mono">
+              git pull origin main
+            </code>
+            ) to avoid merge conflicts.
+          </p>
+        </div>
+
         {/* Header */}
         <div className="mb-10">
           <div className="flex items-center gap-3 mb-2">
