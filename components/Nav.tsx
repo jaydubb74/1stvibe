@@ -19,8 +19,8 @@ export default function Nav() {
             <img
               src="/mascot.png"
               alt="1stvibe.ai mascot"
-              width={36}
-              height={36}
+              width={108}
+              height={108}
               className="rounded-full object-cover transition-transform duration-200 group-hover:scale-110"
             />
             <span className="text-xl font-bold text-indigo-600 tracking-tight">1stvibe.ai</span>
