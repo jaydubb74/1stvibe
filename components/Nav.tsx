@@ -13,7 +13,7 @@ export default function Nav() {
         <div className="flex items-center justify-between h-16">
           <Link
             href="/"
-            className="flex items-center gap-2 group"
+            className="flex items-center gap-1 group"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
