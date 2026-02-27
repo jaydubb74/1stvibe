@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import Button from "@/components/ui/Button";
-import { Sparkles, Loader2, RefreshCw } from "lucide-react";
+import { Sparkles, Loader2 } from "lucide-react";
 
 /** Rotating copy shown on the loading screen while waiting for the AI. */
 const LOADING_LINES = [
@@ -35,19 +35,23 @@ const PLACEHOLDER_PROMPTS = [
   "A team page for our soccer league — green and white, match schedule, standings table, player roster with photos, and a signup form…",
 ];
 
-/** Provocation hints shown below the textarea to coach the user. */
-const PROVOCATION_HINTS = [
-  "What should the title of your site say?",
-  "Who will visit your site, and what do they want?",
-  "Do you have a color scheme in mind?",
-  "What sections should it have?",
-  "Do you have a tagline or slogan?",
-  "Would you like photos or icons on the page?",
-  "Should we add a form to collect info?",
-  "Do you have contact details to include?",
-  "What's the vibe — professional, playful, minimal?",
-  "Any specific fonts or styles you like?",
+/** Detail chips — keyword patterns to detect and label to show. */
+const DETAIL_CHIPS = [
+  { label: "colors", keywords: ["color", "colour", "palette", "tone", "theme", "dark", "light", "blue", "red", "green", "yellow", "orange", "purple", "pink", "black", "white", "navy", "pastel", "earth", "warm", "cool", "bright", "bold", "muted", "indigo", "teal", "gold", "rose", "ivory", "gray", "grey"] },
+  { label: "sections", keywords: ["section", "about", "contact", "hero", "footer", "header", "testimonial", "pricing", "faq", "gallery", "portfolio", "blog", "team", "services", "features", "menu", "schedule", "timeline", "story", "bio"] },
+  { label: "style", keywords: ["style", "modern", "minimal", "clean", "elegant", "bold", "playful", "professional", "cozy", "sleek", "vibrant", "vintage", "retro", "futuristic", "simple", "fancy", "classic", "vibe"] },
+  { label: "images", keywords: ["photo", "image", "picture", "icon", "logo", "illustration", "graphic", "gallery", "hero image", "background"] },
 ];
+
+/** Encouragement text based on prompt richness. */
+function getEncouragement(prompt: string, chipsRemaining: number): string {
+  const len = prompt.trim().length;
+  if (len === 0) return "Describe your dream website — the more detail, the better the result.";
+  if (len < 40) return "Keep going! What kind of site is this for?";
+  if (chipsRemaining > 2) return "Good start — try adding a few more details below.";
+  if (chipsRemaining > 0) return "Looking good! A little more detail will make it shine.";
+  return "Great description — this is going to look good.";
+}
 
 export default function DemoForm() {
   const [prompt, setPrompt] = useState("");
@@ -58,14 +62,6 @@ export default function DemoForm() {
 
   // Random placeholder prompt (set on mount to avoid hydration mismatch)
   const [placeholderText, setPlaceholderText] = useState("");
-
-  // Provocation hint state
-  const [hintIndex, setHintIndex] = useState(0);
-  const [hintVisible, setHintVisible] = useState(true);
-  const [hasStartedTyping, setHasStartedTyping] = useState(false);
-  const [isInitialBurst, setIsInitialBurst] = useState(false);
-  const keystrokeCountRef = useRef(0);
-  const hintIndexRef = useRef(0);
 
   // Pick random placeholder on mount
   useEffect(() => {
@@ -83,62 +79,29 @@ export default function DemoForm() {
     return () => clearInterval(interval);
   }, [loading]);
 
-  // Initial burst animation: rapidly cycle through ~4 hints then settle on #0
-  useEffect(() => {
-    if (!isInitialBurst) return;
-    let count = 0;
-    const maxCycles = 4;
-    const interval = setInterval(() => {
-      count++;
-      if (count >= maxCycles) {
-        clearInterval(interval);
-        setHintIndex(0);
-        hintIndexRef.current = 0;
-        setHintVisible(true);
-        setIsInitialBurst(false);
-        return;
-      }
-      setHintIndex(count % PROVOCATION_HINTS.length);
-    }, 150);
-    return () => clearInterval(interval);
-  }, [isInitialBurst]);
+  // Determine which detail chips are still relevant (not yet addressed)
+  const activeChips = useMemo(() => {
+    const lower = prompt.toLowerCase();
+    return DETAIL_CHIPS.filter(
+      (chip) => !chip.keywords.some((kw) => lower.includes(kw))
+    );
+  }, [prompt]);
 
-  /** Advance to the next hint with a fade transition. */
-  const advanceHint = useCallback(() => {
-    setHintVisible(false);
-    setTimeout(() => {
-      const next = (hintIndexRef.current + 1) % PROVOCATION_HINTS.length;
-      hintIndexRef.current = next;
-      setHintIndex(next);
-      setHintVisible(true);
-    }, 300);
-  }, []);
+  const encouragement = getEncouragement(prompt, activeChips.length);
 
-  /** Handle keystrokes in the textarea for hint logic. */
-  function handleKeyDown(e: React.KeyboardEvent<HTMLTextAreaElement>) {
-    // Enter to submit
-    if (e.key === "Enter" && !e.shiftKey) {
-      e.preventDefault();
-      handleSubmit(e as unknown as React.FormEvent);
-      return;
-    }
-
-    // Ignore modifier-only keys
-    if (["Shift", "Control", "Alt", "Meta"].includes(e.key)) return;
-
-    // First keystroke — trigger burst animation
-    if (!hasStartedTyping) {
-      setHasStartedTyping(true);
-      setIsInitialBurst(true);
-      keystrokeCountRef.current = 1;
-      return;
-    }
-
-    // Count keystrokes and rotate hint every ~30
-    keystrokeCountRef.current++;
-    if (keystrokeCountRef.current % 30 === 0) {
-      advanceHint();
-    }
+  function handleChipClick(label: string) {
+    const suffixes: Record<string, string> = {
+      colors: "Use [describe colors or mood] colors. ",
+      sections: "Include sections for [list what you need]. ",
+      style: "Make it feel [describe the vibe]. ",
+      images: "Add photos of [describe what to show]. ",
+    };
+    const suffix = suffixes[label] || "";
+    setPrompt((prev) => {
+      const trimmed = prev.trimEnd();
+      const separator = trimmed.length > 0 ? " " : "";
+      return trimmed + separator + suffix;
+    });
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -202,22 +165,48 @@ export default function DemoForm() {
   // ── Input form ─────────────────────────────────────────────────
   return (
     <form onSubmit={handleSubmit} className="w-full max-w-2xl mx-auto">
-      <div className="flex flex-col sm:flex-row gap-3">
-        <div className="flex-1 relative">
-          <textarea
-            value={prompt}
-            onChange={(e) => setPrompt(e.target.value)}
-            placeholder={placeholderText}
-            className="w-full h-28 sm:h-24 px-4 py-3.5 rounded-xl border-2 border-gray-200 focus:border-indigo-400 focus:outline-none focus:ring-4 focus:ring-indigo-50 resize-none text-gray-800 placeholder-gray-400 text-sm transition-all"
-            maxLength={600}
-            onKeyDown={handleKeyDown}
-          />
+      <div className="flex flex-col gap-3">
+        <textarea
+          value={prompt}
+          onChange={(e) => setPrompt(e.target.value)}
+          placeholder={placeholderText}
+          className="w-full h-28 sm:h-24 px-4 py-3.5 rounded-xl border-2 border-gray-200 focus:border-indigo-400 focus:outline-none focus:ring-4 focus:ring-indigo-50 resize-none text-gray-800 placeholder-gray-400 text-sm transition-all"
+          maxLength={600}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" && !e.shiftKey) {
+              e.preventDefault();
+              handleSubmit(e as unknown as React.FormEvent);
+            }
+          }}
+        />
+
+        {/* Encouragement + detail chips */}
+        <div className="flex flex-col items-center gap-2">
+          <p className="text-xs text-gray-400 text-center transition-all duration-300">
+            {encouragement}
+          </p>
+
+          {prompt.trim().length > 0 && activeChips.length > 0 && (
+            <div className="flex flex-wrap justify-center gap-1.5">
+              {activeChips.map((chip) => (
+                <button
+                  key={chip.label}
+                  type="button"
+                  onClick={() => handleChipClick(chip.label)}
+                  className="text-xs font-medium text-indigo-600 bg-indigo-50 border border-indigo-100 px-2.5 py-1 rounded-full hover:bg-indigo-100 active:scale-95 transition-all"
+                >
+                  + {chip.label}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
+
         <Button
           type="submit"
           size="lg"
           disabled={!prompt.trim()}
-          className="sm:self-start sm:h-24 whitespace-nowrap"
+          className="w-full sm:w-auto sm:self-center"
         >
           <Sparkles size={18} />
           Build It
@@ -227,31 +216,6 @@ export default function DemoForm() {
       {error && (
         <p className="mt-2 text-sm text-red-600 font-medium">{error}</p>
       )}
-
-      <div className="mt-2 min-h-[1.25rem] flex items-center justify-center">
-        {!hasStartedTyping ? (
-          <p className="text-xs text-gray-400 text-center">
-            If you can describe it, you can build it.
-          </p>
-        ) : (
-          <div className="flex items-center justify-center gap-1.5">
-            <p
-              className="text-xs text-gray-400 text-center transition-opacity duration-300"
-              style={{ opacity: hintVisible ? 1 : 0 }}
-            >
-              {PROVOCATION_HINTS[hintIndex]}
-            </p>
-            <button
-              type="button"
-              onClick={advanceHint}
-              className="text-gray-300 hover:text-gray-500 transition-colors flex-shrink-0"
-              aria-label="Next hint"
-            >
-              <RefreshCw className="w-3 h-3" />
-            </button>
-          </div>
-        )}
-      </div>
     </form>
   );
 }

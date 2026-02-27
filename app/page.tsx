@@ -38,6 +38,9 @@ export default function HomePage() {
 
           {/* Start Tutorial CTA */}
           <div className="mt-8 flex flex-col items-center gap-3">
+            <p className="text-sm text-gray-400">
+              Or skip straight to building your own —
+            </p>
             <Link
               href="/tutorial/welcome"
               className="inline-flex items-center gap-3 bg-indigo-600 text-white text-xl font-bold px-10 py-5 rounded-2xl hover:bg-indigo-700 active:scale-95 transition-all shadow-lg shadow-indigo-200"
@@ -46,9 +49,6 @@ export default function HomePage() {
               Start the Tutorial
               <ArrowRight size={24} />
             </Link>
-            <p className="text-sm text-gray-400">
-              If you can describe it, you can build it.
-            </p>
           </div>
         </div>
       </section>
