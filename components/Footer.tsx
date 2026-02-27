@@ -27,6 +27,9 @@ export default function Footer() {
               <Heart size={13} className="text-rose-400" />
               Help us keep this free
             </a>
+            <Link href="/privacy" className="hover:text-gray-800 transition-colors">
+              Privacy
+            </Link>
             <a
               href="mailto:hello@1stvibe.ai"
               className="hover:text-gray-800 transition-colors"
