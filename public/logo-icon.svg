@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 140" width="140" height="140" role="img" aria-label="1stvibe.ai icon">
+
+  <!-- Rounded square background -->
+  <rect x="0" y="0" width="140" height="140" rx="28" fill="#eef2ff"/>
+
+  <!-- Tail -->
+  <ellipse cx="70" cy="128" rx="24" ry="8" fill="#374151"/>
+  <ellipse cx="70" cy="128" rx="18" ry="5.5" fill="#4b5563"/>
+
+  <!-- Ears -->
+  <ellipse cx="36" cy="46" rx="11" ry="13" fill="#374151"/>
+  <ellipse cx="104" cy="46" rx="11" ry="13" fill="#374151"/>
+  <ellipse cx="36" cy="46" rx="6.5" ry="8" fill="#4b5563"/>
+  <ellipse cx="104" cy="46" rx="6.5" ry="8" fill="#4b5563"/>
+
+  <!-- Body/head -->
+  <ellipse cx="70" cy="82" rx="40" ry="44" fill="#4b5563"/>
+
+  <!-- Headphone band -->
+  <path d="M 28 60 Q 70 14 112 60" fill="none" stroke="#4c1d95" stroke-width="8" stroke-linecap="round"/>
+
+  <!-- Left cup -->
+  <ellipse cx="26" cy="67" rx="14" ry="18" fill="#6d28d9"/>
+  <ellipse cx="23" cy="61" rx="5" ry="7" fill="#8b5cf6" opacity="0.65"/>
+
+  <!-- Right cup -->
+  <ellipse cx="114" cy="67" rx="14" ry="18" fill="#6d28d9"/>
+  <ellipse cx="111" cy="61" rx="5" ry="7" fill="#8b5cf6" opacity="0.65"/>
+
+  <!-- Eyes -->
+  <ellipse cx="55" cy="74" rx="9.5" ry="10.5" fill="#1f2937"/>
+  <ellipse cx="85" cy="74" rx="9.5" ry="10.5" fill="#1f2937"/>
+  <circle cx="59" cy="69" r="3.5" fill="white"/>
+  <circle cx="89" cy="69" r="3.5" fill="white"/>
+  <circle cx="60.5" cy="67.5" r="1.5" fill="white" opacity="0.7"/>
+  <circle cx="90.5" cy="67.5" r="1.5" fill="white" opacity="0.7"/>
+
+  <!-- Nose -->
+  <ellipse cx="70" cy="87" rx="5.5" ry="4" fill="#1f2937"/>
+
+  <!-- Smile -->
+  <path d="M 59 94 Q 70 103 81 94" fill="none" stroke="#1f2937" stroke-width="2.5" stroke-linecap="round"/>
+
+  <!-- Teeth -->
+  <rect x="61" y="93" width="7.5" height="11" rx="2" fill="white"/>
+  <rect x="70.5" y="93" width="7.5" height="11" rx="2" fill="white"/>
+  <line x1="70" y1="93" x2="70" y2="104" stroke="#e5e7eb" stroke-width="1"/>
+
+  <!-- Sparkles -->
+  <g transform="translate(113,24)">
+    <path d="M0,-9 L2.2,-2.2 L9,0 L2.2,2.2 L0,9 L-2.2,2.2 L-9,0 L-2.2,-2.2 Z" fill="#10b981"/>
+  </g>
+  <g transform="translate(29,19)">
+    <path d="M0,-5 L1.2,-1.2 L5,0 L1.2,1.2 L0,5 L-1.2,1.2 L-5,0 L-1.2,-1.2 Z" fill="#10b981"/>
+  </g>
+
+</svg>
