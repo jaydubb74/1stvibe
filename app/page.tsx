@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import DemoForm from "@/components/demo/DemoForm";
 import { ArrowRight, Zap, BookOpen, Globe, CheckCircle } from "lucide-react";
 
@@ -14,6 +15,17 @@ export default function HomePage() {
         />
 
         <div className="relative max-w-4xl mx-auto text-center">
+          <div className="flex justify-center mb-8">
+            <Image
+              src="/donkey.jpg"
+              alt="A giant donkey"
+              width={600}
+              height={429}
+              className="rounded-2xl shadow-xl"
+              priority
+            />
+          </div>
+
           <div className="inline-flex items-center gap-2 bg-indigo-50 border border-indigo-100 text-indigo-700 text-sm font-medium px-4 py-1.5 rounded-full mb-6">
             <Zap size={14} className="text-indigo-500" />
             No experience required
