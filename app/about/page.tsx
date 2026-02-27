@@ -133,6 +133,18 @@ export default function AboutPage() {
         </p>
       </section>
 
+      {/* Terms of Service */}
+      <section className="mb-12">
+        <h2 className="text-2xl font-bold text-gray-900 mb-3">Terms of Service</h2>
+        <p className="text-gray-700 text-lg leading-relaxed">
+          You can read our Terms of Service{" "}
+          <Link href="/terms" className="text-indigo-600 hover:text-indigo-800 underline underline-offset-2 transition-colors">
+            here
+          </Link>
+          .
+        </p>
+      </section>
+
       {/* Mission */}
       <section className="mb-12 space-y-4 text-gray-700 text-lg leading-relaxed">
         <h2 className="text-2xl font-bold text-gray-900">Our approach</h2>

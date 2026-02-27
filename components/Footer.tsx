@@ -30,6 +30,9 @@ export default function Footer() {
             <Link href="/privacy" className="hover:text-gray-800 transition-colors">
               Privacy
             </Link>
+            <Link href="/terms" className="hover:text-gray-800 transition-colors">
+              Terms
+            </Link>
             <a
               href="mailto:hello@1stvibe.ai"
               className="hover:text-gray-800 transition-colors"
