@@ -14,7 +14,7 @@ export default function AboutPage() {
       {/* Header */}
       <h1 className="text-4xl font-extrabold text-gray-900 mb-4">About 1stvibe.ai</h1>
       <p className="text-lg text-gray-500 mb-12 leading-relaxed">
-        No ads. No fluff. Just the fastest path to your first build.
+        No fluff. Just the fastest path to your first build.
       </p>
 
       {/* Mission */}
