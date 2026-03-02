@@ -13,8 +13,7 @@ export default function ToolsExplainedPage() {
       {/* Hero */}
       <section className="bg-gradient-to-br from-indigo-50 to-white pt-28 pb-16 px-4">
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 leading-tight mb-6">
-            AI Application / Website Building{" "}
+          <h1 className="text-4xl sm:text-5xl font-bold leading-tight mb-6">
             <span className="text-indigo-600">AI Tools Explained</span>
           </h1>
           <p className="text-lg text-gray-600 leading-relaxed max-w-3xl">
