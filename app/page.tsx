@@ -56,25 +56,21 @@ export default function HomePage() {
       {/* ── Why This Matters ─────────────────────────────────────── */}
       <section className="px-4 py-20 max-w-3xl mx-auto w-full">
         <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
-          Why this matters right now
+          The Shift is Here
         </h2>
         <div className="space-y-6 text-gray-700 text-lg leading-relaxed">
           <p>
-            Something genuinely big is happening. For the first time, you can
-            describe what you want to build in plain English — and AI will write
-            the code. Not perfect code, but <em>working</em> code. A real thing
-            that lives on the internet with your name on it.
+            Something big is happening. For the first time, you don&apos;t need
+            to learn a computer&apos;s language — you just need to speak your
+            own. You describe what you want in plain English, and AI builds it.
           </p>
           <p>
-            Most people hear about this on a podcast, maybe try ChatGPT once,
-            and then go back to their day. They never have the moment where it
-            clicks. We built 1stvibe.ai because that moment is worth having — and
-            it&apos;s closer than you think.
-          </p>
-          <p>
-            You don&apos;t need a computer science degree. You don&apos;t need to
-            understand how servers work. You need about an hour, some curiosity,
-            and this guide. We&apos;ll handle everything else.
+            If you&apos;ve tried Wix or Squarespace and felt stuck in a
+            template, this is for you. Most people try ChatGPT once and move
+            on, never experiencing the &ldquo;ah ha&rdquo; when a real, working
+            website actually comes to life. We built 1stvibe.ai to give you that
+            moment. No degree required, no &ldquo;server talk,&rdquo; just an
+            hour of your time and a little curiosity.
           </p>
         </div>
       </section>
