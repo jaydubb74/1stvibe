@@ -10,12 +10,20 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <div className="max-w-2xl mx-auto px-4 py-16 sm:py-24">
-      {/* Header */}
-      <h1 className="text-4xl font-extrabold text-gray-900 mb-4">About 1stvibe.ai</h1>
-      <p className="text-lg text-gray-500 mb-12 leading-relaxed">
-        No fluff. Just the fastest path to your first build.
-      </p>
+    <div>
+      {/* Hero */}
+      <section className="bg-gradient-to-br from-indigo-50 to-white pt-28 pb-16 px-4">
+        <div className="max-w-2xl mx-auto">
+          <h1 className="text-4xl sm:text-5xl font-bold leading-tight mb-4">
+            <span className="text-indigo-600">About 1stvibe.ai</span>
+          </h1>
+          <p className="text-lg text-gray-500 leading-relaxed">
+            No fluff. Just the fastest path to your first build.
+          </p>
+        </div>
+      </section>
+
+    <div className="max-w-2xl mx-auto px-4 py-16">
 
       {/* Mission */}
       <section className="mb-12 space-y-4 text-gray-700 text-lg leading-relaxed">
@@ -189,6 +197,7 @@ export default function AboutPage() {
           </a>
         </div>
       </div>
+    </div>
     </div>
   );
 }
