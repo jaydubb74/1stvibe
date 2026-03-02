@@ -1,6 +1,6 @@
 # Homepage UX
 
-> Updated: 2026-02-26
+> Updated: 2026-03-01
 
 ## Overview
 
@@ -18,8 +18,8 @@ The homepage (`app/page.tsx`) is the primary entry point and conversion funnel. 
   DemoForm (textarea + "Build It" button)
   Supporting text: "If you can describe it, you can build it."
 
-[Why This Matters — white bg]
-  Prose explaining the mission
+[The Shift is Here — white bg]
+  Prose explaining the mission ("Stop Guessing. Start Building." framing)
 
 [What You'll Do — gray-50 bg]
   4-column grid of steps (demo → build → deploy → customize)

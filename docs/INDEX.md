@@ -31,7 +31,10 @@
 
 | Doc | Description |
 |-----|-------------|
-| [Demo Generator](./features/demo-generator.md) | AI demo generation — prompt to HTML to deploy, GPT-4o system prompt, image placeholders |
-| [Tutorial System](./features/tutorial-system.md) | 19-step tutorial — sections, progress tracking, MDX content, how to add steps |
+| [AI Tools Explained](./features/ai-tools-explained.md) | /tools-explained page — 6 tool category sections, comparison tables, sub-components, content maintenance notes |
 | [Auth and Email](./features/auth-and-email.md) | NextAuth magic links via Resend, email capture endpoint |
+| [Demo Generator](./features/demo-generator.md) | AI demo generation — prompt to HTML to deploy, GPT-4o system prompt, image placeholders |
 | [Homepage UX](./features/homepage-ux.md) | Hero section, DemoForm, provocation hints, loading overlay, CTAs |
+| [Legal Pages](./features/legal-pages.md) | Privacy Policy (/privacy) and Terms of Service (/terms) — sections, key disclosures, footer links |
+| [Site Navigation](./features/site-navigation.md) | Nav component — mascot image, wordmark, link order, Ko-fi support link, mobile menu |
+| [Tutorial System](./features/tutorial-system.md) | 19-step tutorial — sections, progress tracking, MDX content, how to add steps |
