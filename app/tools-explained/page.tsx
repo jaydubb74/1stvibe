@@ -18,11 +18,11 @@ export default function ToolsExplainedPage() {
             <span className="text-indigo-600">AI Tools Explained</span>
           </h1>
           <p className="text-lg text-gray-600 leading-relaxed max-w-3xl">
-            In a process to demystify knowing what tool to use for each task, we&apos;ve
-            taken the liberty to build some context for you. This is far from a
-            comprehensive list, and there are new tools emerging every day and core model
-            advancements that will change the below. We will do our best to update on a
-            timely basis.
+            <strong className="text-gray-900">Stop Guessing. Start Building.</strong> The AI
+            landscape is a wild frontier, so we&apos;ve mapped out the essential gear you need
+            for the journey. This isn&apos;t a list of every tool ever made—it&apos;s a curated
+            selection of the best ones for the job. We keep the pulse on new releases so you
+            can focus on what matters: creating cool stuff.
           </p>
         </div>
       </section>
