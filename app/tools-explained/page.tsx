@@ -15,7 +15,7 @@ export default function ToolsExplainedPage() {
         <div className="max-w-4xl mx-auto">
           <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 leading-tight mb-6">
             AI Application / Website Building{" "}
-            <span className="text-indigo-600">Tools Explained</span>
+            <span className="text-indigo-600">AI Tools Explained</span>
           </h1>
           <p className="text-lg text-gray-600 leading-relaxed max-w-3xl">
             In a process to demystify knowing what tool to use for each task, we&apos;ve

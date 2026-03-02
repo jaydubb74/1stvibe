@@ -35,7 +35,7 @@ export default function Nav() {
               Tutorial
             </Link>
             <Link href="/tools-explained" className="hover:text-indigo-600 transition-colors">
-              Tools Explained
+              AI Tools Explained
             </Link>
             <Link href="/about" className="hover:text-indigo-600 transition-colors">
               About
@@ -75,7 +75,7 @@ export default function Nav() {
             Tutorial
           </Link>
           <Link href="/tools-explained" onClick={() => setOpen(false)}>
-            Tools Explained
+            AI Tools Explained
           </Link>
           <Link href="/about" onClick={() => setOpen(false)}>
             About
