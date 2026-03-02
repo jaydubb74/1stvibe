@@ -34,6 +34,9 @@ export default function Nav() {
             <Link href="/tutorial/welcome" className="hover:text-indigo-600 transition-colors">
               Tutorial
             </Link>
+            <Link href="/tools-explained" className="hover:text-indigo-600 transition-colors">
+              Tools Explained
+            </Link>
             <Link href="/about" className="hover:text-indigo-600 transition-colors">
               About
             </Link>
@@ -70,6 +73,9 @@ export default function Nav() {
           </Link>
           <Link href="/tutorial/welcome" onClick={() => setOpen(false)}>
             Tutorial
+          </Link>
+          <Link href="/tools-explained" onClick={() => setOpen(false)}>
+            Tools Explained
           </Link>
           <Link href="/about" onClick={() => setOpen(false)}>
             About
