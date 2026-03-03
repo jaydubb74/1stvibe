@@ -12,8 +12,17 @@ import {
   Check,
   Loader2,
 } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const MAX_ITERATIONS = 3;
+
+type TweakWidgetPhase = "idle" | "teaser" | "open" | "dismissed" | "nudge";
+
+const TWEAK_SUGGESTIONS = [
+  "Make the header blue",
+  "Add a photo to the hero",
+  "Change the font to something modern",
+] as const;
 
 interface Demo {
   id: string;
@@ -32,20 +41,30 @@ interface Props {
 export default function SiteViewer({ demo, canEdit, fromShare }: Props) {
   // ── State ─────────────────────────────────────────────────────
   const [html, setHtml] = useState(demo.html);
-  const [fabOpen, setFabOpen] = useState(false);
+  const [widgetPhase, setWidgetPhase] = useState<TweakWidgetPhase>("idle");
   const [tweakPrompt, setTweakPrompt] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [friendBannerDismissed, setFriendBannerDismissed] = useState(false);
-  const [shareState, setShareState] = useState<"idle" | "copied" | "shared">("idle");
+  const [shareState, setShareState] = useState<"idle" | "copied" | "shared">(
+    "idle"
+  );
   // Track iterations in localStorage so they survive page refreshes
   const [iterationsUsed, setIterationsUsed] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
   const iframeRef = useRef<HTMLIFrameElement>(null);
+  // Track whether nudge has already fired this session
+  const nudgeFiredRef = useRef(false);
 
   const storageKey = `vibeiter_${demo.id}`;
+  const dismissKey = `tweakdismissed_${demo.id}`;
   const isExhausted = iterationsUsed >= MAX_ITERATIONS;
   const iterationsLeft = MAX_ITERATIONS - iterationsUsed;
+
+  // Derived booleans for readability
+  const isOpen = widgetPhase === "open";
+  const isTeaser = widgetPhase === "teaser";
+  const isNudge = widgetPhase === "nudge";
 
   // ── Effects ───────────────────────────────────────────────────
   // Restore iteration count from localStorage on mount
@@ -57,13 +76,50 @@ export default function SiteViewer({ demo, canEdit, fromShare }: Props) {
     }
   }, [storageKey]);
 
+  // Check sessionStorage for prior dismissal on mount
+  useEffect(() => {
+    if (sessionStorage.getItem(dismissKey) === "true") {
+      setWidgetPhase("dismissed");
+      nudgeFiredRef.current = true; // don't re-nudge if already dismissed
+    }
+  }, [dismissKey]);
+
+  // Teaser timer: show teaser 5s after idle (if not already dismissed)
+  useEffect(() => {
+    if (widgetPhase !== "idle" || isExhausted || !canEdit) return;
+    const timer = setTimeout(() => {
+      setWidgetPhase("teaser");
+    }, 5000);
+    return () => clearTimeout(timer);
+  }, [widgetPhase, isExhausted, canEdit]);
+
+  // Nudge timer: 20s after dismissal, show nudge (once per session)
+  useEffect(() => {
+    if (widgetPhase !== "dismissed" || nudgeFiredRef.current || isExhausted)
+      return;
+    const timer = setTimeout(() => {
+      nudgeFiredRef.current = true;
+      setWidgetPhase("nudge");
+    }, 20000);
+    return () => clearTimeout(timer);
+  }, [widgetPhase, isExhausted]);
+
+  // Nudge auto-fade: 8s after nudge appears, dismiss permanently
+  useEffect(() => {
+    if (widgetPhase !== "nudge") return;
+    const timer = setTimeout(() => {
+      setWidgetPhase("dismissed");
+    }, 8000);
+    return () => clearTimeout(timer);
+  }, [widgetPhase]);
+
   // Focus input when popover opens
   useEffect(() => {
-    if (fabOpen && !isExhausted && inputRef.current) {
+    if (isOpen && !isExhausted && inputRef.current) {
       const timer = setTimeout(() => inputRef.current?.focus(), 60);
       return () => clearTimeout(timer);
     }
-  }, [fabOpen, isExhausted]);
+  }, [isOpen, isExhausted]);
 
   // Update iframe when html changes (avoids full page reload)
   useEffect(() => {
@@ -71,6 +127,36 @@ export default function SiteViewer({ demo, canEdit, fromShare }: Props) {
       iframeRef.current.srcdoc = html;
     }
   }, [html]);
+
+  // Escape key closes popover
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setWidgetPhase("idle");
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen]);
+
+  // ── Handlers ────────────────────────────────────────────────
+  const handleFabClick = useCallback(() => {
+    setWidgetPhase((prev) => (prev === "open" ? "idle" : "open"));
+  }, []);
+
+  const handleTeaserDismiss = useCallback(() => {
+    setWidgetPhase("dismissed");
+    sessionStorage.setItem(dismissKey, "true");
+  }, [dismissKey]);
+
+  const handleSuggestionClick = useCallback(
+    (suggestion: string) => {
+      setTweakPrompt(suggestion);
+      setWidgetPhase("open");
+    },
+    []
+  );
 
   // ── Tweak handler ─────────────────────────────────────────────
   const handleTweak = useCallback(
@@ -101,10 +187,12 @@ export default function SiteViewer({ demo, canEdit, fromShare }: Props) {
         // Keep popover open to show exhaustion message if limit reached,
         // otherwise close it so the user sees their updated site.
         if (newCount < MAX_ITERATIONS) {
-          setFabOpen(false);
+          setWidgetPhase("idle");
         }
       } catch (err) {
-        setError(err instanceof Error ? err.message : "Tweak failed. Try again.");
+        setError(
+          err instanceof Error ? err.message : "Tweak failed. Try again."
+        );
       } finally {
         setLoading(false);
       }
@@ -130,7 +218,7 @@ export default function SiteViewer({ demo, canEdit, fromShare }: Props) {
         setTimeout(() => setShareState("idle"), 2500);
       });
     }
-  }, [demo.id]);
+  }, [demo.id, demo.siteTitle]);
 
   // ── Render ────────────────────────────────────────────────────
   return (
@@ -144,15 +232,17 @@ export default function SiteViewer({ demo, canEdit, fromShare }: Props) {
       {fromShare && !friendBannerDismissed && (
         <div className="bg-gradient-to-r from-violet-600 via-indigo-600 to-purple-600 text-white px-4 py-2.5 flex items-center justify-between gap-3 shrink-0">
           <p className="text-sm font-medium text-center flex-1 leading-snug flex items-center justify-center gap-2 flex-wrap">
-            <span className="font-black text-base tracking-tight">1stvibe.ai</span>
+            <span className="font-black text-base tracking-tight">
+              1stvibe.ai
+            </span>
             <span className="opacity-90">
-              ✨ Your friend built this in ~15 seconds with AI.
+              Your friend built this in ~15 seconds with AI.
             </span>{" "}
             <Link
               href="/"
               className="underline font-bold hover:text-indigo-100 transition-colors"
             >
-              Try vibecoding your own site now →
+              Try vibecoding your own site now
             </Link>
           </p>
           <button
@@ -177,9 +267,11 @@ export default function SiteViewer({ demo, canEdit, fromShare }: Props) {
           </Link>
           <span className="text-gray-200 hidden sm:block select-none">|</span>
           <span className="text-xs text-gray-400 truncate hidden sm:block max-w-xs">
-            &ldquo;{demo.prompt.length > 70
-              ? demo.prompt.slice(0, 70) + "…"
-              : demo.prompt}&rdquo;
+            &ldquo;
+            {demo.prompt.length > 70
+              ? demo.prompt.slice(0, 70) + "\u2026"
+              : demo.prompt}
+            &rdquo;
           </span>
         </div>
 
@@ -215,8 +307,69 @@ export default function SiteViewer({ demo, canEdit, fromShare }: Props) {
         {/* ── Floating sparkly FAB area ─────────────────────── */}
         {canEdit && (
           <div className="absolute bottom-6 right-5 flex flex-col items-end gap-3 pointer-events-none">
+            {/* ── Teaser bubble ───────────────────────────── */}
+            {isTeaser && !isExhausted && (
+              <div
+                role="status"
+                aria-live="polite"
+                className="pointer-events-auto bg-white rounded-2xl shadow-2xl border border-gray-100 w-72 sm:w-80 overflow-hidden animate-teaser-in"
+                style={{ maxHeight: "calc(100dvh - 100px)" }}
+              >
+                <div className="px-4 pt-3.5 pb-3 relative">
+                  {/* Close button */}
+                  <button
+                    onClick={handleTeaserDismiss}
+                    className="absolute top-2.5 right-2.5 text-gray-300 hover:text-gray-500 transition-colors"
+                    aria-label="Dismiss suggestion"
+                  >
+                    <X size={14} />
+                  </button>
+
+                  {/* Header */}
+                  <p className="text-sm font-bold text-gray-900 flex items-center gap-1.5 pr-6">
+                    <Sparkles size={14} className="text-indigo-500" />
+                    Want to change something?
+                  </p>
+                  <p className="text-xs text-gray-400 mt-0.5 mb-3">
+                    Just tell me what to tweak.
+                  </p>
+
+                  {/* Suggestion chips */}
+                  <div className="flex flex-wrap gap-1.5">
+                    {TWEAK_SUGGESTIONS.map((suggestion) => (
+                      <button
+                        key={suggestion}
+                        onClick={() => handleSuggestionClick(suggestion)}
+                        className="text-xs font-medium text-indigo-600 bg-indigo-50 hover:bg-indigo-100 border border-indigo-100 rounded-full px-3 py-1.5 transition-colors"
+                      >
+                        {suggestion}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Speech bubble tail */}
+                <div className="flex justify-end pr-8">
+                  <div className="w-3 h-3 bg-white border-b border-r border-gray-100 rotate-45 translate-y-[-6px]" />
+                </div>
+              </div>
+            )}
+
+            {/* ── Nudge pill ──────────────────────────────── */}
+            {isNudge && !isExhausted && (
+              <button
+                role="status"
+                aria-live="polite"
+                onClick={() => setWidgetPhase("open")}
+                className="pointer-events-auto flex items-center gap-1.5 bg-white text-indigo-600 text-xs font-semibold px-3.5 py-2 rounded-full shadow-lg border border-indigo-100 hover:bg-indigo-50 transition-colors animate-teaser-in"
+              >
+                <Sparkles size={12} />
+                Try tweaking something
+              </button>
+            )}
+
             {/* ── Chat / tweak popover ────────────────────── */}
-            {fabOpen && (
+            {isOpen && (
               <div
                 className="pointer-events-auto bg-white rounded-2xl shadow-2xl border border-gray-100 w-80 overflow-hidden"
                 style={{ maxHeight: "calc(100vh - 120px)" }}
@@ -236,7 +389,7 @@ export default function SiteViewer({ demo, canEdit, fromShare }: Props) {
                         </p>
                       </div>
                       <button
-                        onClick={() => setFabOpen(false)}
+                        onClick={() => setWidgetPhase("idle")}
                         className="text-gray-400 hover:text-gray-600 transition-colors"
                         aria-label="Close"
                       >
@@ -278,7 +431,7 @@ export default function SiteViewer({ demo, canEdit, fromShare }: Props) {
                       {loading && (
                         <p className="mt-2 text-xs text-indigo-500 flex items-center gap-1.5">
                           <Loader2 size={11} className="animate-spin" />
-                          Updating your site…
+                          Updating your site&hellip;
                         </p>
                       )}
                     </form>
@@ -286,7 +439,7 @@ export default function SiteViewer({ demo, canEdit, fromShare }: Props) {
                 ) : (
                   /* ── Exhaustion / funnel state ─────────────── */
                   <div className="p-5 text-center">
-                    <div className="text-3xl mb-2">🎉</div>
+                    <div className="text-3xl mb-2">&#127881;</div>
                     <p className="font-bold text-gray-900 text-sm mb-1 leading-snug">
                       You seem to have the hang of this!
                     </p>
@@ -303,7 +456,7 @@ export default function SiteViewer({ demo, canEdit, fromShare }: Props) {
                       <ArrowRight size={14} />
                     </Link>
                     <button
-                      onClick={() => setFabOpen(false)}
+                      onClick={() => setWidgetPhase("idle")}
                       className="mt-3 text-xs text-gray-400 hover:text-gray-600 transition-colors"
                     >
                       close
@@ -315,30 +468,40 @@ export default function SiteViewer({ demo, canEdit, fromShare }: Props) {
 
             {/* ── The FAB itself ─────────────────────────── */}
             {!isExhausted ? (
-              /* Sparkly tweak button */
+              /* Sparkly tweak button — pill with label when closed, circle when open */
               <button
-                onClick={() => setFabOpen((v) => !v)}
-                className={[
-                  "pointer-events-auto relative w-14 h-14 rounded-full shadow-xl flex items-center justify-center transition-all duration-200",
-                  fabOpen
-                    ? "bg-indigo-700 scale-95 shadow-indigo-300/50"
-                    : "bg-indigo-600 hover:bg-indigo-700 hover:scale-110 shadow-indigo-300/60",
-                ].join(" ")}
-                aria-label={fabOpen ? "Close tweak panel" : "Tweak your site"}
+                onClick={handleFabClick}
+                className={cn(
+                  "pointer-events-auto relative shadow-xl flex items-center justify-center transition-all duration-200",
+                  isOpen
+                    ? "w-14 h-14 rounded-full bg-indigo-700 scale-95 shadow-indigo-300/50"
+                    : "h-14 rounded-full bg-indigo-600 hover:bg-indigo-700 hover:scale-105 shadow-indigo-300/60 px-5 gap-2"
+                )}
+                aria-label={
+                  isOpen
+                    ? "Close tweak panel"
+                    : "Tweak your site with AI"
+                }
               >
                 {/* Animated sparkle glow ring (only when closed) */}
-                {!fabOpen && (
+                {!isOpen && (
                   <>
                     <span className="absolute inset-0 rounded-full bg-indigo-400 animate-ping opacity-25" />
                     <span className="absolute inset-[-4px] rounded-full bg-gradient-to-tr from-violet-400 to-indigo-400 opacity-30 animate-spin-slow" />
                   </>
                 )}
                 <Sparkles
-                  size={24}
-                  className={`text-white relative z-10 transition-transform duration-200 ${
-                    fabOpen ? "rotate-12" : ""
-                  }`}
+                  size={isOpen ? 24 : 18}
+                  className={cn(
+                    "text-white relative z-10 transition-transform duration-200",
+                    isOpen && "rotate-12"
+                  )}
                 />
+                {!isOpen && (
+                  <span className="text-white text-sm font-bold relative z-10">
+                    Tweak it
+                  </span>
+                )}
               </button>
             ) : (
               /* Tutorial funnel button (after iterations exhausted) */
@@ -346,7 +509,7 @@ export default function SiteViewer({ demo, canEdit, fromShare }: Props) {
                 href="/tutorial/welcome"
                 className="pointer-events-auto relative w-14 h-14 rounded-full bg-gradient-to-br from-indigo-600 to-purple-600 shadow-xl flex items-center justify-center hover:scale-110 transition-transform duration-200"
                 aria-label="Start the Tutorial"
-                title="Ready to build for real? Start the Tutorial →"
+                title="Ready to build for real? Start the Tutorial"
               >
                 <span className="absolute inset-0 rounded-full bg-purple-400 animate-ping opacity-20" />
                 <BookOpen size={22} className="text-white relative z-10" />
