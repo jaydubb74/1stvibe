@@ -3,7 +3,7 @@
 import { useState, useEffect, useMemo, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Button from "@/components/ui/Button";
-import { Sparkles, Loader2, Shuffle, Lightbulb } from "lucide-react";
+import { Sparkles, Loader2, Shuffle, Lightbulb, RefreshCw } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 /** Rotating copy shown on the loading screen while waiting for the AI. */
@@ -219,7 +219,7 @@ export default function DemoForm() {
   return (
     <form onSubmit={handleSubmit} className="w-full max-w-2xl mx-auto">
       {/* Label */}
-      <label htmlFor="demo-prompt" className="block text-base font-semibold text-gray-800 mb-3">
+      <label htmlFor="demo-prompt" className="block text-sm font-medium text-gray-700 mb-2">
         Describe the website you want — AI builds it in seconds.
       </label>
 
@@ -245,15 +245,21 @@ export default function DemoForm() {
             }}
           />
 
+          {/* "Example" badge */}
+          {isDraftPrompt && (
+            <span className="absolute top-2 right-2 text-xs text-indigo-500 font-medium select-none pointer-events-none">
+              Example
+            </span>
+          )}
+
           {/* Shuffle button */}
           <button
             type="button"
             onClick={handleShuffle}
             title="Try a different example"
-            className="absolute bottom-2 right-2 flex items-center gap-1 text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 active:scale-90 rounded-lg p-2 transition-all"
+            className="absolute bottom-2 right-2 text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 active:scale-90 rounded-lg p-1.5 transition-all"
           >
-            <Shuffle size={14} />
-            <span className="text-xs font-medium">Try another</span>
+            <Shuffle size={16} />
           </button>
         </div>
 
@@ -261,24 +267,34 @@ export default function DemoForm() {
           type="submit"
           size="lg"
           disabled={!prompt.trim()}
-          className="w-full sm:w-auto sm:self-end whitespace-nowrap"
+          className="w-full sm:w-auto sm:self-start sm:h-24 whitespace-nowrap"
         >
           <Sparkles size={18} />
           Build It
         </Button>
       </div>
 
-      {/* Coaching hint */}
-      <div className="mt-4 flex items-start gap-2 px-1">
-        <Lightbulb size={14} className="text-indigo-300 shrink-0 mt-0.5" />
+      {/* Coaching callout */}
+      <div className="mt-3 flex items-center gap-2.5 rounded-lg bg-indigo-50 border border-indigo-100 px-3.5 py-2.5 min-h-[2.5rem]">
+        <Lightbulb size={16} className="text-indigo-400 shrink-0" />
         <p
           key={hasStartedTyping ? hintIndex : "default"}
-          className="text-sm text-gray-400 flex-1 animate-hint-swap"
+          className="text-sm text-indigo-600/70 flex-1 animate-hint-swap"
         >
           {hasStartedTyping
             ? COACHING_HINTS[hintIndex]
-            : "Works great as-is — or describe your own idea."}
+            : "Add details for a better result — or just hit Build It."}
         </p>
+        {hasStartedTyping && (
+          <button
+            type="button"
+            onClick={() => setHintIndex((prev) => (prev + 1) % COACHING_HINTS.length)}
+            title="Next tip"
+            className="text-indigo-300 hover:text-indigo-500 shrink-0 transition-colors"
+          >
+            <RefreshCw size={14} />
+          </button>
+        )}
       </div>
 
       {/* Detail chips */}
