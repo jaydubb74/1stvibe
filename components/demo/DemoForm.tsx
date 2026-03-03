@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Button from "@/components/ui/Button";
-import { Sparkles, Loader2 } from "lucide-react";
+import { Sparkles, Loader2, Shuffle, Lightbulb, RefreshCw } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 /** Rotating copy shown on the loading screen while waiting for the AI. */
 const LOADING_LINES = [
@@ -43,31 +44,40 @@ const DETAIL_CHIPS = [
   { label: "images", keywords: ["photo", "image", "picture", "icon", "logo", "illustration", "graphic", "gallery", "hero image", "background"] },
 ];
 
-/** Encouragement text based on prompt richness. */
-function getEncouragement(prompt: string, chipsRemaining: number): string {
-  const len = prompt.trim().length;
-  if (len === 0) return "Describe your dream website — the more detail, the better the result.";
-  if (len < 40) return "Keep going! What kind of site is this for?";
-  if (chipsRemaining > 2) return "Good start — try adding a few more details below.";
-  if (chipsRemaining > 0) return "Looking good! A little more detail will make it shine.";
-  return "Great description — this is going to look good.";
-}
+/** Coaching hints shown after the user starts typing. */
+const COACHING_HINTS = [
+  "What should the title of your site say?",
+  "Who will visit your site, and what do they want?",
+  "Do you have a color scheme in mind?",
+  "What sections should it have — about, contact, gallery?",
+  "Do you have a tagline or slogan?",
+  "Would you like photos or illustrations?",
+  "Should it include a form to collect info?",
+  "Do you have contact details to include?",
+  "What\u2019s the vibe — professional, playful, minimal?",
+  "Any specific fonts or styles you like?",
+];
 
 export default function DemoForm() {
   const [prompt, setPrompt] = useState("");
+  const [isDraftPrompt, setIsDraftPrompt] = useState(true);
+  const [promptIndex, setPromptIndex] = useState(0);
   const [loading, setLoading] = useState(false);
   const [loadingLine, setLoadingLine] = useState(0);
   const [error, setError] = useState("");
+  const [hintIndex, setHintIndex] = useState(0);
+  const [hasStartedTyping, setHasStartedTyping] = useState(false);
   const router = useRouter();
 
-  // Random placeholder prompt (set on mount to avoid hydration mismatch)
-  const [placeholderText, setPlaceholderText] = useState("");
+  const keystrokeCountRef = useRef(0);
+  const hasAutoSelectedRef = useRef(false);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  // Pick random placeholder on mount
+  // Pre-fill prompt with a random example on mount (avoids hydration mismatch)
   useEffect(() => {
-    setPlaceholderText(
-      PLACEHOLDER_PROMPTS[Math.floor(Math.random() * PLACEHOLDER_PROMPTS.length)]
-    );
+    const idx = Math.floor(Math.random() * PLACEHOLDER_PROMPTS.length);
+    setPromptIndex(idx);
+    setPrompt(PLACEHOLDER_PROMPTS[idx]);
   }, []);
 
   // Cycle through loading copy every ~2.5 s while waiting
@@ -87,7 +97,39 @@ export default function DemoForm() {
     );
   }, [prompt]);
 
-  const encouragement = getEncouragement(prompt, activeChips.length);
+  function handlePromptChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
+    const value = e.target.value;
+    setPrompt(value);
+
+    if (isDraftPrompt) {
+      setIsDraftPrompt(false);
+      setHasStartedTyping(true);
+      keystrokeCountRef.current = 0;
+    } else {
+      if (!hasStartedTyping) setHasStartedTyping(true);
+      keystrokeCountRef.current += 1;
+      if (keystrokeCountRef.current >= 30) {
+        keystrokeCountRef.current = 0;
+        setHintIndex((prev) => (prev + 1) % COACHING_HINTS.length);
+      }
+    }
+  }
+
+  function handleShuffle() {
+    const nextIndex = (promptIndex + 1) % PLACEHOLDER_PROMPTS.length;
+    setPromptIndex(nextIndex);
+    setPrompt(PLACEHOLDER_PROMPTS[nextIndex]);
+    setIsDraftPrompt(true);
+    setHasStartedTyping(false);
+    hasAutoSelectedRef.current = false;
+  }
+
+  function handleFocus(e: React.FocusEvent<HTMLTextAreaElement>) {
+    if (isDraftPrompt && !hasAutoSelectedRef.current) {
+      hasAutoSelectedRef.current = true;
+      e.target.select();
+    }
+  }
 
   function handleChipClick(label: string) {
     const suffixes: Record<string, string> = {
@@ -97,11 +139,22 @@ export default function DemoForm() {
       images: "Add photos of [describe what to show]. ",
     };
     const suffix = suffixes[label] || "";
-    setPrompt((prev) => {
-      const trimmed = prev.trimEnd();
-      const separator = trimmed.length > 0 ? " " : "";
-      return trimmed + separator + suffix;
-    });
+
+    if (isDraftPrompt) {
+      // Clear draft and start fresh with the chip suffix
+      setPrompt(suffix);
+      setIsDraftPrompt(false);
+      setHasStartedTyping(true);
+    } else {
+      setPrompt((prev) => {
+        const trimmed = prev.trimEnd();
+        const separator = trimmed.length > 0 ? " " : "";
+        return trimmed + separator + suffix;
+      });
+    }
+
+    // Focus the textarea so user can continue typing
+    textareaRef.current?.focus();
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -165,53 +218,100 @@ export default function DemoForm() {
   // ── Input form ─────────────────────────────────────────────────
   return (
     <form onSubmit={handleSubmit} className="w-full max-w-2xl mx-auto">
-      <div className="flex flex-col gap-3">
-        <textarea
-          value={prompt}
-          onChange={(e) => setPrompt(e.target.value)}
-          placeholder={placeholderText}
-          className="w-full h-28 sm:h-24 px-4 py-3.5 rounded-xl border-2 border-gray-200 focus:border-indigo-400 focus:outline-none focus:ring-4 focus:ring-indigo-50 resize-none text-gray-800 placeholder-gray-400 text-sm transition-all"
-          maxLength={600}
-          onKeyDown={(e) => {
-            if (e.key === "Enter" && !e.shiftKey) {
-              e.preventDefault();
-              handleSubmit(e as unknown as React.FormEvent);
-            }
-          }}
-        />
+      {/* Label */}
+      <label htmlFor="demo-prompt" className="block text-sm font-medium text-gray-700 mb-2">
+        Describe the website you want — AI builds it in seconds.
+      </label>
 
-        {/* Encouragement + detail chips */}
-        <div className="flex flex-col items-center gap-2">
-          <p className="text-xs text-gray-400 text-center transition-all duration-300">
-            {encouragement}
-          </p>
+      {/* Textarea + button: stacked on mobile, side-by-side on sm+ */}
+      <div className="flex flex-col sm:flex-row gap-3">
+        <div className="relative flex-1">
+          <textarea
+            ref={textareaRef}
+            id="demo-prompt"
+            value={prompt}
+            onChange={handlePromptChange}
+            onFocus={handleFocus}
+            className={cn(
+              "w-full h-28 sm:h-24 px-4 py-3.5 rounded-xl border-2 border-gray-200 focus:border-indigo-400 focus:outline-none focus:ring-4 focus:ring-indigo-50 resize-none text-sm transition-all",
+              isDraftPrompt ? "text-gray-400 italic" : "text-gray-800"
+            )}
+            maxLength={600}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && !e.shiftKey) {
+                e.preventDefault();
+                handleSubmit(e as unknown as React.FormEvent);
+              }
+            }}
+          />
 
-          {prompt.trim().length > 0 && activeChips.length > 0 && (
-            <div className="flex flex-wrap justify-center gap-1.5">
-              {activeChips.map((chip) => (
-                <button
-                  key={chip.label}
-                  type="button"
-                  onClick={() => handleChipClick(chip.label)}
-                  className="text-xs font-medium text-indigo-600 bg-indigo-50 border border-indigo-100 px-2.5 py-1 rounded-full hover:bg-indigo-100 active:scale-95 transition-all"
-                >
-                  + {chip.label}
-                </button>
-              ))}
-            </div>
+          {/* "Example" badge */}
+          {isDraftPrompt && (
+            <span className="absolute top-2 right-2 text-xs text-indigo-500 font-medium select-none pointer-events-none">
+              Example
+            </span>
           )}
+
+          {/* Shuffle button */}
+          <button
+            type="button"
+            onClick={handleShuffle}
+            title="Try a different example"
+            className="absolute bottom-2 right-2 text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 active:scale-90 rounded-lg p-1.5 transition-all"
+          >
+            <Shuffle size={16} />
+          </button>
         </div>
 
         <Button
           type="submit"
           size="lg"
           disabled={!prompt.trim()}
-          className="w-full sm:w-auto sm:self-center"
+          className="w-full sm:w-auto sm:self-start sm:h-24 whitespace-nowrap"
         >
           <Sparkles size={18} />
           Build It
         </Button>
       </div>
+
+      {/* Coaching callout */}
+      <div className="mt-3 flex items-center gap-2.5 rounded-lg bg-indigo-50 border border-indigo-100 px-3.5 py-2.5 min-h-[2.5rem]">
+        <Lightbulb size={16} className="text-indigo-400 shrink-0" />
+        <p
+          key={hasStartedTyping ? hintIndex : "default"}
+          className="text-sm text-indigo-600/70 flex-1 animate-hint-swap"
+        >
+          {hasStartedTyping
+            ? COACHING_HINTS[hintIndex]
+            : "Add details for a better result — or just hit Build It."}
+        </p>
+        {hasStartedTyping && (
+          <button
+            type="button"
+            onClick={() => setHintIndex((prev) => (prev + 1) % COACHING_HINTS.length)}
+            title="Next tip"
+            className="text-indigo-300 hover:text-indigo-500 shrink-0 transition-colors"
+          >
+            <RefreshCw size={14} />
+          </button>
+        )}
+      </div>
+
+      {/* Detail chips */}
+      {hasStartedTyping && activeChips.length > 0 && (
+        <div className="mt-2 flex flex-wrap justify-center sm:justify-start gap-1.5">
+          {activeChips.map((chip) => (
+            <button
+              key={chip.label}
+              type="button"
+              onClick={() => handleChipClick(chip.label)}
+              className="text-xs font-medium text-indigo-600 bg-indigo-50 border border-indigo-100 px-2.5 py-1 rounded-full hover:bg-indigo-100 active:scale-95 transition-all"
+            >
+              + {chip.label}
+            </button>
+          ))}
+        </div>
+      )}
 
       {error && (
         <p className="mt-2 text-sm text-red-600 font-medium">{error}</p>

@@ -55,11 +55,20 @@ html {
   animation: teaser-in 0.25s ease-out;
 }
 
+@keyframes hint-swap {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-hint-swap {
+  animation: hint-swap 0.25s ease-out;
+}
+
 /* Accessibility: disable custom animations for users who prefer reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .animate-spin-slow,
   .animate-teaser-in,
   .animate-fade-in,
+  .animate-hint-swap,
   .animate-ping {
     animation: none;
   }
