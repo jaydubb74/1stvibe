@@ -18,11 +18,52 @@ const MAX_ITERATIONS = 3;
 
 type TweakWidgetPhase = "idle" | "teaser" | "open" | "dismissed" | "nudge";
 
-const TWEAK_SUGGESTIONS = [
+const ALL_TWEAK_SUGGESTIONS = [
+  // Colors & theme
   "Make the header blue",
-  "Add a photo to the hero",
+  "Use a dark color scheme",
+  "Make the buttons green",
+  "Try a warm sunset color palette",
+  "Change the accent color to coral",
+  // Layout & structure
+  "Add a second section with three columns",
+  "Center everything on the page",
+  "Make the hero section taller",
+  "Add more whitespace between sections",
+  "Stack the layout vertically",
+  // Typography
   "Change the font to something modern",
-] as const;
+  "Make the headings bigger and bolder",
+  "Use a serif font for an elegant look",
+  "Make the text easier to read",
+  // Images & media
+  "Add a photo to the hero",
+  "Add a background image to the header",
+  "Add icons next to the section headings",
+  // Content tweaks
+  "Make the headline catchier",
+  "Add a call-to-action button",
+  "Add a testimonials section",
+  "Add a contact form at the bottom",
+  "Write a more exciting tagline",
+  // Style & polish
+  "Add rounded corners to the cards",
+  "Make it look more professional",
+  "Give it a playful, fun vibe",
+  "Add subtle shadows to the cards",
+  "Make it feel more minimal and clean",
+];
+
+/** Pick `count` random items from an array (Fisher-Yates partial shuffle) */
+function pickRandom<T>(arr: T[], count: number): T[] {
+  const copy = [...arr];
+  const n = Math.min(count, copy.length);
+  for (let i = 0; i < n; i++) {
+    const j = i + Math.floor(Math.random() * (copy.length - i));
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+  }
+  return copy.slice(0, n);
+}
 
 interface Demo {
   id: string;
@@ -48,6 +89,10 @@ export default function SiteViewer({ demo, canEdit, fromShare }: Props) {
   const [friendBannerDismissed, setFriendBannerDismissed] = useState(false);
   const [shareState, setShareState] = useState<"idle" | "copied" | "shared">(
     "idle"
+  );
+  // Random suggestion chips — picked once per mount
+  const [suggestions] = useState(() =>
+    pickRandom(ALL_TWEAK_SUGGESTIONS, 3)
   );
   // Track iterations in localStorage so they survive page refreshes
   const [iterationsUsed, setIterationsUsed] = useState(0);
@@ -336,7 +381,7 @@ export default function SiteViewer({ demo, canEdit, fromShare }: Props) {
 
                   {/* Suggestion chips */}
                   <div className="flex flex-wrap gap-1.5">
-                    {TWEAK_SUGGESTIONS.map((suggestion) => (
+                    {suggestions.map((suggestion) => (
                       <button
                         key={suggestion}
                         onClick={() => handleSuggestionClick(suggestion)}
