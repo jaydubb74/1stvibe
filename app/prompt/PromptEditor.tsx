@@ -141,8 +141,8 @@ export default function PromptEditor() {
         <textarea
           value={editorContent}
           onChange={(e) => setEditorContent(e.target.value)}
-          className="w-full rounded-lg border border-gray-200 bg-white p-4 font-mono text-sm leading-relaxed text-gray-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-300 resize-y"
-          style={{ minHeight: 600 }}
+          className="w-full rounded-lg border border-gray-200 bg-white p-3 font-mono text-gray-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-300 resize-y"
+          style={{ minHeight: 700, fontSize: 11, lineHeight: 1.5 }}
           spellCheck={false}
         />
 
