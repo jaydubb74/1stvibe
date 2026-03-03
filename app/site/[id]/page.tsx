@@ -6,6 +6,7 @@ import { demoPages } from "@/drizzle/schema";
 import { eq } from "drizzle-orm";
 import Link from "next/link";
 import SiteViewer from "./SiteViewer";
+import { extractDemoMeta } from "@/lib/extract-meta";
 import type { Metadata } from "next";
 
 const SESSION_COOKIE = "demo_session";
@@ -30,9 +31,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const demo = await getDemo(id);
   if (!demo) return {};
 
-  const title = "I made this in ~15 seconds with 1stvibe.ai — check it out!";
-  const description = "Someone described a website and AI built it in seconds. See what they created — then try building your own for free.";
-  const ogImageUrl = `https://1stvibe.ai/api/og?prompt=${encodeURIComponent(demo.prompt)}`;
+  const meta = extractDemoMeta(demo.html, demo.prompt);
+  const title = `${meta.title} — built with 1stvibe.ai`;
+  const description = meta.description;
+  const ogImageUrl = `https://1stvibe.ai/api/og?id=${encodeURIComponent(id)}`;
   const pageUrl = `https://1stvibe.ai/site/${id}`;
 
   return {
@@ -108,6 +110,8 @@ export default async function SitePage({ params, searchParams }: Props) {
   // "from=share" means a friend clicked a shared link
   const fromShare = from === "share";
 
+  const siteMeta = extractDemoMeta(demo.html, demo.prompt);
+
   return (
     <SiteViewer
       demo={{
@@ -115,6 +119,7 @@ export default async function SitePage({ params, searchParams }: Props) {
         html: demo.html,
         prompt: demo.prompt,
         iterationCount: demo.iterationCount ?? 0,
+        siteTitle: siteMeta.title,
       }}
       canEdit={canEdit}
       fromShare={fromShare}

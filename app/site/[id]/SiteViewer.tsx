@@ -20,6 +20,7 @@ interface Demo {
   html: string;
   prompt: string;
   iterationCount: number;
+  siteTitle: string;
 }
 
 interface Props {
@@ -117,8 +118,8 @@ export default function SiteViewer({ demo, canEdit, fromShare }: Props) {
     if (navigator.share) {
       navigator
         .share({
-          title: "1stvibe.ai",
-          text: "I made this in ~15 seconds with 1stvibe.ai - check it out!",
+          title: demo.siteTitle,
+          text: `Check out "${demo.siteTitle}" — I built it in ~15 seconds with 1stvibe.ai!`,
           url: shareUrl,
         })
         .then(() => setShareState("shared"))
