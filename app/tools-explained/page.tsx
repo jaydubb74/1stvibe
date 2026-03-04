@@ -118,6 +118,14 @@ export default function ToolsExplainedPage() {
                     rating: "⭐⭐⭐⭐⭐",
                   },
                   {
+                    tool: "Google AI Studio",
+                    free: "✅",
+                    pricing: "$0 (no Pro tier; API billed separately)",
+                    interface: "Web console for Gemini API",
+                    best: "Prompt/schema & app flow design",
+                    rating: "⭐⭐⭐⭐",
+                  },
+                  {
                     tool: "GitHub Copilot",
                     free: "✅ (limited)",
                     pricing: "Individual $10/mo; Business $19/user/mo",
@@ -264,6 +272,7 @@ export default function ToolsExplainedPage() {
                 {[
                   ["v0 (Vercel)", "✅ ($5 credits/mo)", "Premium $20/mo; Team $30/user/mo", "Frontend/React components", "⭐⭐⭐⭐⭐"],
                   ["Bolt.new", "✅ (1M tokens/mo)", "Starter ~$20/mo; Pro $50–100/mo", "Full-stack rapid prototyping", "⭐⭐⭐⭐"],
+                  ["Google AI Studio", "✅", "$0; API pay-as-you-go via Gemini pricing", "AI flows, prompt/schema design, starter apps", "⭐⭐⭐⭐"],
                   ["Lovable", "✅ (5 credits/day)", "Pro $25/mo; Business $50/mo", "Non-technical founders, MVPs", "⭐⭐⭐⭐"],
                   ["Replit", "✅ Limited", "Core $25/mo; Teams $40/user/mo", "End-to-end browser dev", "⭐⭐⭐⭐"],
                 ].map(([tool, free, pricing, best, rating]) => (
@@ -303,11 +312,6 @@ export default function ToolsExplainedPage() {
             <span className="bg-indigo-600 text-white text-xs font-bold px-3 py-1 rounded-full">03</span>
             <h2 className="text-3xl font-bold text-gray-900">AI Writing Tools</h2>
           </div>
-          <p className="text-gray-600 leading-relaxed mb-8">
-            Market estimated at $2.74B in 2026, projected to reach $18.27B by 2035 at a 23.4% CAGR.
-            ChatGPT dominates with 78% usage among content marketers, followed by Gemini at 34% and Jasper at 18%.
-          </p>
-
           <h3 className="text-xl font-bold text-gray-900 mb-4">General-Purpose AI Assistants</h3>
           <div className="overflow-x-auto rounded-xl border border-gray-200 mb-8">
             <table className="w-full text-sm">
