@@ -312,6 +312,12 @@ export default function ToolsExplainedPage() {
             <span className="bg-indigo-600 text-white text-xs font-bold px-3 py-1 rounded-full">03</span>
             <h2 className="text-3xl font-bold text-gray-900">AI Writing Tools</h2>
           </div>
+          <p className="text-gray-600 leading-relaxed mb-8">
+            AI writing tools use artificial intelligence to generate, refine, or enhance written
+            content by understanding context, tone, and intent. Their value lies in boosting
+            productivity and creativity — helping users write faster, communicate more clearly,
+            and produce higher-quality work with less effort.
+          </p>
           <h3 className="text-xl font-bold text-gray-900 mb-4">General-Purpose AI Assistants</h3>
           <div className="overflow-x-auto rounded-xl border border-gray-200 mb-8">
             <table className="w-full text-sm">
