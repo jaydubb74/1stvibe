@@ -11,9 +11,7 @@ export async function register() {
       globalThis.localStorage.getItem("__test__");
     } catch {
       // The stub exists but doesn't work — remove it so SSR behaves correctly
-      // @ts-expect-error deleting a read-only global is intentional here
       delete (globalThis as Record<string, unknown>).localStorage;
-      // @ts-expect-error same for sessionStorage
       delete (globalThis as Record<string, unknown>).sessionStorage;
     }
   }
