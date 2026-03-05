@@ -29,7 +29,7 @@ export default function TutorialLayout({ currentStepId, children }: Props) {
   }
 
   return (
-    <div className="flex h-[calc(100vh-64px)] overflow-hidden">
+    <div className="flex h-[calc(100vh-154px)] overflow-hidden">
       {/* ── Sidebar overlay (mobile) ─────────────────────── */}
       {sidebarOpen && (
         <div
@@ -41,7 +41,7 @@ export default function TutorialLayout({ currentStepId, children }: Props) {
       {/* ── Sidebar ──────────────────────────────────────── */}
       <aside
         className={`
-          fixed lg:static top-16 left-0 z-50 h-[calc(100vh-64px)]
+          fixed lg:static top-[154px] left-0 z-50 h-[calc(100vh-154px)]
           w-72 bg-white border-r border-gray-100 flex-shrink-0
           transform transition-transform duration-200
           ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}
