@@ -18,6 +18,9 @@ export default function Footer() {
             <Link href="/tutorial/welcome" className="hover:text-gray-800 transition-colors">
               Tutorial
             </Link>
+            <Link href="/faq" className="hover:text-gray-800 transition-colors">
+              FAQ
+            </Link>
             <a
               href="https://ko-fi.com/1stvibe"
               target="_blank"
