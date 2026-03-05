@@ -436,17 +436,17 @@ export default function FAQPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero */}
-      <section className="bg-gradient-to-br from-indigo-50 to-white border-b border-gray-100 py-16 px-4">
-        <div className="max-w-3xl mx-auto text-center">
-          <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
-            Frequently Asked Questions
+      <section className="bg-gradient-to-br from-indigo-50 to-white pt-28 pb-16 px-4">
+        <div className="max-w-3xl mx-auto">
+          <h1 className="text-4xl sm:text-5xl font-bold leading-tight mb-4">
+            <span className="text-indigo-600">Frequently Asked Questions</span>
           </h1>
           <p className="text-lg text-gray-600 mb-8">
             Everything you need to know about vibe coding and Claude Code.
           </p>
 
           {/* Search */}
-          <div className="relative max-w-xl mx-auto">
+          <div className="relative max-w-xl">
             <Search
               size={18}
               className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"

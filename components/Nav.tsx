@@ -19,7 +19,7 @@ export default function Nav() {
             <img
               src="/logo-full.png"
               alt="1stvibe.ai"
-              style={{ height: '192px', width: 'auto', maxWidth: 'none' }}
+              style={{ height: '154px', width: 'auto', maxWidth: 'none' }}
               className="transition-transform duration-200 group-hover:scale-105"
             />
           </Link>
