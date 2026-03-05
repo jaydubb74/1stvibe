@@ -10,20 +10,18 @@ export default function Nav() {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur border-b border-gray-100">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between">
           <Link
             href="/"
-            className="flex items-center gap-0 group"
+            className="flex items-center group"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/mascot.png"
-              alt="1stvibe.ai mascot"
-              width={108}
-              height={108}
-              className="rounded-full object-cover transition-transform duration-200 group-hover:scale-110"
+              src="/logo-full.png"
+              alt="1stvibe.ai"
+              style={{ height: '192px', width: 'auto', maxWidth: 'none' }}
+              className="transition-transform duration-200 group-hover:scale-105"
             />
-            <span className="text-xl font-bold text-indigo-600 tracking-tight">1stvibe.ai</span>
           </Link>
 
           {/* Desktop nav */}
