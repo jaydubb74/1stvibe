@@ -442,7 +442,7 @@ export default function FAQPage() {
             Frequently Asked Questions
           </h1>
           <p className="text-lg text-gray-600 mb-8">
-            Everything you need to know about vibe coding and Claude Code.
+            Got questions? We have the short version. You&apos;re here to build, not to read documentation. We&apos;ve collected the most common curiosities from the 1stVibe community to help you clear the &ldquo;server talk&rdquo; and get back to the &ldquo;ah-ha&rdquo; moment. If you don&apos;t see what you need, just ask—the shift is here, and we&apos;re in it with you.
           </p>
 
           {/* Search */}
