@@ -107,45 +107,27 @@ export default function AboutPage() {
       {/* Founders */}
       <section className="mb-12">
         <h2 className="text-2xl font-bold text-gray-900 mb-6">Who we are</h2>
-        <div className="grid sm:grid-cols-2 gap-6">
-          {[
-            {
-              name: "Mike Tadlock",
-              role: "Co-founder",
-              initial: "M",
-              bio: "Product and digital health leader with patents in health tech and electronic communications. Based in San Francisco, Mike has spent his career building products at the intersection of technology and human wellbeing. When he's not at his day job, he's vibe coding passion projects with Claude Code and Gemini — which is exactly how 1stvibe.ai came to be.",
-              linkedin: "https://www.linkedin.com/in/miketadlock/",
-            },
-            {
-              name: "Josh Wetzel",
-              role: "Co-founder",
-              initial: "J",
-              bio: "Go-to-market leader and builder at Wetzel Ventures in Palo Alto. Josh has spent his career scaling businesses and revenue teams, and more recently leading the implementation of AI-driven tools for sales and customer engagement. He believes the best way to understand what's coming is to build with it yourself.",
-              linkedin: "https://www.linkedin.com/in/joshwetzel/",
-            },
-          ].map(({ name, role, initial, bio, linkedin }) => (
-            <div
-              key={name}
-              className="bg-gray-50 rounded-2xl p-6 border border-gray-100 flex flex-col"
-            >
-              <div className="w-12 h-12 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold text-lg mb-3">
-                {initial}
-              </div>
-              <p className="font-bold text-gray-900">{name}</p>
-              <p className="text-sm text-indigo-600 font-medium mb-3">{role}</p>
-              <p className="text-sm text-gray-600 leading-relaxed mb-4">{bio}</p>
-              <a
-                href={linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-auto inline-flex items-center gap-1.5 text-sm text-indigo-600 hover:text-indigo-800 font-medium transition-colors"
-              >
-                <Linkedin size={14} />
-                LinkedIn
-                <ExternalLink size={11} />
-              </a>
+        <div className="max-w-sm">
+          <div className="bg-gray-50 rounded-2xl p-6 border border-gray-100 flex flex-col">
+            <div className="w-12 h-12 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold text-lg mb-3">
+              J
             </div>
-          ))}
+            <p className="font-bold text-gray-900">Josh Wetzel</p>
+            <p className="text-sm text-indigo-600 font-medium mb-3">Co-founder</p>
+            <p className="text-sm text-gray-600 leading-relaxed mb-4">
+              Go-to-market leader and builder at Wetzel Ventures in Palo Alto. Josh has spent his career scaling businesses and revenue teams, and more recently leading the implementation of AI-driven tools for sales and customer engagement. He believes the best way to understand what&apos;s coming is to build with it yourself.
+            </p>
+            <a
+              href="https://www.linkedin.com/in/joshwetzel/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-auto inline-flex items-center gap-1.5 text-sm text-indigo-600 hover:text-indigo-800 font-medium transition-colors"
+            >
+              <Linkedin size={14} />
+              LinkedIn
+              <ExternalLink size={11} />
+            </a>
+          </div>
         </div>
       </section>
 
