@@ -219,7 +219,7 @@ export default function DemoForm() {
   return (
     <form onSubmit={handleSubmit} className="w-full max-w-2xl mx-auto">
       {/* Label */}
-      <label htmlFor="demo-prompt" className="block text-sm font-medium text-gray-700 mb-2">
+      <label htmlFor="demo-prompt" className="block text-base font-medium text-gray-700 mb-2">
         Describe the website you want — AI builds it in seconds.
       </label>
 
@@ -245,19 +245,12 @@ export default function DemoForm() {
             }}
           />
 
-          {/* "Example" badge */}
-          {isDraftPrompt && (
-            <span className="absolute top-2 right-2 text-xs text-indigo-500 font-medium select-none pointer-events-none">
-              Example
-            </span>
-          )}
-
           {/* Shuffle button */}
           <button
             type="button"
             onClick={handleShuffle}
             title="Try a different example"
-            className="absolute bottom-2 right-2 text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 active:scale-90 rounded-lg p-1.5 transition-all"
+            className="absolute bottom-2 right-2 text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 active:scale-90 rounded-lg p-2 transition-all"
           >
             <Shuffle size={16} />
           </button>
@@ -283,7 +276,7 @@ export default function DemoForm() {
         >
           {hasStartedTyping
             ? COACHING_HINTS[hintIndex]
-            : "Add details for a better result — or just hit Build It."}
+            : "Works great as-is — or describe your own idea."}
         </p>
         {hasStartedTyping && (
           <button
