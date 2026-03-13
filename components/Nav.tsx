@@ -18,7 +18,7 @@ export default function Nav() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/logo-full.png"
-              alt="1stvibe.ai"
+              alt="1stVibe.ai"
               style={{ height: '154px', width: 'auto', maxWidth: 'none' }}
               className="transition-transform duration-200 group-hover:scale-105"
             />

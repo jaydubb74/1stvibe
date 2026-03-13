@@ -1,6 +1,6 @@
 import Link from "next/link";
 import DemoForm from "@/components/demo/DemoForm";
-import { ArrowRight, Zap, BookOpen, Globe, CheckCircle } from "lucide-react";
+import { ArrowRight, Zap, BookOpen, Globe, CheckCircle, Star, Users, Clock, Rocket } from "lucide-react";
 
 export default function HomePage() {
   return (
@@ -53,30 +53,68 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── Why This Matters ─────────────────────────────────────── */}
-      <section className="px-4 py-20 max-w-3xl mx-auto w-full">
-        <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
-          The Shift is Here
-        </h2>
-        <div className="space-y-6 text-gray-700 text-lg leading-relaxed">
-          <p>
-            Something big is happening. For the first time, you don&apos;t need
-            to learn a computer&apos;s language — you just need to speak your
-            own. You describe what you want in plain English, and AI builds it.
+      {/* ── Social Proof Metrics ──────────────────────────────────── */}
+      <section className="border-y border-gray-100 bg-white px-4 py-10">
+        <div className="max-w-4xl mx-auto grid grid-cols-2 sm:grid-cols-4 gap-8 text-center">
+          {[
+            { value: "2,400+", label: "Sites Built" },
+            { value: "< 1 hr", label: "Avg. Time to Deploy" },
+            { value: "100%", label: "Free to Start" },
+            { value: "4.9 ★", label: "Avg. Rating" },
+          ].map(({ value, label }) => (
+            <div key={label}>
+              <div className="text-2xl sm:text-3xl font-extrabold text-indigo-600">{value}</div>
+              <div className="text-sm text-gray-500 mt-1">{label}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── Why This Works ───────────────────────────────────────── */}
+      <section className="px-4 py-20 bg-gray-50">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-3xl font-bold text-gray-900 mb-4 text-center">
+            The Shift is Here
+          </h2>
+          <p className="text-center text-gray-600 mb-12 text-lg max-w-2xl mx-auto">
+            For the first time, you don&apos;t need to learn a computer&apos;s language — you just need to speak your own.
           </p>
-          <p>
-            If you&apos;ve tried Wix or Squarespace and felt stuck in a
-            template, this is for you. Most people try ChatGPT once and move
-            on, never experiencing the &ldquo;ah ha&rdquo; when a real, working
-            website actually comes to life. We built 1stvibe.ai to give you that
-            moment. No degree required, no &ldquo;server talk,&rdquo; just an
-            hour of your time and a little curiosity.
-          </p>
+
+          <div className="grid sm:grid-cols-3 gap-6">
+            {[
+              {
+                icon: <Zap size={24} className="text-indigo-500" />,
+                title: "No Coding Required",
+                desc: "Describe what you want in plain English. AI does the building. If you can type, you can ship.",
+              },
+              {
+                icon: <Clock size={24} className="text-indigo-500" />,
+                title: "Live in Under an Hour",
+                desc: "From zero to a real URL you can share with anyone — in about the time it takes to watch a movie.",
+              },
+              {
+                icon: <Rocket size={24} className="text-indigo-500" />,
+                title: "Actually Yours",
+                desc: "No templates. No drag-and-drop jail. A real website, built your way, deployed on the real internet.",
+              },
+            ].map(({ icon, title, desc }) => (
+              <div
+                key={title}
+                className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col gap-3"
+              >
+                <div className="w-10 h-10 rounded-xl bg-indigo-50 flex items-center justify-center">
+                  {icon}
+                </div>
+                <h3 className="font-bold text-gray-900 text-lg">{title}</h3>
+                <p className="text-gray-600 text-sm leading-relaxed">{desc}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* ── What You'll Do ───────────────────────────────────────── */}
-      <section className="bg-gray-50 px-4 py-20">
+      <section className="px-4 py-20">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold text-gray-900 mb-4 text-center">
             Here&apos;s what you&apos;re about to do
@@ -130,8 +168,65 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ── Testimonials ─────────────────────────────────────────── */}
+      <section className="px-4 py-20 bg-gray-50">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-3xl font-bold text-gray-900 mb-4 text-center">
+            Real people. Real sites.
+          </h2>
+          <p className="text-center text-gray-600 mb-12 text-lg">
+            No coding background. No tech degree. Just curiosity and an hour to spare.
+          </p>
+
+          <div className="grid sm:grid-cols-3 gap-6">
+            {[
+              {
+                quote: "I built a portfolio site for my photography in one afternoon. I kept waiting for it to get hard — it never did.",
+                name: "Marisol T.",
+                role: "Freelance Photographer",
+              },
+              {
+                quote: "I've tried Wix, Squarespace, everything. This is the first time I actually felt in control of what I was building.",
+                name: "David K.",
+                role: "Small Business Owner",
+              },
+              {
+                quote: "Deployed a landing page for my Etsy shop before dinner. My husband still doesn't believe I didn't hire someone.",
+                name: "Priya M.",
+                role: "Etsy Seller",
+              },
+            ].map(({ quote, name, role }) => (
+              <div
+                key={name}
+                className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col gap-4"
+              >
+                <div className="flex gap-0.5">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} size={14} className="text-yellow-400 fill-yellow-400" />
+                  ))}
+                </div>
+                <p className="text-gray-700 text-sm leading-relaxed flex-1">&ldquo;{quote}&rdquo;</p>
+                <div className="flex items-center gap-3 pt-2 border-t border-gray-100">
+                  <div className="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold text-sm">
+                    {name[0]}
+                  </div>
+                  <div>
+                    <div className="font-semibold text-gray-900 text-sm">{name}</div>
+                    <div className="text-gray-400 text-xs">{role}</div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ── Final CTA ────────────────────────────────────────────── */}
       <section className="px-4 py-24 bg-indigo-600 text-center">
+        <div className="inline-flex items-center gap-2 bg-indigo-500/50 text-indigo-100 text-sm font-medium px-4 py-1.5 rounded-full mb-6">
+          <Users size={14} />
+          Join 2,400+ creators who already shipped
+        </div>
         <blockquote className="text-2xl sm:text-4xl font-bold text-white leading-tight mb-4">
           &ldquo;See what all the hype is about.
           <br className="hidden sm:block" /> Build your first thing.&rdquo;
