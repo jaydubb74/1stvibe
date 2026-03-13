@@ -181,19 +181,19 @@ export default function HomePage() {
           <div className="grid sm:grid-cols-3 gap-6">
             {[
               {
-                quote: "I built a portfolio site for my photography in one afternoon. I kept waiting for it to get hard — it never did.",
+                quote: "I built a landing page for an executive dinner series we're running. Instead of being a cross functional project that would take a week or two, I was able to figure out how to build this with integration into our HubSpot instance in one afternoon. I kept waiting for it to get hard — it never did.",
                 name: "Marisol T.",
-                role: "Freelance Photographer",
+                role: "Marketing Manager",
               },
               {
-                quote: "I've tried Wix, Squarespace, everything. This is the first time I actually felt in control of what I was building.",
+                quote: "I wanted to learn how to build dashboards and automate some of my general business analysis. It was incredibly easy and gratifying.",
                 name: "David K.",
-                role: "Small Business Owner",
+                role: "Director of FP&A",
               },
               {
-                quote: "Deployed a landing page for my Etsy shop before dinner. My husband still doesn't believe I didn't hire someone.",
+                quote: "The ability for me to build a web application with agents to pull in web signals for calls, automate my research and then provide contextualized follow up has upped my game significantly. I am more prepared and spend less time overall on every opportunity. Learning how to use these tools has changed my career.",
                 name: "Priya M.",
-                role: "Etsy Seller",
+                role: "Account Executive",
               },
             ].map(({ quote, name, role }) => (
               <div
