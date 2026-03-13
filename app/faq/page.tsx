@@ -436,7 +436,7 @@ export default function FAQPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero */}
-      <section className="bg-gradient-to-br from-indigo-50 to-white pt-28 pb-16 px-4">
+      <section className="bg-gradient-to-br from-indigo-50 to-white pt-10 pb-10 px-4">
         <div className="max-w-3xl mx-auto">
           <h1 className="text-4xl sm:text-5xl font-bold leading-tight mb-4">
             <span className="text-indigo-600">Frequently Asked Questions</span>

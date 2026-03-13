@@ -6,7 +6,7 @@ export default function HomePage() {
   return (
     <div className="flex flex-col">
       {/* ── Hero ─────────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-indigo-50 via-white to-white px-4 pt-20 pb-16 sm:pt-28 sm:pb-24">
+      <section className="relative overflow-hidden bg-gradient-to-b from-indigo-50 via-white to-white px-4 pt-10 pb-10 sm:pt-14 sm:pb-16">
         {/* background accent */}
         <div
           aria-hidden

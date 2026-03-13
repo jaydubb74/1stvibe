@@ -33,7 +33,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geist.variable} font-sans antialiased bg-white text-gray-900 flex flex-col min-h-screen`}>
         <Nav />
-        <main className="flex-1 pt-[154px]">{children}</main>
+        <main className="flex-1 pt-[72px]">{children}</main>
         <Footer />
 
         {/* OneSignal Push Notifications */}
