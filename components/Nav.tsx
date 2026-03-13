@@ -9,14 +9,14 @@ export default function Nav() {
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur border-b border-gray-100">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+      <div className="max-w-6xl mx-auto px-4">
         <div className="flex items-center justify-between py-3">
           <Link href="/" className="flex items-center">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/logo-full.png"
               alt="1stVibe.ai"
-              className="h-12 w-auto"
+              className="h-24 w-auto"
             />
           </Link>
 
