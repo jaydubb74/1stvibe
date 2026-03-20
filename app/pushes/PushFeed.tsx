@@ -63,12 +63,12 @@ export default function PushFeed({ entries }: { entries: PushEntry[] }) {
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-2xl mx-auto px-4 py-12 sm:py-16">
         {/* Git pull reminder */}
-        <div className="mb-8 rounded-xl border border-indigo-200 bg-indigo-50/70 p-4 flex items-start gap-3">
-          <GitBranch size={18} className="text-indigo-600 mt-0.5 shrink-0" />
-          <p className="text-sm text-indigo-900 leading-relaxed">
+        <div className="mb-8 rounded-xl border border-brand/20 bg-brand-50/70 p-4 flex items-start gap-3">
+          <GitBranch size={18} className="text-brand mt-0.5 shrink-0" />
+          <p className="text-sm text-charcoal leading-relaxed">
             <strong>Before building anything new,</strong> start each Claude Code session by
             pulling the latest code from GitHub (e.g.{" "}
-            <code className="rounded bg-indigo-100 px-1.5 py-0.5 text-xs font-mono">
+            <code className="rounded bg-brand-50 px-1.5 py-0.5 text-xs font-mono">
               git pull origin main
             </code>
             ) to avoid merge conflicts.
@@ -78,7 +78,7 @@ export default function PushFeed({ entries }: { entries: PushEntry[] }) {
         {/* Header */}
         <div className="mb-10">
           <div className="flex items-center gap-3 mb-2">
-            <div className="w-10 h-10 rounded-full bg-indigo-600 flex items-center justify-center">
+            <div className="w-10 h-10 rounded-full bg-brand flex items-center justify-center">
               <Rocket size={20} className="text-white" />
             </div>
             <h1 className="text-2xl font-bold text-gray-900">Push Log</h1>
@@ -87,7 +87,7 @@ export default function PushFeed({ entries }: { entries: PushEntry[] }) {
             What&apos;s been shipped — by Michael and Josh.
           </p>
           {mounted && newCount > 0 && (
-            <p className="text-sm font-medium text-indigo-600 mt-3 ml-[52px]">
+            <p className="text-sm font-medium text-brand mt-3 ml-[52px]">
               {newCount} new {newCount === 1 ? "push" : "pushes"} since your last visit
             </p>
           )}
@@ -110,13 +110,13 @@ export default function PushFeed({ entries }: { entries: PushEntry[] }) {
                   className={[
                     "relative rounded-xl border p-5 transition-all",
                     isNew
-                      ? "bg-indigo-50/70 border-indigo-200 shadow-sm shadow-indigo-100"
+                      ? "bg-brand-50/70 border-brand/20 shadow-sm shadow-brand-50"
                       : "bg-white border-gray-100",
                   ].join(" ")}
                 >
                   {/* "New" badge */}
                   {isNew && (
-                    <span className="absolute -top-2.5 right-4 bg-indigo-600 text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full">
+                    <span className="absolute -top-2.5 right-4 bg-brand text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full">
                       New
                     </span>
                   )}

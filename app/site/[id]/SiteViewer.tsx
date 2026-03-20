@@ -275,7 +275,7 @@ export default function SiteViewer({ demo, canEdit, fromShare }: Props) {
     <div className="fixed inset-0 z-50 bg-white flex flex-col overflow-hidden">
       {/* ── Friend-shared banner ──────────────────────────────── */}
       {fromShare && !friendBannerDismissed && (
-        <div className="bg-gradient-to-r from-violet-600 via-indigo-600 to-purple-600 text-white px-4 py-2.5 flex items-center justify-between gap-3 shrink-0">
+        <div className="bg-gradient-to-r from-brand to-amber text-white px-4 py-2.5 flex items-center justify-between gap-3 shrink-0">
           <p className="text-sm font-medium text-center flex-1 leading-snug flex items-center justify-center gap-2 flex-wrap">
             <span className="font-black text-base tracking-tight">
               1stvibe.ai
@@ -285,7 +285,7 @@ export default function SiteViewer({ demo, canEdit, fromShare }: Props) {
             </span>{" "}
             <Link
               href="/"
-              className="underline font-bold hover:text-indigo-100 transition-colors"
+              className="underline font-bold hover:text-white/80 transition-colors"
             >
               Try vibecoding your own site now
             </Link>
@@ -306,7 +306,7 @@ export default function SiteViewer({ demo, canEdit, fromShare }: Props) {
         <div className="flex items-center gap-2.5 min-w-0">
           <Link
             href="/"
-            className="text-indigo-600 font-black text-sm tracking-tight shrink-0 hover:text-indigo-700 transition-colors"
+            className="text-brand font-black text-sm tracking-tight shrink-0 hover:text-brand-dark transition-colors"
           >
             1stvibe.ai
           </Link>
@@ -330,7 +330,7 @@ export default function SiteViewer({ demo, canEdit, fromShare }: Props) {
           )}
           <button
             onClick={handleShare}
-            className="flex items-center gap-1.5 text-xs font-semibold text-gray-600 hover:text-indigo-600 border border-gray-200 hover:border-indigo-300 rounded-lg px-3 py-1.5 transition-all hover:bg-indigo-50"
+            className="flex items-center gap-1.5 text-xs font-semibold text-gray-600 hover:text-brand border border-gray-200 hover:border-brand/40 rounded-lg px-3 py-1.5 transition-all hover:bg-brand-50"
           >
             <Share2 size={13} />
             Share
@@ -372,7 +372,7 @@ export default function SiteViewer({ demo, canEdit, fromShare }: Props) {
 
                   {/* Header */}
                   <p className="text-sm font-bold text-gray-900 flex items-center gap-1.5 pr-6">
-                    <Sparkles size={14} className="text-indigo-500" />
+                    <Sparkles size={14} className="text-brand" />
                     Want to change something?
                   </p>
                   <p className="text-xs text-gray-400 mt-0.5 mb-3">
@@ -385,7 +385,7 @@ export default function SiteViewer({ demo, canEdit, fromShare }: Props) {
                       <button
                         key={suggestion}
                         onClick={() => handleSuggestionClick(suggestion)}
-                        className="text-xs font-medium text-indigo-600 bg-indigo-50 hover:bg-indigo-100 border border-indigo-100 rounded-full px-3 py-1.5 transition-colors"
+                        className="text-xs font-medium text-brand bg-brand-50 hover:bg-brand/10 border border-brand-50 rounded-full px-3 py-1.5 transition-colors"
                       >
                         {suggestion}
                       </button>
@@ -406,7 +406,7 @@ export default function SiteViewer({ demo, canEdit, fromShare }: Props) {
                 role="status"
                 aria-live="polite"
                 onClick={() => setWidgetPhase("open")}
-                className="pointer-events-auto flex items-center gap-1.5 bg-white text-indigo-600 text-xs font-semibold px-3.5 py-2 rounded-full shadow-lg border border-indigo-100 hover:bg-indigo-50 transition-colors animate-teaser-in"
+                className="pointer-events-auto flex items-center gap-1.5 bg-white text-brand text-xs font-semibold px-3.5 py-2 rounded-full shadow-lg border border-brand-50 hover:bg-brand-50 transition-colors animate-teaser-in"
               >
                 <Sparkles size={12} />
                 Try tweaking something
@@ -422,10 +422,10 @@ export default function SiteViewer({ demo, canEdit, fromShare }: Props) {
                 {!isExhausted ? (
                   <>
                     {/* Popover header */}
-                    <div className="px-4 py-3 border-b border-gray-100 flex items-center justify-between bg-gradient-to-r from-indigo-50 to-white">
+                    <div className="px-4 py-3 border-b border-gray-100 flex items-center justify-between bg-gradient-to-r from-brand-50 to-white">
                       <div>
                         <p className="text-sm font-bold text-gray-900 flex items-center gap-1.5">
-                          <Sparkles size={14} className="text-indigo-500" />
+                          <Sparkles size={14} className="text-brand" />
                           Tweak your site
                         </p>
                         <p className="text-xs text-gray-400 mt-0.5">
@@ -451,14 +451,14 @@ export default function SiteViewer({ demo, canEdit, fromShare }: Props) {
                           value={tweakPrompt}
                           onChange={(e) => setTweakPrompt(e.target.value)}
                           placeholder='e.g. "Make the buttons purple"'
-                          className="flex-1 px-3 py-2 text-sm border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-300 focus:border-indigo-400 placeholder-gray-300 transition-all"
+                          className="flex-1 px-3 py-2 text-sm border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand/40 focus:border-brand placeholder-gray-300 transition-all"
                           disabled={loading}
                           maxLength={400}
                         />
                         <button
                           type="submit"
                           disabled={!tweakPrompt.trim() || loading}
-                          className="bg-indigo-600 text-white px-3 py-2 rounded-xl hover:bg-indigo-700 disabled:opacity-40 disabled:cursor-not-allowed transition-all flex items-center justify-center"
+                          className="bg-brand text-white px-3 py-2 rounded-xl hover:bg-brand-dark disabled:opacity-40 disabled:cursor-not-allowed transition-all flex items-center justify-center"
                           aria-label="Apply tweak"
                         >
                           {loading ? (
@@ -474,7 +474,7 @@ export default function SiteViewer({ demo, canEdit, fromShare }: Props) {
                         </p>
                       )}
                       {loading && (
-                        <p className="mt-2 text-xs text-indigo-500 flex items-center gap-1.5">
+                        <p className="mt-2 text-xs text-brand flex items-center gap-1.5">
                           <Loader2 size={11} className="animate-spin" />
                           Updating your site&hellip;
                         </p>
@@ -494,7 +494,7 @@ export default function SiteViewer({ demo, canEdit, fromShare }: Props) {
                     </p>
                     <Link
                       href="/tutorial/welcome"
-                      className="flex items-center justify-center gap-2 bg-indigo-600 text-white text-sm font-bold px-4 py-2.5 rounded-xl hover:bg-indigo-700 transition-colors"
+                      className="flex items-center justify-center gap-2 bg-brand text-white text-sm font-bold px-4 py-2.5 rounded-xl hover:bg-brand-dark transition-colors"
                     >
                       <BookOpen size={15} />
                       Start the Tutorial
@@ -519,8 +519,8 @@ export default function SiteViewer({ demo, canEdit, fromShare }: Props) {
                 className={cn(
                   "pointer-events-auto relative shadow-xl flex items-center justify-center transition-all duration-200",
                   isOpen
-                    ? "w-14 h-14 rounded-full bg-indigo-700 scale-95 shadow-indigo-300/50"
-                    : "h-14 rounded-full bg-indigo-600 hover:bg-indigo-700 hover:scale-105 shadow-indigo-300/60 px-5 gap-2"
+                    ? "w-14 h-14 rounded-full bg-brand-dark scale-95"
+                    : "h-14 rounded-full bg-brand hover:bg-brand-dark hover:scale-105 shadow-brand/30 px-5 gap-2"
                 )}
                 aria-label={
                   isOpen
@@ -531,8 +531,8 @@ export default function SiteViewer({ demo, canEdit, fromShare }: Props) {
                 {/* Animated sparkle glow ring (only when closed) */}
                 {!isOpen && (
                   <>
-                    <span className="absolute inset-0 rounded-full bg-indigo-400 animate-ping opacity-25" />
-                    <span className="absolute inset-[-4px] rounded-full bg-gradient-to-tr from-violet-400 to-indigo-400 opacity-30 animate-spin-slow" />
+                    <span className="absolute inset-0 rounded-full bg-brand/60 animate-ping opacity-25" />
+                    <span className="absolute inset-[-4px] rounded-full bg-gradient-to-tr from-brand/60 to-amber/60 opacity-30 animate-spin-slow" />
                   </>
                 )}
                 <Sparkles
@@ -552,11 +552,11 @@ export default function SiteViewer({ demo, canEdit, fromShare }: Props) {
               /* Tutorial funnel button (after iterations exhausted) */
               <Link
                 href="/tutorial/welcome"
-                className="pointer-events-auto relative w-14 h-14 rounded-full bg-gradient-to-br from-indigo-600 to-purple-600 shadow-xl flex items-center justify-center hover:scale-110 transition-transform duration-200"
+                className="pointer-events-auto relative w-14 h-14 rounded-full bg-gradient-to-br from-brand to-amber shadow-xl flex items-center justify-center hover:scale-110 transition-transform duration-200"
                 aria-label="Start the Tutorial"
                 title="Ready to build for real? Start the Tutorial"
               >
-                <span className="absolute inset-0 rounded-full bg-purple-400 animate-ping opacity-20" />
+                <span className="absolute inset-0 rounded-full bg-amber/40 animate-ping opacity-20" />
                 <BookOpen size={22} className="text-white relative z-10" />
               </Link>
             )}
@@ -568,7 +568,7 @@ export default function SiteViewer({ demo, canEdit, fromShare }: Props) {
           <div className="absolute bottom-6 right-5">
             <Link
               href="/"
-              className="flex items-center gap-2 bg-indigo-600 text-white text-sm font-bold px-4 py-3 rounded-full shadow-xl hover:bg-indigo-700 hover:scale-105 transition-all"
+              className="flex items-center gap-2 bg-brand text-white text-sm font-bold px-4 py-3 rounded-full shadow-xl hover:bg-brand-dark hover:scale-105 transition-all"
             >
               <Sparkles size={16} />
               Build yours free

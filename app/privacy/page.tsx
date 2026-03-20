@@ -10,7 +10,7 @@ export default function PrivacyPage() {
   return (
     <div className="max-w-3xl mx-auto px-4 py-16 sm:py-24">
       <div className="mb-10">
-        <Link href="/about" className="text-sm text-indigo-600 hover:text-indigo-800 transition-colors">
+        <Link href="/about" className="text-sm text-brand hover:text-brand-dark transition-colors">
           ← Back to About
         </Link>
       </div>
@@ -385,13 +385,13 @@ export default function PrivacyPage() {
             <p className="font-semibold text-gray-900">1stvibe.ai</p>
             <p>
               Email:{" "}
-              <a href="mailto:legal@1stvibe.ai" className="text-indigo-600 hover:text-indigo-800">
+              <a href="mailto:legal@1stvibe.ai" className="text-brand hover:text-brand-dark">
                 legal@1stvibe.ai
               </a>
             </p>
             <p>
               Website:{" "}
-              <a href="https://1stvibe.ai" className="text-indigo-600 hover:text-indigo-800">
+              <a href="https://1stvibe.ai" className="text-brand hover:text-brand-dark">
                 https://1stvibe.ai
               </a>
             </p>

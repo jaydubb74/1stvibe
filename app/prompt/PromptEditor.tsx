@@ -130,7 +130,7 @@ export default function PromptEditor() {
           <button
             onClick={handleSave}
             disabled={saving || !isDirty}
-            className="inline-flex items-center gap-2 rounded-lg bg-indigo-600 px-4 py-1.5 text-sm font-medium text-white transition-colors hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="inline-flex items-center gap-2 rounded-lg bg-brand px-4 py-1.5 text-sm font-medium text-white transition-colors hover:bg-brand-dark disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <Save size={14} />
             {saving ? "Saving..." : "Save"}
@@ -141,7 +141,7 @@ export default function PromptEditor() {
         <textarea
           value={editorContent}
           onChange={(e) => setEditorContent(e.target.value)}
-          className="w-full rounded-lg border border-gray-200 bg-white p-3 font-mono text-gray-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-300 resize-y"
+          className="w-full rounded-lg border border-gray-200 bg-white p-3 font-mono text-gray-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-brand/40 focus:border-brand/40 resize-y"
           style={{ minHeight: 700, fontSize: 11, lineHeight: 1.5 }}
           spellCheck={false}
         />
@@ -175,7 +175,7 @@ export default function PromptEditor() {
                 className={[
                   "text-left rounded-lg border p-3 transition-all",
                   isSelected
-                    ? "border-indigo-300 bg-indigo-50 ring-1 ring-indigo-200"
+                    ? "border-brand/40 bg-brand-50 ring-1 ring-brand/20"
                     : "border-gray-100 bg-white hover:border-gray-300 hover:shadow-sm",
                 ].join(" ")}
               >

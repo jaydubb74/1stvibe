@@ -12,10 +12,10 @@ export default function AboutPage() {
   return (
     <div>
       {/* Hero */}
-      <section className="bg-gradient-to-br from-indigo-50 to-white pt-10 pb-10 px-4">
+      <section className="bg-gradient-to-br from-brand-50 to-white pt-10 pb-10 px-4">
         <div className="max-w-2xl mx-auto">
           <h1 className="text-4xl sm:text-5xl font-bold leading-tight mb-4">
-            <span className="text-indigo-600">About 1stvibe.ai</span>
+            <span className="text-brand">About 1stvibe.ai</span>
           </h1>
           <p className="text-lg text-gray-500 leading-relaxed">
             No fluff. Just the fastest path to your first build.
@@ -70,18 +70,18 @@ export default function AboutPage() {
           of technology and healthcare.
         </p>
 
-        <div className="bg-indigo-50 border border-indigo-100 rounded-xl p-5 flex flex-col sm:flex-row gap-4 items-start">
+        <div className="bg-brand-50 border border-brand-50 rounded-xl p-5 flex flex-col sm:flex-row gap-4 items-start">
           <span className="text-2xl">🕸️</span>
           <div>
-            <p className="text-sm font-semibold text-indigo-700 mb-1">WebMonkey, circa 1999</p>
-            <p className="text-sm text-indigo-800/80">
+            <p className="text-sm font-semibold text-brand mb-1">WebMonkey, circa 1999</p>
+            <p className="text-sm text-brand-dark/80">
               The original &ldquo;learn to build stuff on the internet&rdquo; guide for the
               non-programmer generation.{" "}
               <a
                 href="https://web.archive.org/web/19991012062637*/webmonkey.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="underline underline-offset-2 hover:text-indigo-600 inline-flex items-center gap-1"
+                className="underline underline-offset-2 hover:text-brand inline-flex items-center gap-1"
               >
                 See it on the Wayback Machine <ExternalLink size={12} />
               </a>
@@ -109,11 +109,11 @@ export default function AboutPage() {
         <h2 className="text-2xl font-bold text-gray-900 mb-6">Who we are</h2>
         <div className="max-w-sm">
           <div className="bg-gray-50 rounded-2xl p-6 border border-gray-100 flex flex-col">
-            <div className="w-12 h-12 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold text-lg mb-3">
+            <div className="w-12 h-12 rounded-full bg-brand-50 flex items-center justify-center text-brand font-bold text-lg mb-3">
               J
             </div>
             <p className="font-bold text-gray-900">Josh Wetzel</p>
-            <p className="text-sm text-indigo-600 font-medium mb-3">Co-founder</p>
+            <p className="text-sm text-brand font-medium mb-3">Co-founder</p>
             <p className="text-sm text-gray-600 leading-relaxed mb-4">
               Go-to-market leader and builder at Wetzel Ventures in Palo Alto. Josh has spent his career scaling businesses and revenue teams, and more recently leading the implementation of AI-driven tools for sales and customer engagement. He believes the best way to understand what&apos;s coming is to build with it yourself.
             </p>
@@ -121,7 +121,7 @@ export default function AboutPage() {
               href="https://www.linkedin.com/in/joshwetzel/"
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-auto inline-flex items-center gap-1.5 text-sm text-indigo-600 hover:text-indigo-800 font-medium transition-colors"
+              className="mt-auto inline-flex items-center gap-1.5 text-sm text-brand hover:text-brand-dark font-medium transition-colors"
             >
               <Linkedin size={14} />
               LinkedIn
@@ -136,7 +136,7 @@ export default function AboutPage() {
         <h2 className="text-2xl font-bold text-gray-900 mb-3">Privacy</h2>
         <p className="text-gray-700 text-lg leading-relaxed">
           You can read our Privacy Notice{" "}
-          <Link href="/privacy" className="text-indigo-600 hover:text-indigo-800 underline underline-offset-2 transition-colors">
+          <Link href="/privacy" className="text-brand hover:text-brand-dark underline underline-offset-2 transition-colors">
             here
           </Link>
           .
@@ -148,7 +148,7 @@ export default function AboutPage() {
         <h2 className="text-2xl font-bold text-gray-900 mb-3">Terms of Service</h2>
         <p className="text-gray-700 text-lg leading-relaxed">
           You can read our Terms of Service{" "}
-          <Link href="/terms" className="text-indigo-600 hover:text-indigo-800 underline underline-offset-2 transition-colors">
+          <Link href="/terms" className="text-brand hover:text-brand-dark underline underline-offset-2 transition-colors">
             here
           </Link>
           .
@@ -156,15 +156,15 @@ export default function AboutPage() {
       </section>
 
       {/* CTA */}
-      <div className="bg-indigo-600 rounded-2xl p-8 text-white text-center">
+      <div className="bg-brand rounded-2xl p-8 text-white text-center">
         <p className="text-xl font-bold mb-2">Ready to build your first thing?</p>
-        <p className="text-indigo-200 mb-6">
+        <p className="text-white/80 mb-6">
           Takes about an hour. No experience required.
         </p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <Link
             href="/tutorial/welcome"
-            className="bg-white text-indigo-600 font-semibold px-6 py-3 rounded-xl hover:bg-indigo-50 transition-colors"
+            className="bg-white text-brand font-semibold px-6 py-3 rounded-xl hover:bg-brand-50 transition-colors"
           >
             Start the tutorial →
           </Link>

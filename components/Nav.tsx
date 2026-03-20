@@ -22,30 +22,30 @@ export default function Nav() {
 
           {/* Desktop nav */}
           <div className="hidden sm:flex items-center gap-6 text-sm font-medium text-gray-600">
-            <Link href="/#demo" className="hover:text-indigo-600 transition-colors">
+            <Link href="/#demo" className="hover:text-brand transition-colors">
               Try the Demo
             </Link>
-            <Link href="/tutorial/welcome" className="hover:text-indigo-600 transition-colors">
+            <Link href="/tutorial/welcome" className="hover:text-brand transition-colors">
               Tutorial
             </Link>
-            <Link href="/tools-explained" className="hover:text-indigo-600 transition-colors">
+            <Link href="/tools-explained" className="hover:text-brand transition-colors">
               AI Tools Explained
             </Link>
-            <Link href="/faq" className="hover:text-indigo-600 transition-colors">
+            <Link href="/faq" className="hover:text-brand transition-colors">
               FAQ
             </Link>
-            <Link href="/about" className="hover:text-indigo-600 transition-colors">
+            <Link href="/about" className="hover:text-brand transition-colors">
               About
             </Link>
-            <Link href="/pushes" className="hover:text-indigo-600 transition-colors">
+            <Link href="/pushes" className="hover:text-brand transition-colors">
               Pushes
             </Link>
-            <Link href="/prompt" className="hover:text-indigo-600 transition-colors">
+            <Link href="/prompt" className="hover:text-brand transition-colors">
               Prompt
             </Link>
             <Link
               href="/tutorial/welcome"
-              className="ml-2 bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors"
+              className="ml-2 bg-brand text-white px-4 py-2 rounded-lg hover:bg-brand-dark transition-colors"
             >
               Start Building →
             </Link>
@@ -89,7 +89,7 @@ export default function Nav() {
           <Link
             href="/tutorial/welcome"
             onClick={() => setOpen(false)}
-            className="bg-indigo-600 text-white text-center px-4 py-2 rounded-lg"
+            className="bg-brand text-white text-center px-4 py-2 rounded-lg"
           >
             Start Building →
           </Link>

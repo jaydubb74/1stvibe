@@ -36,8 +36,8 @@ docs/                 # Full documentation (see docs/INDEX.md)
 ## Key Conventions
 
 - **Tailwind v4** — config is in CSS (`globals.css`), not a JS config file
-- **Primary color:** `indigo-600` — see `docs/guides/style-guide.md` for full palette
-- **Font:** Geist (via `next/font/google`)
+- **Primary color:** `bg-brand` (`#D35400` Burnt Orange) — see `docs/guides/style-guide.md` and `docs/strategy/brand-kit.md` for full palette
+- **Fonts:** DM Sans (headings, `--font-dm-sans`) + Open Sans (body, `--font-open-sans`) via `next/font/google`
 - **Icons:** Lucide React — see style guide for sizing conventions
 - **Class merging:** Use `cn()` from `lib/utils.ts` (clsx + tailwind-merge)
 - **Database access:** Always use `getDb()` from `lib/db.ts` (lazy singleton)

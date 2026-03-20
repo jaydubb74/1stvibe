@@ -1,21 +1,32 @@
 # Style Guide
 
-> Updated: 2026-02-26
+> Updated: 2026-03-19
 
 ## Color Palette
 
-### Primary: Indigo
+All colors are defined as CSS custom properties in `app/globals.css` under `@theme inline`, which maps them to Tailwind utility classes.
 
-| Token | Usage |
+### Primary Brand Colors
+
+| Token | Hex | Tailwind Class | Usage |
+|-------|-----|----------------|-------|
+| `--color-brand` | `#D35400` | `bg-brand` / `text-brand` | **Primary brand color** — buttons, CTAs, links, accents |
+| `--color-brand-dark` | `#B34700` | `bg-brand-dark` / `text-brand-dark` | Hover states on primary elements |
+| `--color-brand-50` | `#FDEBD0` | `bg-brand-50` / `text-brand-50` | Soft Peach — card backgrounds, input focus rings |
+| `--color-amber` | `#F5A623` | `bg-amber` / `text-amber` | Amber Yellow — highlights, callout borders |
+| `--color-amber-50` | `#FEF9E7` | `bg-amber-50` | Pale Yellow — callout backgrounds |
+| `--color-charcoal` | `#2D3436` | `text-charcoal` / `bg-charcoal` | Charcoal — primary text alternative to `text-gray-900` |
+
+### Opacity Modifiers
+
+Use Tailwind v4 opacity modifiers for tints and rings:
+
+| Usage | Class |
 |-------|-------|
-| `indigo-50` | Background accents, hover states, focus rings |
-| `indigo-100` | Light borders, subtle backgrounds |
-| `indigo-200` | Secondary button borders, light text on dark |
-| `indigo-300` | Focus ring states |
-| `indigo-400` | Icon accents, glow effects |
-| `indigo-500` | Icon colors, text accents |
-| `indigo-600` | **Primary brand color** — buttons, CTAs, links |
-| `indigo-700` | Hover states on primary buttons |
+| Focus ring | `focus:ring-brand/40` |
+| Light background tint | `bg-brand/10` |
+| Border on light surface | `border-brand/20` |
+| Icon on colored bg | `text-brand/60` |
 
 ### Neutrals: Gray
 
@@ -36,25 +47,30 @@
 | Color | Usage |
 |-------|-------|
 | `green-500` / `green-600` | Success states, checkmarks, completed text |
-| `red-500` / `red-600` | Error messages, validation failures |
-| `rose-400` | Heart icon (Patreon) |
+| `[#C0392B]` | Error messages, validation failures (Signal Red) |
+| `rose-400` | Heart icon (Ko-fi support) |
 
 ### Gradients
 
 ```
-bg-gradient-to-b from-indigo-50 via-white to-white    — Hero background
-bg-gradient-to-r from-violet-600 via-indigo-600 to-purple-600  — Premium banners
-bg-gradient-to-r from-indigo-50 to-white               — Popover headers
-bg-gradient-to-br from-indigo-600 to-purple-600         — Tutorial FAB button
+bg-gradient-to-b from-brand-50 via-white to-white    — Hero background
+bg-gradient-to-r from-brand to-amber                  — Promo / share banners
+bg-gradient-to-r from-brand-50 to-white               — Popover headers
+bg-gradient-to-br from-brand to-amber                 — Tutorial FAB button
 ```
+
+---
 
 ## Typography
 
-### Font
+### Fonts
 
-**Geist** — imported via `next/font/google`, applied as `--font-geist-sans` CSS variable.
+| Font | Variable | Use |
+|------|----------|-----|
+| **DM Sans** | `--font-dm-sans` | Headings (h1–h6), wordmark — applied globally via CSS |
+| **Open Sans** | `--font-open-sans` | Body text, UI elements, captions — the default `font-sans` |
 
-No additional fonts. Everything uses the system font stack with Geist as primary.
+Both are imported via `next/font/google` in `app/layout.tsx` and applied as CSS variables to the `<body>`. DM Sans is applied to all heading elements (`h1`–`h6`) via a rule in `globals.css`.
 
 ### Heading Scale
 
@@ -70,11 +86,13 @@ No additional fonts. Everything uses the system font stack with Geist as primary
 ### Prose Styling (Tutorial MDX)
 
 Defined in `app/globals.css`:
-- Links: `#4f46e5` (indigo), underline with 2px offset
-- Code inline: monospace, `#4f46e5` text, `#f3f4f6` background
+- Links: `#D35400` (brand orange), underline with 2px offset
+- Code inline: monospace, `#D35400` text, `#f3f4f6` background
 - Code blocks: dark theme (`#1e1e2e` background, `#cdd6f4` text)
-- Blockquotes: 4px left border `#e0e7ff`, italic
+- Blockquotes: 4px left border `#FDEBD0` (brand peach), italic
 - Lists: `margin-bottom 0.35rem`, `line-height 1.65`
+
+---
 
 ## Icons
 
@@ -93,13 +111,11 @@ Defined in `app/globals.css`:
 
 ### Color Convention
 
-- Primary actions: `className="text-indigo-500"` or `text-white` on indigo bg
+- Primary actions: `className="text-brand"` or `text-white` on brand bg
 - Success: `className="text-green-500"`
 - Muted: `className="text-gray-300"` or `text-gray-400"`
 
-### Commonly Used Icons
-
-`Sparkles` (AI/magic), `ArrowRight`/`ArrowLeft` (navigation), `BookOpen` (tutorial), `Zap` (energy), `Menu`/`X` (hamburger), `Check`/`CheckCircle` (completion), `Share2` (share), `Loader2` (spinner), `RefreshCw` (refresh), `Pencil` (edit), `Globe` (deployment), `Send` (submit)
+---
 
 ## Spacing
 
@@ -124,6 +140,8 @@ Defined in `app/globals.css`:
 
 All containers use `mx-auto` for centering.
 
+---
+
 ## Buttons
 
 **Component:** `components/ui/Button.tsx`
@@ -132,8 +150,8 @@ All containers use `mx-auto` for centering.
 
 | Variant | Classes |
 |---------|---------|
-| `primary` | `bg-indigo-600 text-white hover:bg-indigo-700 shadow-sm` |
-| `secondary` | `bg-white text-indigo-600 border border-indigo-200 hover:bg-indigo-50` |
+| `primary` | `bg-brand text-white hover:bg-brand-dark shadow-sm` |
+| `secondary` | `bg-white text-brand border border-brand/20 hover:bg-brand-50` |
 | `ghost` | `text-gray-600 hover:text-gray-900 hover:bg-gray-100` |
 
 ### Sizes
@@ -148,6 +166,8 @@ All containers use `mx-auto` for centering.
 
 All buttons: `inline-flex items-center justify-center font-semibold rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed`
 
+---
+
 ## Form Elements
 
 ### Textarea (DemoForm pattern)
@@ -156,7 +176,7 @@ All buttons: `inline-flex items-center justify-center font-semibold rounded-lg t
 h-28 sm:h-24
 px-4 py-3.5
 border-2 border-gray-200
-focus:border-indigo-400 focus:outline-none focus:ring-4 focus:ring-indigo-50
+focus:border-brand focus:outline-none focus:ring-4 focus:ring-brand-50
 text-gray-800 placeholder-gray-400 text-sm
 rounded-xl resize-none
 ```
@@ -166,9 +186,11 @@ rounded-xl resize-none
 ```
 px-3 py-2
 border border-gray-200
-focus:outline-none focus:ring-2 focus:ring-indigo-300 focus:border-indigo-400
+focus:outline-none focus:ring-2 focus:ring-brand/40 focus:border-brand
 rounded-xl
 ```
+
+---
 
 ## Borders and Shadows
 
@@ -189,9 +211,8 @@ rounded-xl
 | `shadow-lg` | Card shadows |
 | `shadow-xl` | Floating elements (FAB, popovers) |
 | `shadow-2xl` | High emphasis modals |
-| `shadow-indigo-50` | Indigo-tinted card shadows |
-| `shadow-indigo-200` | Stronger indigo shadows |
-| `shadow-indigo-300/50` | Glowing FAB effect |
+
+---
 
 ## Animations
 
@@ -212,6 +233,8 @@ rounded-xl
 | `transition-colors` | Color-only changes |
 | `active:scale-95` | Click/press feedback |
 
+---
+
 ## Responsive Breakpoints
 
 Standard Tailwind v4 breakpoints:
@@ -223,27 +246,22 @@ Standard Tailwind v4 breakpoints:
 | `md:` | 768px+ | Small desktops |
 | `lg:` | 1024px+ | Desktops |
 
-### Common Responsive Patterns
-
-```
-text-4xl sm:text-5xl lg:text-6xl        — Hero heading
-flex flex-col sm:flex-row                — Stack → row
-grid sm:grid-cols-2 lg:grid-cols-4      — Responsive grid
-hidden sm:flex / lg:hidden               — Show/hide at breakpoints
-px-4 sm:px-6                             — Responsive padding
-```
+---
 
 ## Card Patterns
 
 ```
 White card:    bg-white rounded-2xl p-6 shadow-sm border border-gray-100
 Gray card:     bg-gray-50 rounded-2xl p-6 border border-gray-100
-Loading card:  bg-white rounded-2xl border-2 border-indigo-100 shadow-lg shadow-indigo-50
+Loading card:  bg-white rounded-2xl border-2 border-brand-50 shadow-lg
 Elevated card: bg-white rounded-2xl shadow-2xl border border-gray-100
 ```
 
+---
+
 ## Related Docs
 
+- [Brand Kit](../strategy/brand-kit.md) — Full visual identity, colors, typography, voice
 - [Brand Voice](../strategy/brand-voice.md) — Verbal companion to the visual guide
 - [Code Standards](./code-standards.md) — How to write the code that implements these styles
 - [Code Review Checklist](./code-review-checklist.md) — Style compliance checks

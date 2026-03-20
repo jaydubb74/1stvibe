@@ -5,8 +5,8 @@ export default function VerifyEmailPage() {
   return (
     <div className="min-h-[60vh] flex items-center justify-center px-4">
       <div className="text-center max-w-md">
-        <div className="inline-flex items-center justify-center w-16 h-16 bg-indigo-50 rounded-full mb-6">
-          <MailCheck size={32} className="text-indigo-500" />
+        <div className="inline-flex items-center justify-center w-16 h-16 bg-brand-50 rounded-full mb-6">
+          <MailCheck size={32} className="text-brand" />
         </div>
         <h1 className="text-2xl font-bold text-gray-900 mb-3">Check your email</h1>
         <p className="text-gray-600 mb-6">
@@ -15,7 +15,7 @@ export default function VerifyEmailPage() {
         </p>
         <p className="text-sm text-gray-400">
           Didn&apos;t get it? Check your spam folder, or{" "}
-          <Link href="/" className="text-indigo-600 hover:underline">
+          <Link href="/" className="text-brand hover:underline">
             try again
           </Link>
           .

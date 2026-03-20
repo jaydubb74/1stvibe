@@ -11,10 +11,10 @@ export default function ToolsExplainedPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero */}
-      <section className="bg-gradient-to-br from-indigo-50 to-white pt-10 pb-10 px-4">
+      <section className="bg-gradient-to-br from-brand-50 to-white pt-10 pb-10 px-4">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-4xl sm:text-5xl font-bold leading-tight mb-6">
-            <span className="text-indigo-600">AI Tools Explained</span>
+            <span className="text-brand">AI Tools Explained</span>
           </h1>
           <p className="text-lg text-gray-600 leading-relaxed max-w-3xl">
             <strong className="text-gray-900">Stop Guessing. Start Building.</strong> The AI
@@ -45,7 +45,7 @@ export default function ToolsExplainedPage() {
               <a
                 key={item.href}
                 href={item.href}
-                className="bg-white border border-indigo-200 text-indigo-600 text-sm font-medium px-4 py-2 rounded-full hover:bg-indigo-600 hover:text-white transition-colors"
+                className="bg-white border border-brand/20 text-brand text-sm font-medium px-4 py-2 rounded-full hover:bg-brand hover:text-white transition-colors"
               >
                 {item.label}
               </a>
@@ -59,7 +59,7 @@ export default function ToolsExplainedPage() {
         {/* ── 1. AI CODING AGENTS ── */}
         <section id="coding-agents">
           <div className="flex items-center gap-3 mb-4">
-            <span className="bg-indigo-600 text-white text-xs font-bold px-3 py-1 rounded-full">01</span>
+            <span className="bg-brand text-white text-xs font-bold px-3 py-1 rounded-full">01</span>
             <h2 className="text-3xl font-bold text-gray-900">AI Coding Agents</h2>
           </div>
           <p className="text-gray-600 leading-relaxed mb-8">
@@ -246,7 +246,7 @@ export default function ToolsExplainedPage() {
         {/* ── 2. AI APP BUILDERS ── */}
         <section id="app-builders">
           <div className="flex items-center gap-3 mb-4">
-            <span className="bg-indigo-600 text-white text-xs font-bold px-3 py-1 rounded-full">02</span>
+            <span className="bg-brand text-white text-xs font-bold px-3 py-1 rounded-full">02</span>
             <h2 className="text-3xl font-bold text-gray-900">AI App Builders</h2>
             <span className="text-sm text-gray-500 font-normal">&ldquo;Vibe Coding&rdquo; / Prompt-to-App</span>
           </div>
@@ -309,7 +309,7 @@ export default function ToolsExplainedPage() {
         {/* ── 3. AI WRITING TOOLS ── */}
         <section id="writing-tools">
           <div className="flex items-center gap-3 mb-4">
-            <span className="bg-indigo-600 text-white text-xs font-bold px-3 py-1 rounded-full">03</span>
+            <span className="bg-brand text-white text-xs font-bold px-3 py-1 rounded-full">03</span>
             <h2 className="text-3xl font-bold text-gray-900">AI Writing Tools</h2>
           </div>
           <p className="text-gray-600 leading-relaxed mb-8">
@@ -426,7 +426,7 @@ export default function ToolsExplainedPage() {
         {/* ── 2. AI IMAGE GENERATORS ── */}
         <section id="image-generators">
           <div className="flex items-center gap-3 mb-4">
-            <span className="bg-indigo-600 text-white text-xs font-bold px-3 py-1 rounded-full">02b</span>
+            <span className="bg-brand text-white text-xs font-bold px-3 py-1 rounded-full">02b</span>
             <h2 className="text-3xl font-bold text-gray-900">AI Image Generators</h2>
           </div>
           <p className="text-gray-600 leading-relaxed mb-8">
@@ -516,7 +516,7 @@ export default function ToolsExplainedPage() {
         {/* ── 4. HOSTING ── */}
         <section id="hosting">
           <div className="flex items-center gap-3 mb-4">
-            <span className="bg-indigo-600 text-white text-xs font-bold px-3 py-1 rounded-full">04</span>
+            <span className="bg-brand text-white text-xs font-bold px-3 py-1 rounded-full">04</span>
             <h2 className="text-3xl font-bold text-gray-900">Hosting Solutions</h2>
           </div>
           <p className="text-gray-600 leading-relaxed mb-8">
@@ -597,7 +597,7 @@ export default function ToolsExplainedPage() {
         {/* ── 5. CODE REPOSITORIES ── */}
         <section id="code-repos">
           <div className="flex items-center gap-3 mb-4">
-            <span className="bg-indigo-600 text-white text-xs font-bold px-3 py-1 rounded-full">05</span>
+            <span className="bg-brand text-white text-xs font-bold px-3 py-1 rounded-full">05</span>
             <h2 className="text-3xl font-bold text-gray-900">Code Repositories</h2>
           </div>
           <p className="text-gray-600 leading-relaxed mb-8">
@@ -655,7 +655,7 @@ export default function ToolsExplainedPage() {
         {/* ── 6. DOMAIN REGISTRATION ── */}
         <section id="domains">
           <div className="flex items-center gap-3 mb-4">
-            <span className="bg-indigo-600 text-white text-xs font-bold px-3 py-1 rounded-full">06</span>
+            <span className="bg-brand text-white text-xs font-bold px-3 py-1 rounded-full">06</span>
             <h2 className="text-3xl font-bold text-gray-900">Domain Registration Services</h2>
           </div>
           <p className="text-gray-600 leading-relaxed mb-8">
@@ -715,19 +715,19 @@ export default function ToolsExplainedPage() {
         </section>
 
         {/* ── BOTTOM LINE ── */}
-        <section id="bottom-line" className="bg-gradient-to-br from-indigo-600 to-indigo-800 rounded-2xl p-8 text-white">
+        <section id="bottom-line" className="bg-gradient-to-br from-brand to-brand-dark rounded-2xl p-8 text-white">
           <h2 className="text-3xl font-bold mb-2">Bottom Line: Recommended Stack</h2>
-          <p className="text-indigo-200 mb-8">
+          <p className="text-white/80 mb-8">
             Given your profile as a prosumer building and shipping products quickly, here&apos;s the highest-value stack:
           </p>
           <div className="overflow-x-auto rounded-xl border border-white/20 mb-8">
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-white/20">
-                  <th className="text-left px-4 py-3 font-semibold text-indigo-200">Category</th>
-                  <th className="text-left px-4 py-3 font-semibold text-indigo-200">Pick</th>
-                  <th className="text-left px-4 py-3 font-semibold text-indigo-200">Monthly Cost</th>
-                  <th className="text-left px-4 py-3 font-semibold text-indigo-200">Why</th>
+                  <th className="text-left px-4 py-3 font-semibold text-white/80">Category</th>
+                  <th className="text-left px-4 py-3 font-semibold text-white/80">Pick</th>
+                  <th className="text-left px-4 py-3 font-semibold text-white/80">Monthly Cost</th>
+                  <th className="text-left px-4 py-3 font-semibold text-white/80">Why</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-white/10">
@@ -741,15 +741,15 @@ export default function ToolsExplainedPage() {
                 ].map(([cat, pick, cost, why]) => (
                   <tr key={cat}>
                     <td className="px-4 py-3 font-medium text-white">{cat}</td>
-                    <td className="px-4 py-3 text-indigo-100">{pick}</td>
-                    <td className="px-4 py-3 text-indigo-100">{cost}</td>
-                    <td className="px-4 py-3 text-indigo-200">{why}</td>
+                    <td className="px-4 py-3 text-white/90">{pick}</td>
+                    <td className="px-4 py-3 text-white/90">{cost}</td>
+                    <td className="px-4 py-3 text-white/80">{why}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
-          <p className="text-indigo-100 text-sm leading-relaxed">
+          <p className="text-white/90 text-sm leading-relaxed">
             <strong className="text-white">Total: ~$20–80/month</strong> covers best-in-class AI image generation,
             AI writing, AI coding, hosting, code repo, and domain — a collection of tools that would have cost
             thousands per month just a few years ago.
@@ -761,7 +761,7 @@ export default function ToolsExplainedPage() {
           <p className="text-gray-500 mb-4 text-sm">Ready to put these tools to work?</p>
           <Link
             href="/tutorial/welcome"
-            className="inline-flex items-center gap-2 bg-indigo-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-indigo-700 transition-colors"
+            className="inline-flex items-center gap-2 bg-brand text-white px-6 py-3 rounded-xl font-semibold hover:bg-brand-dark transition-colors"
           >
             Start the Tutorial →
           </Link>
@@ -795,7 +795,7 @@ function ToolCard({
           href={href}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-xs text-indigo-600 hover:underline"
+          className="text-xs text-brand hover:underline"
         >
           {href.replace("https://", "")} ↗
         </a>
@@ -831,10 +831,10 @@ function ToolCard({
 
 function RecommendationBox({ children }: { children: React.ReactNode }) {
   return (
-    <div className="mt-8 bg-indigo-50 border border-indigo-100 rounded-xl p-5 flex gap-3">
-      <span className="text-indigo-600 text-xl mt-0.5">💡</span>
+    <div className="mt-8 bg-brand-50 border border-brand-50 rounded-xl p-5 flex gap-3">
+      <span className="text-brand text-xl mt-0.5">💡</span>
       <div>
-        <p className="text-xs font-semibold text-indigo-700 uppercase tracking-wide mb-1">Our Recommendation</p>
+        <p className="text-xs font-semibold text-brand uppercase tracking-wide mb-1">Our Recommendation</p>
         <p className="text-sm text-gray-700 leading-relaxed">{children}</p>
       </div>
     </div>
@@ -847,7 +847,7 @@ function ExternalLink({ href, children }: { href: string; children: React.ReactN
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="inline-flex items-center gap-1 bg-gray-100 text-gray-700 text-sm px-3 py-1.5 rounded-lg hover:bg-indigo-50 hover:text-indigo-600 transition-colors"
+      className="inline-flex items-center gap-1 bg-gray-100 text-gray-700 text-sm px-3 py-1.5 rounded-lg hover:bg-brand-50 hover:text-brand transition-colors"
     >
       {children} ↗
     </a>

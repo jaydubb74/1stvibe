@@ -184,11 +184,11 @@ export default function DemoForm() {
   if (loading) {
     return (
       <div className="w-full max-w-2xl mx-auto">
-        <div className="flex flex-col items-center gap-5 py-8 px-6 bg-white rounded-2xl border-2 border-indigo-100 shadow-lg shadow-indigo-50">
+        <div className="flex flex-col items-center gap-5 py-8 px-6 bg-white rounded-2xl border-2 border-brand-50 shadow-lg">
           {/* Spinning sparkle */}
           <div className="relative flex items-center justify-center w-16 h-16">
-            <div className="absolute inset-0 rounded-full bg-indigo-100 animate-ping opacity-40" />
-            <div className="w-14 h-14 rounded-full bg-indigo-600 flex items-center justify-center shadow-lg shadow-indigo-200">
+            <div className="absolute inset-0 rounded-full bg-brand-50 animate-ping opacity-40" />
+            <div className="w-14 h-14 rounded-full bg-brand flex items-center justify-center shadow-lg">
               <Sparkles size={28} className="text-white" />
             </div>
           </div>
@@ -197,7 +197,7 @@ export default function DemoForm() {
             <p className="text-lg font-bold text-gray-900 mb-1">
               Building your site…
             </p>
-            <p className="text-sm text-indigo-500 font-medium min-h-[1.5rem] transition-all duration-500">
+            <p className="text-sm text-brand font-medium min-h-[1.5rem] transition-all duration-500">
               {LOADING_LINES[loadingLine]}
             </p>
           </div>
@@ -233,7 +233,7 @@ export default function DemoForm() {
             onChange={handlePromptChange}
             onFocus={handleFocus}
             className={cn(
-              "w-full h-28 sm:h-24 px-4 py-3.5 rounded-xl border-2 border-gray-200 focus:border-indigo-400 focus:outline-none focus:ring-4 focus:ring-indigo-50 resize-none text-sm transition-all",
+              "w-full h-28 sm:h-24 px-4 py-3.5 rounded-xl border-2 border-gray-200 focus:border-brand focus:outline-none focus:ring-4 focus:ring-brand-50 resize-none text-sm transition-all",
               isDraftPrompt ? "text-gray-400 italic" : "text-gray-800"
             )}
             maxLength={600}
@@ -250,7 +250,7 @@ export default function DemoForm() {
             type="button"
             onClick={handleShuffle}
             title="Try a different example"
-            className="absolute bottom-2 right-2 text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 active:scale-90 rounded-lg p-2 transition-all"
+            className="absolute bottom-2 right-2 text-gray-400 hover:text-brand hover:bg-brand-50 active:scale-90 rounded-lg p-2 transition-all"
           >
             <Shuffle size={16} />
           </button>
@@ -268,11 +268,11 @@ export default function DemoForm() {
       </div>
 
       {/* Coaching callout */}
-      <div className="mt-3 flex items-center gap-2.5 rounded-lg bg-indigo-50 border border-indigo-100 px-3.5 py-2.5 min-h-[2.5rem]">
-        <Lightbulb size={16} className="text-indigo-400 shrink-0" />
+      <div className="mt-3 flex items-center gap-2.5 rounded-lg bg-brand-50 border border-brand-50 px-3.5 py-2.5 min-h-[2.5rem]">
+        <Lightbulb size={16} className="text-brand/60 shrink-0" />
         <p
           key={hasStartedTyping ? hintIndex : "default"}
-          className="text-sm text-indigo-600/70 flex-1 animate-hint-swap"
+          className="text-sm text-brand/70 flex-1 animate-hint-swap"
         >
           {hasStartedTyping
             ? COACHING_HINTS[hintIndex]
@@ -283,7 +283,7 @@ export default function DemoForm() {
             type="button"
             onClick={() => setHintIndex((prev) => (prev + 1) % COACHING_HINTS.length)}
             title="Next tip"
-            className="text-indigo-300 hover:text-indigo-500 shrink-0 transition-colors"
+            className="text-brand/40 hover:text-brand shrink-0 transition-colors"
           >
             <RefreshCw size={14} />
           </button>
@@ -298,7 +298,7 @@ export default function DemoForm() {
               key={chip.label}
               type="button"
               onClick={() => handleChipClick(chip.label)}
-              className="text-xs font-medium text-indigo-600 bg-indigo-50 border border-indigo-100 px-2.5 py-1 rounded-full hover:bg-indigo-100 active:scale-95 transition-all"
+              className="text-xs font-medium text-brand bg-brand-50 border border-brand-50 px-2.5 py-1 rounded-full hover:bg-brand/10 active:scale-95 transition-all"
             >
               + {chip.label}
             </button>

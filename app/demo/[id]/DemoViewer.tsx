@@ -50,7 +50,7 @@ export default function DemoViewer({ demo, canEdit }: Props) {
       {/* Top bar */}
       <div className="bg-white border-b border-gray-200 px-4 py-3 flex items-center justify-between gap-4">
         <div className="flex items-center gap-3 min-w-0">
-          <Link href="/" className="text-indigo-600 font-bold text-sm shrink-0">
+          <Link href="/" className="text-brand font-bold text-sm shrink-0">
             1stvibe.ai
           </Link>
           <span className="text-gray-300">|</span>
@@ -63,7 +63,7 @@ export default function DemoViewer({ demo, canEdit }: Props) {
             href={demoUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-1.5 text-sm text-gray-600 hover:text-indigo-600 transition-colors"
+            className="flex items-center gap-1.5 text-sm text-gray-600 hover:text-brand transition-colors"
           >
             <ExternalLink size={14} />
             Open in new tab
@@ -119,7 +119,7 @@ export default function DemoViewer({ demo, canEdit }: Props) {
                 value={editPrompt}
                 onChange={(e) => setEditPrompt(e.target.value)}
                 placeholder="e.g. Make the background dark blue and add a contact button"
-                className="flex-1 px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-indigo-400"
+                className="flex-1 px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-brand"
                 autoFocus
               />
               <Button type="submit" size="sm" loading={loading} disabled={!editPrompt.trim()}>

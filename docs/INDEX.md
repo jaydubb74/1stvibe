@@ -8,6 +8,7 @@
 |-----|-------------|
 | [Vision](./strategy/vision.md) | Product vision, mission, competitive positioning, north star metric |
 | [Customer Profile](./strategy/customer-profile.md) | Primary audience, personas, pain points, jobs-to-be-done |
+| [Brand Kit](./strategy/brand-kit.md) | Complete visual identity — colors, typography, UI components, voice |
 | [Brand Voice](./strategy/brand-voice.md) | Tone, personality, copy guidelines, do's and don'ts |
 
 ## Architecture

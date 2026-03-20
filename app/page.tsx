@@ -6,23 +6,23 @@ export default function HomePage() {
   return (
     <div className="flex flex-col">
       {/* ── Hero ─────────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-indigo-50 via-white to-white px-4 pt-10 pb-10 sm:pt-14 sm:pb-16">
+      <section className="relative overflow-hidden bg-gradient-to-b from-brand-50 via-white to-white px-4 pt-10 pb-10 sm:pt-14 sm:pb-16">
         {/* background accent */}
         <div
           aria-hidden
-          className="absolute -top-32 left-1/2 -translate-x-1/2 w-[800px] h-[400px] rounded-full bg-indigo-100/60 blur-3xl pointer-events-none"
+          className="absolute -top-32 left-1/2 -translate-x-1/2 w-[800px] h-[400px] rounded-full bg-brand-50/60 blur-3xl pointer-events-none"
         />
 
         <div className="relative max-w-4xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 bg-indigo-50 border border-indigo-100 text-indigo-700 text-sm font-medium px-4 py-1.5 rounded-full mb-6">
-            <Zap size={14} className="text-indigo-500" />
+          <div className="inline-flex items-center gap-2 bg-brand-50 border border-brand-50 text-brand text-sm font-medium px-4 py-1.5 rounded-full mb-6">
+            <Zap size={14} className="text-brand" />
             No experience required
           </div>
 
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-gray-900 leading-tight tracking-tight mb-6">
             Build your first website
             <br className="hidden sm:block" />
-            <span className="text-indigo-600"> with AI.</span>
+            <span className="text-brand"> with AI.</span>
           </h1>
 
           <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto mb-10 leading-relaxed">
@@ -43,7 +43,7 @@ export default function HomePage() {
             </p>
             <Link
               href="/tutorial/welcome"
-              className="inline-flex items-center gap-3 bg-indigo-600 text-white text-xl font-bold px-10 py-5 rounded-2xl hover:bg-indigo-700 active:scale-95 transition-all shadow-lg shadow-indigo-200"
+              className="inline-flex items-center gap-3 bg-brand text-white text-xl font-bold px-10 py-5 rounded-2xl hover:bg-brand-dark active:scale-95 transition-all shadow-lg"
             >
               <BookOpen size={24} />
               Start the Tutorial
@@ -63,7 +63,7 @@ export default function HomePage() {
             { value: "4.9 ★", label: "Avg. Rating" },
           ].map(({ value, label }) => (
             <div key={label}>
-              <div className="text-2xl sm:text-3xl font-extrabold text-indigo-600">{value}</div>
+              <div className="text-2xl sm:text-3xl font-extrabold text-brand">{value}</div>
               <div className="text-sm text-gray-500 mt-1">{label}</div>
             </div>
           ))}
@@ -83,17 +83,17 @@ export default function HomePage() {
           <div className="grid sm:grid-cols-3 gap-6">
             {[
               {
-                icon: <Zap size={24} className="text-indigo-500" />,
+                icon: <Zap size={24} className="text-brand" />,
                 title: "No Coding Required",
                 desc: "Describe what you want in plain English. AI does the building. If you can type, you can ship.",
               },
               {
-                icon: <Clock size={24} className="text-indigo-500" />,
+                icon: <Clock size={24} className="text-brand" />,
                 title: "Live in Under an Hour",
                 desc: "From zero to a real URL you can share with anyone — in about the time it takes to watch a movie.",
               },
               {
-                icon: <Rocket size={24} className="text-indigo-500" />,
+                icon: <Rocket size={24} className="text-brand" />,
                 title: "Actually Yours",
                 desc: "No templates. No drag-and-drop jail. A real website, built your way, deployed on the real internet.",
               },
@@ -102,7 +102,7 @@ export default function HomePage() {
                 key={title}
                 className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col gap-3"
               >
-                <div className="w-10 h-10 rounded-xl bg-indigo-50 flex items-center justify-center">
+                <div className="w-10 h-10 rounded-xl bg-brand-50 flex items-center justify-center">
                   {icon}
                 </div>
                 <h3 className="font-bold text-gray-900 text-lg">{title}</h3>
@@ -126,25 +126,25 @@ export default function HomePage() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
               {
-                icon: <Zap size={24} className="text-indigo-500" />,
+                icon: <Zap size={24} className="text-brand" />,
                 step: "01",
                 title: "Instant Demo",
                 desc: "Type what you want. Get a live link in under 60 seconds. Feel what the hype is about.",
               },
               {
-                icon: <BookOpen size={24} className="text-indigo-500" />,
+                icon: <BookOpen size={24} className="text-brand" />,
                 step: "02",
                 title: "Setup",
                 desc: "Install Claude Code and create a free account. Takes 5 minutes, works on Mac and Windows.",
               },
               {
-                icon: <CheckCircle size={24} className="text-indigo-500" />,
+                icon: <CheckCircle size={24} className="text-brand" />,
                 step: "03",
                 title: "Build",
                 desc: "Have a real conversation with AI. Watch it generate your website. Tweak it until it's yours.",
               },
               {
-                icon: <Globe size={24} className="text-indigo-500" />,
+                icon: <Globe size={24} className="text-brand" />,
                 step: "04",
                 title: "Deploy",
                 desc: "Push to GitHub, deploy to Vercel. Your site gets a real URL. The whole internet can see it.",
@@ -207,7 +207,7 @@ export default function HomePage() {
                 </div>
                 <p className="text-gray-700 text-sm leading-relaxed flex-1">&ldquo;{quote}&rdquo;</p>
                 <div className="flex items-center gap-3 pt-2 border-t border-gray-100">
-                  <div className="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold text-sm">
+                  <div className="w-8 h-8 rounded-full bg-brand-50 flex items-center justify-center text-brand font-bold text-sm">
                     {name[0]}
                   </div>
                   <div>
@@ -222,8 +222,8 @@ export default function HomePage() {
       </section>
 
       {/* ── Final CTA ────────────────────────────────────────────── */}
-      <section className="px-4 py-24 bg-indigo-600 text-center">
-        <div className="inline-flex items-center gap-2 bg-indigo-500/50 text-indigo-100 text-sm font-medium px-4 py-1.5 rounded-full mb-6">
+      <section className="px-4 py-24 bg-brand text-center">
+        <div className="inline-flex items-center gap-2 bg-white/20 text-white text-sm font-medium px-4 py-1.5 rounded-full mb-6">
           <Users size={14} />
           Join 2,400+ creators who already shipped
         </div>
@@ -231,18 +231,18 @@ export default function HomePage() {
           &ldquo;See what all the hype is about.
           <br className="hidden sm:block" /> Build your first thing.&rdquo;
         </blockquote>
-        <p className="text-indigo-200 text-lg mb-10">
+        <p className="text-white/80 text-lg mb-10">
           Try the demo above, then follow the tutorial to do it yourself — for real.
         </p>
         <Link
           href="/tutorial/welcome"
-          className="inline-flex items-center gap-3 bg-white text-indigo-600 text-2xl font-extrabold px-12 py-6 rounded-2xl hover:bg-indigo-50 active:scale-95 transition-all shadow-xl"
+          className="inline-flex items-center gap-3 bg-white text-brand text-2xl font-extrabold px-12 py-6 rounded-2xl hover:bg-brand-50 active:scale-95 transition-all shadow-xl"
         >
           <BookOpen size={28} />
           Start the Tutorial
           <ArrowRight size={28} />
         </Link>
-        <p className="mt-6 text-indigo-300 text-sm">Free. No credit card. No fluff.</p>
+        <p className="mt-6 text-white/60 text-sm">Free. No credit card. No fluff.</p>
       </section>
     </div>
   );

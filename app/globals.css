@@ -1,11 +1,25 @@
 @import "tailwindcss";
 
 :root {
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-open-sans);
 }
 
 @theme inline {
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-open-sans);
+  --font-display: var(--font-dm-sans);
+
+  /* Brand: Warm Primary */
+  --color-brand:      #D35400;   /* Burnt Orange — primary / CTAs */
+  --color-brand-dark: #B34700;   /* Burnt Orange hover (darkened 15%) */
+  --color-brand-50:   #FDEBD0;   /* Soft Peach — card / input backgrounds */
+  --color-amber:      #F5A623;   /* Amber Yellow — highlights / accents */
+  --color-amber-50:   #FEF9E7;   /* Pale Yellow — callout areas */
+  --color-charcoal:   #2D3436;   /* Charcoal — primary text */
+}
+
+/* Heading typeface: DM Sans */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-dm-sans), sans-serif;
 }
 
 /* Smooth scrolling */
@@ -21,12 +35,12 @@ html {
 .prose ul { list-style-type: disc; padding-left: 1.5rem; margin-bottom: 1rem; }
 .prose ol { list-style-type: decimal; padding-left: 1.5rem; margin-bottom: 1rem; }
 .prose li { margin-bottom: 0.35rem; line-height: 1.65; color: #374151; }
-.prose code { background: #f3f4f6; border-radius: 4px; padding: 0.1em 0.35em; font-size: 0.875em; color: #4f46e5; font-family: ui-monospace, monospace; }
+.prose code { background: #f3f4f6; border-radius: 4px; padding: 0.1em 0.35em; font-size: 0.875em; color: #D35400; font-family: ui-monospace, monospace; }
 .prose pre { background: #1e1e2e; color: #cdd6f4; border-radius: 8px; padding: 1.25rem; overflow-x: auto; margin-bottom: 1.25rem; }
 .prose pre code { background: none; color: inherit; padding: 0; font-size: 0.875rem; }
-.prose a { color: #4f46e5; text-decoration: underline; text-underline-offset: 2px; }
-.prose a:hover { color: #3730a3; }
-.prose blockquote { border-left: 4px solid #e0e7ff; padding-left: 1rem; color: #4b5563; font-style: italic; margin: 1.25rem 0; }
+.prose a { color: #D35400; text-decoration: underline; text-underline-offset: 2px; }
+.prose a:hover { color: #B34700; }
+.prose blockquote { border-left: 4px solid #FDEBD0; padding-left: 1rem; color: #4b5563; font-style: italic; margin: 1.25rem 0; }
 .prose strong { font-weight: 600; color: #111827; }
 .prose hr { border: none; border-top: 1px solid #e5e7eb; margin: 2rem 0; }
 

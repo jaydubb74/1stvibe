@@ -31,7 +31,7 @@ export default function ChecklistPane({ currentStepId, completedSteps }: Props) 
                       className={cn(
                         "flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm transition-colors group",
                         isCurrent
-                          ? "bg-indigo-50 text-indigo-700 font-semibold"
+                          ? "bg-brand-50 text-brand font-semibold"
                           : isCompleted
                           ? "text-gray-500 hover:bg-gray-50"
                           : "text-gray-700 hover:bg-gray-50"
@@ -46,7 +46,7 @@ export default function ChecklistPane({ currentStepId, completedSteps }: Props) 
                         ) : isCurrent ? (
                           <Circle
                             size={16}
-                            className="text-indigo-500 fill-indigo-100"
+                            className="text-brand fill-brand-50"
                           />
                         ) : (
                           <Circle size={16} className="text-gray-300" />

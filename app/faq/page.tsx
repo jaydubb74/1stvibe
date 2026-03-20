@@ -291,7 +291,7 @@ const faqItems: FAQItem[] = [
                 <th className="text-left px-3 py-2 font-semibold text-gray-700 border-b border-gray-200">
                   Feature
                 </th>
-                <th className="text-left px-3 py-2 font-semibold text-indigo-700 border-b border-gray-200">
+                <th className="text-left px-3 py-2 font-semibold text-brand border-b border-gray-200">
                   Claude Code
                 </th>
                 <th className="text-left px-3 py-2 font-semibold text-gray-700 border-b border-gray-200">
@@ -402,7 +402,7 @@ function AccordionItem({ item }: { item: FAQItem }) {
       >
         <span className="font-medium text-gray-900 pr-4">{item.question}</span>
         {open ? (
-          <ChevronUp size={18} className="flex-shrink-0 text-indigo-500" />
+          <ChevronUp size={18} className="flex-shrink-0 text-brand" />
         ) : (
           <ChevronDown size={18} className="flex-shrink-0 text-gray-400" />
         )}
@@ -436,10 +436,10 @@ export default function FAQPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero */}
-      <section className="bg-gradient-to-br from-indigo-50 to-white pt-10 pb-10 px-4">
+      <section className="bg-gradient-to-br from-brand-50 to-white pt-10 pb-10 px-4">
         <div className="max-w-3xl mx-auto">
           <h1 className="text-4xl sm:text-5xl font-bold leading-tight mb-4">
-            <span className="text-indigo-600">Frequently Asked Questions</span>
+            <span className="text-brand">Frequently Asked Questions</span>
           </h1>
           <p className="text-lg text-gray-600 mb-8">
             Everything you need to know about vibe coding and Claude Code.
@@ -456,7 +456,7 @@ export default function FAQPage() {
               placeholder="Search questions…"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full pl-11 pr-4 py-3 rounded-xl border border-gray-200 bg-white shadow-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
+              className="w-full pl-11 pr-4 py-3 rounded-xl border border-gray-200 bg-white shadow-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-brand focus:border-transparent transition"
             />
           </div>
         </div>
@@ -472,7 +472,7 @@ export default function FAQPage() {
               onClick={() => setActiveCategory(cat.id)}
               className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
                 activeCategory === cat.id
-                  ? "bg-indigo-600 text-white shadow-sm"
+                  ? "bg-brand text-white shadow-sm"
                   : "bg-gray-100 text-gray-600 hover:bg-gray-200"
               }`}
             >

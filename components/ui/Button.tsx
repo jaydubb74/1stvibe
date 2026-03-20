@@ -30,9 +30,9 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           "inline-flex items-center justify-center font-semibold transition-all duration-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed",
           {
             primary:
-              "bg-indigo-600 text-white hover:bg-indigo-700 focus:ring-indigo-500 shadow-sm",
+              "bg-brand text-white hover:bg-brand-dark focus:ring-brand shadow-sm",
             secondary:
-              "bg-white text-indigo-600 border border-indigo-200 hover:bg-indigo-50 focus:ring-indigo-500",
+              "bg-white text-brand border border-brand/20 hover:bg-brand-50 focus:ring-brand",
             ghost:
               "text-gray-600 hover:text-gray-900 hover:bg-gray-100 focus:ring-gray-400",
           }[variant],

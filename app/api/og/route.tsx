@@ -149,7 +149,7 @@ export async function GET(req: NextRequest) {
           );
         }
 
-        // Layout B: no hero image — indigo gradient with actual site title
+        // Layout B: no hero image — warm orange gradient with actual site title
         return new ImageResponse(
           (
             <div
@@ -161,7 +161,7 @@ export async function GET(req: NextRequest) {
                 justifyContent: "space-between",
                 padding: "60px",
                 background:
-                  "linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #a855f7 100%)",
+                  "linear-gradient(135deg, #C0392B 0%, #D35400 40%, #F5A623 100%)",
                 fontFamily: "sans-serif",
                 color: "white",
               }}
@@ -266,7 +266,7 @@ export async function GET(req: NextRequest) {
           justifyContent: "space-between",
           padding: "60px",
           background:
-            "linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #a855f7 100%)",
+            "linear-gradient(135deg, #C0392B 0%, #D35400 40%, #F5A623 100%)",
           fontFamily: "sans-serif",
           color: "white",
         }}
