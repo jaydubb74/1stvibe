@@ -10,6 +10,48 @@ type FAQItem = {
   category: "basics" | "getting-started" | "prompting";
 };
 
+// Reusable callout components for FAQ answers
+function AnalogyBox({ children }: { children: React.ReactNode }) {
+  return (
+    <div style={{ background: "#ebf2fa", borderLeft: "3px solid #427aa1", borderRadius: "0 8px 8px 0", padding: "14px 18px", margin: "18px 0", fontSize: "14px", color: "#064789", lineHeight: 1.65 }}>
+      {children}
+    </div>
+  );
+}
+
+function TipBox({ children }: { children: React.ReactNode }) {
+  return (
+    <div style={{ background: "#f4f8ff", border: "0.5px solid #427aa1", borderRadius: "10px", padding: "14px 18px", margin: "18px 0 0", fontSize: "13.5px", color: "#064789", lineHeight: 1.6 }}>
+      {children}
+    </div>
+  );
+}
+
+function DoDontGrid({ doItems, dontItems }: { doItems: string[]; dontItems: string[] }) {
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 my-4">
+      <div className="rounded-xl p-4" style={{ background: "#eaf3de", border: "0.5px solid #679436" }}>
+        <p className="text-xs font-medium uppercase tracking-wide mb-3" style={{ color: "#3b6d11" }}>Do grant access to</p>
+        {doItems.map((item, i) => (
+          <div key={i} className="flex items-start gap-2 mb-2 text-sm" style={{ color: "#27500a" }}>
+            <span className="mt-1.5 w-2 h-2 rounded-full flex-shrink-0" style={{ background: "#679436" }} />
+            <span>{item}</span>
+          </div>
+        ))}
+      </div>
+      <div className="rounded-xl p-4" style={{ background: "#fce8e8", border: "0.5px solid #c0392b" }}>
+        <p className="text-xs font-medium uppercase tracking-wide mb-3" style={{ color: "#7b1c1c" }}>Don&apos;t expose</p>
+        {dontItems.map((item, i) => (
+          <div key={i} className="flex items-start gap-2 mb-2 text-sm" style={{ color: "#7b1c1c" }}>
+            <span className="mt-1.5 w-2 h-2 rounded-full flex-shrink-0" style={{ background: "#c0392b" }} />
+            <span>{item}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 const faqItems: FAQItem[] = [
   // BASICS
   {
@@ -340,6 +382,99 @@ const faqItems: FAQItem[] = [
           For a non-technical prosumer, Claude Code&apos;s conversational, plain-English interface
           makes it the most accessible starting point.
         </p>
+      </div>
+    ),
+  },
+  {
+    id: 12,
+    category: "basics",
+    question: "What Is an LLM?",
+    answer: (
+      <div className="space-y-3">
+        <p>
+          LLM stands for Large Language Model — the engine powering tools like Claude Code, ChatGPT,
+          and most of the AI you&apos;ve seen in the past few years. At its core, an LLM is a type of
+          AI that has been trained on massive amounts of text — books, websites, code, and more — and
+          learned to predict what comes next in a sequence of words.
+        </p>
+        <AnalogyBox>
+          Think of it like autocomplete on your phone — but trained on virtually all of the internet,
+          capable of writing entire essays, fixing code, and answering complex questions in a matter
+          of seconds.
+        </AnalogyBox>
+        <p>
+          What makes LLMs remarkable is that they don&apos;t just regurgitate what they&apos;ve seen — they
+          generalize. You can ask an LLM a question it&apos;s never been asked before and it will generate
+          a coherent, contextually relevant answer by recognizing patterns from its training data. The
+          &quot;large&quot; part refers to the sheer scale: modern LLMs like Claude are built on billions of
+          parameters — the learned numerical weights that determine how the model responds.
+        </p>
+        <p>
+          In practical terms for vibe coding: when you type a prompt like &quot;build me a customer
+          dashboard that filters by region,&quot; the LLM doesn&apos;t look up a template. It generates that
+          code from scratch, applying everything it&apos;s learned about software patterns, your stated
+          requirements, and good design principles — in real time.
+        </p>
+        <p>
+          The key mental model: an LLM is a very sophisticated pattern-recognizer and generator, not
+          a database or a search engine. It doesn&apos;t &quot;know&quot; facts the way Google does — it predicts
+          the most useful, coherent response based on context. That&apos;s both its superpower and the
+          reason you should always review what it produces.
+        </p>
+      </div>
+    ),
+  },
+  {
+    id: 13,
+    category: "getting-started",
+    question: "What Security Concerns Should I Know About?",
+    answer: (
+      <div className="space-y-3">
+        <p>
+          Installing Claude Code on your computer means giving an AI agent real access to your local
+          machine — it can read files, run commands, and write code directly to your filesystem.
+          That&apos;s what makes it powerful. It also means it&apos;s worth spending 60 seconds thinking about
+          what you&apos;re granting access to before you dive in.
+        </p>
+        <p>
+          The good news: Claude Code is designed with safety guardrails, will ask for confirmation
+          before taking sensitive actions, and by default operates within the folder you point it at.
+          But here&apos;s what to keep in mind:
+        </p>
+        <DoDontGrid
+          doItems={[
+            "A dedicated project folder (e.g. /projects/my-app)",
+            "Your code editor terminal or a sandboxed directory",
+            "Public APIs and services you're actively building with",
+            "Test databases, not production data",
+            "Your local development environment",
+          ]}
+          dontItems={[
+            "Your root home directory or entire hard drive",
+            "Folders containing passwords, tax returns, or personal ID docs",
+            "API keys, .env files, or credentials in plain text",
+            "Live production databases or customer data",
+            "Files synced to sensitive cloud accounts",
+          ]}
+        />
+        <p>
+          The most common mistake new users make is running Claude Code from their home directory
+          (~) without thinking about what&apos;s in it. A better habit: create a dedicated workspace
+          folder for each project, and always launch Claude Code from there. That way, Claude is only
+          ever looking at what&apos;s relevant.
+        </p>
+        <p>
+          One more important note: Claude Code may produce code that includes API keys or other
+          credentials if you&apos;re not careful with your prompts. Never paste real API keys directly
+          into a prompt or let them get committed to a public GitHub repository. Use environment
+          variables (your <code className="text-sm bg-gray-100 px-1.5 py-0.5 rounded">.env</code> file)
+          and add that file to your <code className="text-sm bg-gray-100 px-1.5 py-0.5 rounded">.gitignore</code>.
+        </p>
+        <TipBox>
+          <strong>Simple rule of thumb:</strong> If you wouldn&apos;t hand a capable intern a key to that
+          folder on their first day, don&apos;t give Claude Code access to it either. Start scoped, stay
+          safe, and expand permissions intentionally as you learn what the tool actually needs.
+        </TipBox>
       </div>
     ),
   },

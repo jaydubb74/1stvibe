@@ -26,9 +26,9 @@ export default function HomePage() {
           </h1>
 
           <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto mb-10 leading-relaxed">
-            You&apos;ve heard the hype about AI coding tools. Here&apos;s the fastest way
-            to see it for yourself — no setup, no CS degree, no BS. Just type
-            what you want and watch it appear.
+            You&apos;ve heard about AI coding tools. Here&apos;s the fastest way to see
+            what they actually do — no setup, no CS degree, no prior experience
+            needed. Describe what you want, and watch it appear.
           </p>
 
           {/* Instant Demo */}
@@ -39,7 +39,7 @@ export default function HomePage() {
           {/* Start Tutorial CTA */}
           <div className="mt-8 flex flex-col items-center gap-3">
             <p className="text-sm text-gray-400">
-              Or skip straight to building your own —
+              Ready to build your own?
             </p>
             <Link
               href="/tutorial/welcome"
@@ -57,9 +57,9 @@ export default function HomePage() {
       <section className="border-y border-gray-100 bg-white px-4 py-10">
         <div className="max-w-4xl mx-auto grid grid-cols-2 sm:grid-cols-4 gap-8 text-center">
           {[
-            { value: "2,400+", label: "Sites Built" },
-            { value: "< 1 hr", label: "Avg. Time to Deploy" },
-            { value: "100%", label: "Free to Start" },
+            { value: "2,400+", label: "Builders" },
+            { value: "Under 1 Hour", label: "to Deploy" },
+            { value: "Free", label: "to Start" },
             { value: "4.9 ★", label: "Avg. Rating" },
           ].map(({ value, label }) => (
             <div key={label}>
@@ -74,7 +74,7 @@ export default function HomePage() {
       <section className="px-4 py-20 bg-gray-50">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold text-gray-900 mb-4 text-center">
-            The Shift is Here
+            You Don&apos;t Need to Learn Code Anymore
           </h2>
           <p className="text-center text-gray-600 mb-12 text-lg max-w-2xl mx-auto">
             For the first time, you don&apos;t need to learn a computer&apos;s language — you just need to speak your own.
@@ -84,18 +84,18 @@ export default function HomePage() {
             {[
               {
                 icon: <Zap size={24} className="text-brand" />,
-                title: "No Coding Required",
-                desc: "Describe what you want in plain English. AI does the building. If you can type, you can ship.",
+                title: "Build in Plain English",
+                desc: "Tell the AI what you want. It writes the code. You ship the site.",
               },
               {
                 icon: <Clock size={24} className="text-brand" />,
                 title: "Live in Under an Hour",
-                desc: "From zero to a real URL you can share with anyone — in about the time it takes to watch a movie.",
+                desc: "Go from zero to a live URL you can share with anyone — in about an hour.",
               },
               {
                 icon: <Rocket size={24} className="text-brand" />,
                 title: "Actually Yours",
-                desc: "No templates. No drag-and-drop jail. A real website, built your way, deployed on the real internet.",
+                desc: "No templates. No drag-and-drop constraints. A real website built exactly the way you described it — live on the internet.",
               },
             ].map(({ icon, title, desc }) => (
               <div
@@ -117,10 +117,10 @@ export default function HomePage() {
       <section className="px-4 py-20">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold text-gray-900 mb-4 text-center">
-            Here&apos;s what you&apos;re about to do
+            Go From Zero to Live in Four Steps
           </h2>
           <p className="text-center text-gray-600 mb-12 text-lg">
-            Four steps. One hour. A real live URL you can share with anyone.
+            Four steps. About an hour. A real URL you can share with the world.
           </p>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -128,25 +128,25 @@ export default function HomePage() {
               {
                 icon: <Zap size={24} className="text-brand" />,
                 step: "01",
-                title: "Instant Demo",
-                desc: "Type what you want. Get a live link in under 60 seconds. Feel what the hype is about.",
+                title: "Try the Demo",
+                desc: "Type what you want. Get a live link in under 60 seconds. You'll feel it immediately.",
               },
               {
                 icon: <BookOpen size={24} className="text-brand" />,
                 step: "02",
-                title: "Setup",
-                desc: "Install Claude Code and create a free account. Takes 5 minutes, works on Mac and Windows.",
+                title: "Set Up Your Tools",
+                desc: "Install Claude Code and create a free account. Takes 5 minutes on Mac or Windows.",
               },
               {
                 icon: <CheckCircle size={24} className="text-brand" />,
                 step: "03",
-                title: "Build",
-                desc: "Have a real conversation with AI. Watch it generate your website. Tweak it until it's yours.",
+                title: "Build Your Site",
+                desc: "Have a real conversation with AI. Watch it build your site. Tweak it until it feels exactly right.",
               },
               {
                 icon: <Globe size={24} className="text-brand" />,
                 step: "04",
-                title: "Deploy",
+                title: "Put It on the Internet",
                 desc: "Push to GitHub, deploy to Vercel. Your site gets a real URL. The whole internet can see it.",
               },
             ].map(({ icon, step, title, desc }) => (
@@ -172,10 +172,10 @@ export default function HomePage() {
       <section className="px-4 py-20 bg-gray-50">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold text-gray-900 mb-4 text-center">
-            Real people. Real sites.
+            Builders Just Like You
           </h2>
           <p className="text-center text-gray-600 mb-12 text-lg">
-            No coding background. No tech degree. Just curiosity and an hour to spare.
+            No coding background. No tech degree. Just curiosity and a free afternoon.
           </p>
 
           <div className="grid sm:grid-cols-3 gap-6">
@@ -225,12 +225,11 @@ export default function HomePage() {
       <section className="px-4 py-24 bg-brand text-center">
         <div className="inline-flex items-center gap-2 bg-white/20 text-white text-sm font-medium px-4 py-1.5 rounded-full mb-6">
           <Users size={14} />
-          Join 2,400+ creators who already shipped
+          Join 2,400+ builders who already shipped
         </div>
-        <blockquote className="text-2xl sm:text-4xl font-bold text-white leading-tight mb-4">
-          &ldquo;See what all the hype is about.
-          <br className="hidden sm:block" /> Build your first thing.&rdquo;
-        </blockquote>
+        <p className="text-2xl sm:text-4xl font-bold text-white leading-tight mb-4">
+          You&apos;ve got this. Start creating today.
+        </p>
         <p className="text-white/80 text-lg mb-10">
           Try the demo above, then follow the tutorial to do it yourself — for real.
         </p>
@@ -242,7 +241,7 @@ export default function HomePage() {
           Start the Tutorial
           <ArrowRight size={28} />
         </Link>
-        <p className="mt-6 text-white/60 text-sm">Free. No credit card. No fluff.</p>
+        <p className="mt-6 text-white/60 text-sm">Free to start. No credit card. No setup required.</p>
       </section>
     </div>
   );

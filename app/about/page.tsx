@@ -18,7 +18,7 @@ export default function AboutPage() {
             <span className="text-brand">About 1stvibe.ai</span>
           </h1>
           <p className="text-lg text-gray-500 leading-relaxed">
-            No fluff. Just the fastest path to your first build.
+            Here&apos;s who we are, what we built, and why.
           </p>
         </div>
       </section>
@@ -27,40 +27,42 @@ export default function AboutPage() {
 
       {/* Mission */}
       <section className="mb-12 space-y-4 text-gray-700 text-lg leading-relaxed">
-        <h2 className="text-2xl font-bold text-gray-900">Our approach</h2>
+        <h2 className="text-2xl font-bold text-gray-900">What We&apos;re Building (and Why)</h2>
         <p>
-          We&apos;re not trying to build the most powerful AI coding tool. We&apos;re
-          trying to build the most accessible on-ramp to the AI coding era.
+          We&apos;re not building the most powerful AI coding tool. We&apos;re
+          building the most accessible on-ramp to the AI coding era.
         </p>
         <p>
-          That means: no ads, no dark patterns, no upsells at every turn. Just a
-          well-designed, honest path from &ldquo;I&apos;ve heard about this AI coding thing&rdquo;
-          to &ldquo;I just shipped something.&rdquo; If we do our job right, you leave here
-          with a live website and enough confidence to build the next thing on
-          your own.
+          That means no ads, no dark patterns, no upsells. Just a clear,
+          honest path from &ldquo;I&apos;ve heard about this AI coding thing&rdquo;
+          to &ldquo;I just shipped something real.&rdquo;
         </p>
         <p>
-          The platform is free. We run on community support from people who found
-          value here and want to help others have the same experience.
+          When you finish here, you&apos;ll have a live website and the confidence
+          to build the next thing yourself. That&apos;s the whole goal.
+        </p>
+        <p>
+          1stvibe.ai is free. We&apos;re supported by builders who found value here
+          and want others to have the same experience.
         </p>
       </section>
 
       {/* Origin story */}
       <section className="mb-12 space-y-5 text-gray-700 text-lg leading-relaxed">
-        <h2 className="text-2xl font-bold text-gray-900">Where this started</h2>
+        <h2 className="text-2xl font-bold text-gray-900">How This Started</h2>
 
         <p>
-          In 1999, there was a website called WebMonkey. It published JavaScript
-          tutorials that were casual, direct, and genuinely fun to read. For a
+          In 1999, a website called WebMonkey published JavaScript
+          tutorials that were casual, direct, and genuinely fun. For a
           generation of curious people — designers, writers, hobbyists — it was
-          the first place they learned to make something on the internet that
+          where they first learned to make something on the internet that
           actually worked.
         </p>
 
         <p>
-          One of those people was Mike. He was a teenager, not a programmer, and
-          he stumbled onto a WebMonkey tutorial that showed him how to make a
-          dropdown menu with JavaScript. It was stupid simple. But something
+          One of those people was Mike. As a teenager with no coding
+          background, he stumbled onto a WebMonkey tutorial that showed him how to make a
+          dropdown menu with JavaScript. It was a small thing. But something
           clicked: <em>I just made the computer do something.</em>
         </p>
 
@@ -90,23 +92,22 @@ export default function AboutPage() {
         </div>
 
         <p>
-          Thirty years later, the tools have changed completely. But the feeling
+          The tools have changed completely in thirty years. But the feeling
           — the moment when something you described becomes a real thing on the
-          internet — that feeling hasn&apos;t changed at all. It&apos;s still the best
-          feeling in tech.
+          internet — hasn&apos;t changed at all. It&apos;s still the best
+          feeling in tech. We built 1stvibe.ai to give that moment to a new generation.
         </p>
 
         <p>
-          We built 1stvibe.ai to give that moment to a new generation. The AI
-          coding era means that moment is now accessible to anyone — not just
-          people who went to school for this, not just developers. Anyone
-          who&apos;s curious enough to try.
+          The AI coding era means it&apos;s now accessible to anyone curious
+          enough to try — not just developers, not just people who
+          studied computer science.
         </p>
       </section>
 
       {/* Founders */}
       <section className="mb-12">
-        <h2 className="text-2xl font-bold text-gray-900 mb-6">Who we are</h2>
+        <h2 className="text-2xl font-bold text-gray-900 mb-6">The Team</h2>
         <div className="max-w-sm">
           <div className="bg-gray-50 rounded-2xl p-6 border border-gray-100 flex flex-col">
             <div className="w-12 h-12 rounded-full bg-brand-50 flex items-center justify-center text-brand font-bold text-lg mb-3">
@@ -115,7 +116,7 @@ export default function AboutPage() {
             <p className="font-bold text-gray-900">Josh Wetzel</p>
             <p className="text-sm text-brand font-medium mb-3">Co-founder</p>
             <p className="text-sm text-gray-600 leading-relaxed mb-4">
-              Go-to-market leader and builder at Wetzel Ventures in Palo Alto. Josh has spent his career scaling businesses and revenue teams, and more recently leading the implementation of AI-driven tools for sales and customer engagement. He believes the best way to understand what&apos;s coming is to build with it yourself.
+              Go-to-market leader and builder at Wetzel Ventures in Palo Alto. Josh has spent his career scaling businesses and revenue teams, and more recently leading the implementation of AI-driven tools for sales and customer engagement. He believes the best way to understand what&apos;s coming is to build with it yourself — and he&apos;s been building 1stvibe.ai to prove it.
             </p>
             <a
               href="https://www.linkedin.com/in/joshwetzel/"
@@ -157,16 +158,16 @@ export default function AboutPage() {
 
       {/* CTA */}
       <div className="bg-brand rounded-2xl p-8 text-white text-center">
-        <p className="text-xl font-bold mb-2">Ready to build your first thing?</p>
+        <p className="text-xl font-bold mb-2">Ready to build something real?</p>
         <p className="text-white/80 mb-6">
-          Takes about an hour. No experience required.
+          About an hour. Zero experience needed. Here&apos;s where you start.
         </p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <Link
             href="/tutorial/welcome"
             className="bg-white text-brand font-semibold px-6 py-3 rounded-xl hover:bg-brand-50 transition-colors"
           >
-            Start the tutorial →
+            Start the Tutorial →
           </Link>
           <a
             href="https://ko-fi.com/1stvibe"
