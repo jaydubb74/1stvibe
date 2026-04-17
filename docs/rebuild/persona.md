@@ -8,7 +8,7 @@
 
 ## TL;DR
 
-Morgan is a 35-42 year old manager or director in marketing, sales, operations, finance, or HR. They've been using ChatGPT daily at work for a year or two — for writing, analysis, summarization. They've watched a coworker or friend recently *build and ship software* with AI, and it's rattled them. They're AI-fluent in text, but have never made a running thing. They want to close that gap fast — both to solve a real problem they're sick of doing manually *and* because they're scared of being the person on their team who didn't keep up.
+Morgan is a 35-42 year old manager or director in a non-engineering professional function — marketing, sales, account management, operations, finance, HR, product, customer support, or product design. They've been using ChatGPT daily at work for a year or two — for writing, analysis, summarization. They've watched a coworker or friend recently *build and ship software* with AI, and it's rattled them. They're AI-fluent in text, but have never made a running thing. They want to close that gap fast — both to solve a real problem they're sick of doing manually *and* because they're scared of being the person on their team who didn't keep up.
 
 At $39 and one focused weekend, Morgan says "yeah, let me try this" before finishing the coworker's LinkedIn post. The barrier isn't money or approval — it's confidence, and a vague fear they'll break something or look dumb.
 
@@ -17,7 +17,7 @@ At $39 and one focused weekend, Morgan says "yeah, let me try this" before finis
 ## Who Morgan Is
 
 ### Role and seniority
-- **Functions:** marketing, sales, operations, finance, or HR (including L&D, people ops, talent)
+- **Functions:** marketing, sales, account management, operations, finance, HR (including L&D, people ops, talent), product management, customer support, or product design
 - **Seniority sweet spot:** individual contributor (senior) through director — roughly 6-15 years into their career
 - **Not our target:** junior ICs with no expense authority, C-suite who delegate build work, or engineers of any stripe
 - **Real examples from coaching:** heads of payer relations, learning & development, finance; product managers; product designers; clinical directors. (See [prd-notes.md](./prd-notes.md) for the coaching roster.)
@@ -164,9 +164,13 @@ Useful for landing page examples, gallery seeding, and Product Teammate prompt t
 
 - **Marketing:** campaign landing page with lead-capture form; simple CRM-free contact intake; one-page microsite for an event or launch; content-calendar dashboard.
 - **Sales:** competitive-comparison one-pager tuned by prospect type; proposal generator that fills a template from inputs; follow-up tracker; simple ROI calculator for buyers.
+- **Account Management:** client relationship dashboard with health signals; QBR (quarterly business review) deck-draft generator from input fields; renewal-risk tracker; multi-account summary view; simple client-facing status portal.
 - **Operations:** internal KPI dashboard; data-normalization tool (Anthony's archetype); simple process-tracking app; SOP microsite for a specific team.
 - **Finance:** reporting helper that reshapes data into a deliverable; expense-categorization tool; simple utility apps (Adeel's passport-photo generator).
 - **HR / People / L&D:** culture-survey tool that collects and aggregates responses without a SurveyMonkey license; interview-feedback collection form that rolls up structured input from interviewers; performance-review aggregator that pulls 360 inputs into a single view; all-hands agenda / question-collection app; onboarding checklist microsite; internal-skills-inventory directory.
+- **Product Management:** feature concept demo that lets stakeholders click through a workflow; user-feedback aggregator pulling survey + interview notes into themes; simple internal tool prototype to unblock their team without eng time; competitor teardown microsite; roadmap visualizer.
+- **Customer Support:** FAQ / knowledge base microsite; onboarding flow checklist for new customers; support-ticket triage helper; customer-health / churn-risk dashboard; internal macro / response library.
+- **Product Design:** interactive prototype that goes beyond Figma (actual functioning version); portfolio site or design case-study microsite; feedback-gathering tool for design reviews; design-system documentation site; workflow visualizer with real interactivity. (Katherine's archetype — this role over-indexes on post-completion evangelism.)
 - **Personal (any role):** recipe organizer; weekend-plan optimizer; family scheduler; hobby tracker (reading list, garden, watch collection); creative portfolio.
 
 ---
@@ -233,5 +237,5 @@ This persona is a composite of ~8 coaching subjects + market research. We'll sha
 - **Referral coefficient.** How many new customers does each completed Morgan generate on average?
 - **Time-to-purchase from first exposure.** Is the impulse buy really <1 minute, or are there lurkers who spend weeks deliberating?
 - **Geographic and company-size distribution.** Does our hypothesis about tech vs. non-tech hold in practice?
-- **Which role (marketing, sales, ops, finance, HR) converts best?** We have a hypothesis (probably marketing + ops + HR), no data.
+- **Which role converts best?** Hypotheses (no data yet): marketing, ops, HR, and product management probably convert fastest. Product design probably produces the highest post-completion evangelism rate. Sales and account management convert steadily but may skew lower. Customer support is a wildcard.
 - **How price-sensitive the impulse path actually is.** Does $29 materially outperform $39? Does $49? Needs A/B.
