@@ -8,7 +8,7 @@
 
 ## TL;DR
 
-Morgan is a 35-42 year old manager or director in marketing, sales, operations, or finance. They've been using ChatGPT daily at work for a year or two — for writing, analysis, summarization. They've watched a coworker or friend recently *build and ship software* with AI, and it's rattled them. They're AI-fluent in text, but have never made a running thing. They want to close that gap fast — both to solve a real problem they're sick of doing manually *and* because they're scared of being the person on their team who didn't keep up.
+Morgan is a 35-42 year old manager or director in marketing, sales, operations, finance, or HR. They've been using ChatGPT daily at work for a year or two — for writing, analysis, summarization. They've watched a coworker or friend recently *build and ship software* with AI, and it's rattled them. They're AI-fluent in text, but have never made a running thing. They want to close that gap fast — both to solve a real problem they're sick of doing manually *and* because they're scared of being the person on their team who didn't keep up.
 
 At $39 and one focused weekend, Morgan says "yeah, let me try this" before finishing the coworker's LinkedIn post. The barrier isn't money or approval — it's confidence, and a vague fear they'll break something or look dumb.
 
@@ -17,7 +17,7 @@ At $39 and one focused weekend, Morgan says "yeah, let me try this" before finis
 ## Who Morgan Is
 
 ### Role and seniority
-- **Functions:** marketing, sales, operations, or finance
+- **Functions:** marketing, sales, operations, finance, or HR (including L&D, people ops, talent)
 - **Seniority sweet spot:** individual contributor (senior) through director — roughly 6-15 years into their career
 - **Not our target:** junior ICs with no expense authority, C-suite who delegate build work, or engineers of any stripe
 - **Real examples from coaching:** heads of payer relations, learning & development, finance; product managers; product designers; clinical directors. (See [prd-notes.md](./prd-notes.md) for the coaching roster.)
@@ -166,6 +166,7 @@ Useful for landing page examples, gallery seeding, and Product Teammate prompt t
 - **Sales:** competitive-comparison one-pager tuned by prospect type; proposal generator that fills a template from inputs; follow-up tracker; simple ROI calculator for buyers.
 - **Operations:** internal KPI dashboard; data-normalization tool (Anthony's archetype); simple process-tracking app; SOP microsite for a specific team.
 - **Finance:** reporting helper that reshapes data into a deliverable; expense-categorization tool; simple utility apps (Adeel's passport-photo generator).
+- **HR / People / L&D:** culture-survey tool that collects and aggregates responses without a SurveyMonkey license; interview-feedback collection form that rolls up structured input from interviewers; performance-review aggregator that pulls 360 inputs into a single view; all-hands agenda / question-collection app; onboarding checklist microsite; internal-skills-inventory directory.
 - **Personal (any role):** recipe organizer; weekend-plan optimizer; family scheduler; hobby tracker (reading list, garden, watch collection); creative portfolio.
 
 ---
@@ -232,5 +233,5 @@ This persona is a composite of ~8 coaching subjects + market research. We'll sha
 - **Referral coefficient.** How many new customers does each completed Morgan generate on average?
 - **Time-to-purchase from first exposure.** Is the impulse buy really <1 minute, or are there lurkers who spend weeks deliberating?
 - **Geographic and company-size distribution.** Does our hypothesis about tech vs. non-tech hold in practice?
-- **Which role (marketing, sales, ops, finance) converts best?** We have a hypothesis (probably marketing + ops), no data.
+- **Which role (marketing, sales, ops, finance, HR) converts best?** We have a hypothesis (probably marketing + ops + HR), no data.
 - **How price-sensitive the impulse path actually is.** Does $29 materially outperform $39? Does $49? Needs A/B.
