@@ -137,9 +137,11 @@ The journey is sequenced **iteratively, not waterfall**, to bring Morgan's first
 
 **V1 scope: cut referral infrastructure.** Focus on core learning experience first. Homepage (conversion-oriented) is the primary landing page for v1. Metadata-encoded referral links, gallery-project-elaboration landing page templates, and personalized cold-traffic landings are all deferred to v2.
 
-### 3.2 Phase 1 Spark (pre-paywall, free)
+### 3.2 Phase 1: Your Idea — pre-paywall, free
 
-POE (Product Teammate) runs Phase 1 free, ~15-20 min, producing `01-project-spark.md`. There is no separate "Greeter conversation" — Phase 1 Spark *is* the pre-paywall sample. Paywall fires at the end of Phase 1.
+**Display name: "Your Idea."** Internal code name remains `phase_1_spark` for engineering clarity. "Spark" is evocative for us but doesn't land for Morgan — "Your Idea" is plain Morgan-language.
+
+POE (Product Teammate) runs Phase 1 free, ~15-20 min, producing `01-project-spark.md`. There is no separate "Greeter conversation" — Phase 1 *is* the pre-paywall sample. Paywall fires at the end of Phase 1.
 
 **Registration forced at start of Phase 1.** Morgan signs up with email (Auth.js magic link) before POE says anything real. Her account exists from first turn; spark spec saves to it regardless of conversion.
 
@@ -147,8 +149,14 @@ POE (Product Teammate) runs Phase 1 free, ~15-20 min, producing `01-project-spar
 
 - **Opening (2-3 min):** POE introduces itself. Generic opener: *"Hi, I'm POE (Product Optimization Expert), what brings you to 1stvibe — an annoying manual workflow on the job, a side idea you've been kicking around, or just curious about vibe coding?"* First motivation signal logged.
 - **Discovery (5-7 min):** mostly structured choices to minimize token spend. Role pick from 6 launch roles + "other" (loads role config). Project frame via structured choices (self/team/customer, work/personal). Free-form idea intake (chat, image upload, link drop).
-- **Shaping (5-7 min):** POE does heavy lifting per the collaboration model ([§4.4](#44-collaboration-model-heavy-lifting-with-user-owning-the-calls)). "One thing" anchor question, user-journey probe. POE drafts the spark spec in real-time. Morgan sees it materialize (visible artifact materialization — see engagement mechanics [§7.1](#71-engagement-mechanics)).
+- **Shaping (5-7 min):** POE does heavy lifting per the collaboration model ([§4.4](#44-collaboration-model-heavy-lifting-with-user-owning-the-calls)). Three explicit conversation beats, each surfaced as a checklist item in the left panel:
+  - **Problem defined** — what is Morgan solving?
+  - **Users defined** — who will use this?
+  - **Solution outlined** — what is she building?
+  - Plus the "one thing" anchor and user-journey probe. POE drafts the spark spec in real-time. Morgan sees it materialize (visible artifact materialization — see engagement mechanics [§7.1](#71-engagement-mechanics)).
 - **Close (2-3 min):** POE presents the finished spark spec with celebratory treatment. Warm pitch: *"This is your starting point. Over the course of this tutorial, we can build this into a live site on the internet. It's $39 — your employer can almost certainly expense it. Ready?"* Stripe checkout expands. On success: Phase 2 begins.
+
+**Making problem/user/solution definition explicit** matters strategically — it's the uniquely-taught skill we lead with per [§1.3](#13-the-uniquely-taught-skill-problem-distillation). Morgan sees us teaching it, not just doing it behind the scenes.
 
 **Cost tolerance:** Phase 1 for non-converters costs ~$0.10-$0.15 in LLM. At 10% conversion, ~$1-$1.50 per paying customer on free-tier spend. Acceptable at $39.
 
@@ -209,7 +217,13 @@ BEA continues; ED (Engineering) consults when architecture decisions warrant. Mo
 
 ### 3.9 Phase 7: Ship & Share — ~30-45 min
 
-DOT handles final Vercel deploy. GAL (GTM) drafts the launch post, LinkedIn copy, share flow. Gallery publish happens here (opt-in). Morgan hits celebration moment → wrap-up email sent → completion kit delivered.
+GAL (GTM) is primary — drafts the launch post, LinkedIn copy, share flow. DOT handles the technical deploy (fast — Vercel is already connected from Phase 2). Gallery publish happens here (opt-in). Morgan hits celebration moment → wrap-up email sent → completion kit delivered.
+
+**Custom domain (optional).** Phase 7 is where Morgan can optionally buy and connect a custom domain. GAL brainstorms name candidates based on the project context; DOT walks through purchase from our recommended registrar partner and connects the domain to her Vercel project (5-10 min flow). If she declines, she stays on the Vercel subdomain — still a real live URL on the internet. The custom-domain checklist item only appears for users who choose to buy.
+
+POE teed up the domain question earlier in Phase 4 (Scope) as a non-binding consideration: *"Do you want this to eventually live on its own domain, or is the Vercel URL fine for now?"* — sets expectations without forcing a premature purchase decision.
+
+Users who defer the domain decision get a reminder path via the wrap-up email (see [§3.10](#310-completion--graduation)) with a one-click "Add a custom domain to [Project]" flow. We get affiliate revenue from the registrar partner regardless of whether purchase happens in-flow or post-graduation.
 
 **Total: ~4-5.5 hours. First ah-ha at ~90 min. Subsequent mini ah-ha's at Phase 5 (design renders live), Phase 6 (features ship), Phase 7 (live on the internet).**
 
@@ -225,7 +239,7 @@ Not all phases required for every project type. Anthony's internal tool (pure op
 - Pre-drafted LinkedIn post (one-click share with screenshot)
 - Auto-publish to gallery (opt-in)
 - Short "thanks for building with us" note
-- **Wrap-up email** to Morgan: summarizes her journey (what she built, artifacts produced, time spent), links to her live URL + gallery page, delivers a curated set of pro-tips for continued building. Natural graduation-kit embryo for v1.
+- **Wrap-up email** to Morgan: summarizes her journey (what she built, artifacts produced, time spent), links to her live URL + gallery page, delivers a curated set of pro-tips for continued building. **Includes "Add a custom domain" one-click flow** for Morgans who shipped on the Vercel subdomain and want to upgrade later. Also invites her back for a future project ($39 each time, easily expensable). Natural graduation-kit embryo for v1.
 - **Completion summary PDF** alongside the wrap-up email (for performance reviews, LinkedIn, expense justification)
 
 **The richer graduation kit is v2.** Strategic role: graduation kit is a *signal-collection layer for future advanced-course revenue.* What grads gravitate toward tells us which advanced courses to build. Parked items include Linear workspace auto-creation, advanced technique pointers, continued-learning resources, course upsells.
@@ -550,16 +564,18 @@ Size: a few hundred lines of code; no framework, testable in isolation.
 
 Seven phases, sequenced iteratively (see [§3](#3-user-journey)):
 
-| Phase | Duration (first-time) | Duration (returning) | Teammate | Artifact |
-|---|---|---|---|---|
-| 1. Spark (pre-paywall) | ~15-20 min | ~10-15 min | POE (Greeter mode) | `01-project-spark.md` |
-| 2. Set Up | ~45 min | **~5-10 min** | DOT + BEA intro | (no artifact — infrastructure) |
-| 3. First Build | ~30-45 min | ~20-30 min | BEA | first working localhost |
-| 4. Scope | ~30-45 min | ~30-45 min | POE | `02-requirements-backlog.md`, `03-mvp-scope.md` |
-| 5. Design | ~60-90 min | ~60-90 min | DAX + BEA | `04-design-notes.md` |
-| 6. Build Out | ~60-90 min | ~60-90 min | BEA + ED consult | `05-architecture-notes.md` (optional) |
-| 7. Ship & Share | ~30-45 min | ~15-30 min | DOT + GAL | `06-launch-notes.md` |
-| **Total** | **~4-5.5 hours** | **~3-4 hours** | | |
+| Phase | Display name | Internal ID | Duration (first-time) | Duration (returning) | Primary teammate | Artifact |
+|---|---|---|---|---|---|---|
+| 1 | Your Idea (pre-paywall) | `phase_1_spark` | ~15-20 min | ~10-15 min | POE | `01-project-spark.md` |
+| 2 | Set Up | `phase_2_setup` | ~45 min | **~5-10 min** | DOT | (infrastructure, no artifact) |
+| 3 | First Build | `phase_3_first_build` | ~30-45 min | ~20-30 min | BEA | first working localhost |
+| 4 | Scope | `phase_4_scope` | ~30-45 min | ~30-45 min | POE *(returns)* | `02-requirements-backlog.md`, `03-mvp-scope.md` |
+| 5 | Design | `phase_5_design` | ~60-90 min | ~60-90 min | DAX | `04-design-notes.md` |
+| 6 | Build Out | `phase_6_build_out` | ~60-90 min | ~60-90 min | BEA *(returns)* | `05-architecture-notes.md` (optional) |
+| 7 | Ship & Share | `phase_7_ship` | ~30-45 min | ~15-30 min | GAL | `06-launch-notes.md` |
+| | **Total** | | **~4-5.5 hours** | **~3-4 hours** | | |
+
+**Primary teammate** is who's labeled on the left-panel nav and leads that phase's conversations. Secondary teammates (e.g., BEA intro during Phase 2, POE cameo in Phase 3, ED consulting in Phase 6, DOT handling deploy in Phase 7) are introduced via visible handoff ceremonies in the main panel — not previewed in the nav. POE and BEA each appear twice, which intentionally reinforces "POE handles scope throughout" and "BEA is your build partner across phases."
 
 Returning-user compression comes primarily from Phase 2 (accounts already set up) and Phase 7 (gallery / GTM process familiar). Creative phases (Design, Build Out) don't compress meaningfully — each new project is substantive work. Not all phases required for every project type; config drives emphasis / skip (see [§5.3](#53-config-data-model)).
 
@@ -622,7 +638,126 @@ Curriculum progress is a **path**, not a **requirement**. Curriculum could be ha
 
 **Stuck-but-not-shipped case:** proactive check-back on next visit (not push notifications): *"Welcome back — want another crack at the deploy step? Here's where we left off."* DOT re-engages warmly, not impatiently.
 
-### 5.5 Time commitment
+### 5.5 Curriculum checklist — what Morgan sees in the left panel
+
+The left panel is Morgan's primary progress surface. Composition:
+
+- **All 7 phases always visible** as top-level items with status (done / current / upcoming) and a compact progress indicator per phase (`4 of 7`)
+- **Current phase expanded** by default, showing its specific milestone checkmarks
+- **Completed phases collapsed** with a subtle summary (time taken)
+- **Future phases collapsed** but clickable to peek (unpersonalized preview per the browse-ahead policy in [§5.1](#51-dynamic-bespoke-content-generation))
+- **Primary teammate badge** subtly displayed next to each phase name (small type, brand-accent color, right-aligned)
+
+**Layout sketch:**
+
+```
+┌────────────────────────────────┐
+│ [1stvibe logo]                 │
+│                                │
+│ YOUR PROJECT                   │
+│ Lead Capture Form              │
+│                                │
+│ ─────────────────────          │
+│                                │
+│ ✓ Phase 1 · Your Idea   POE    │ ← collapsed, completed
+│                                │
+│ ▼ Phase 2 · Set Up      DOT    │ ← expanded (current)
+│     5 of 7                     │
+│   ✓ GitHub account             │
+│   ✓ Your repo                  │
+│   ✓ 1stvibe helper             │
+│   ✓ Claude Code                │
+│   ✓ Skill pack                 │
+│   ◉ Connecting Vercel...       │ ← current step
+│   ○ Starter site live          │
+│   ○ Localhost running          │
+│                                │
+│ Phase 3 · First Build   BEA    │ ← collapsed, upcoming
+│ Phase 4 · Scope         POE    │
+│ Phase 5 · Design        DAX    │
+│ Phase 6 · Build Out     BEA    │
+│ Phase 7 · Ship & Share  GAL    │
+│                                │
+│ ─────────────────────          │
+│ Gallery                        │
+│ Settings                       │
+└────────────────────────────────┘
+```
+
+Glyphs: `✓` done, `◉` active/in-progress, `○` pending.
+
+### Checklist items per phase
+
+Some items are **static** (every user sees them); some are **dynamic** (generated from user data, primarily Phase 6 features from MVP list); some are **conditional** (Pro Tips skipped for returners, custom domain only if chosen).
+
+**Phase 1: Your Idea** *(static, 4 items — each is a natural POE conversation beat)*
+- Problem defined — what are you solving?
+- Users defined — who will use this?
+- Solution outlined — what are you building?
+- Project spec delivered ✓
+
+**Phase 2: Set Up** *(static, 7 items — this phase is front-loaded with wins to offset dev ops friction)*
+- GitHub account connected
+- Your repo created
+- 1stvibe helper installed (GitHub App)
+- Claude Code installed
+- 1stvibe teammates installed (Skill pack)
+- Vercel connected
+- Starter site live *(mini-ah-ha — first URL on the internet)*
+- Localhost running on your laptop
+
+For returning users, this compresses to ~1 item: *"Set up — using your existing accounts"* with an optional expansion. Account detection short-circuits the list. See [§3.12](#312-returning-users--multi-project-morgans).
+
+**Phase 3: First Build** *(mixed, ~3 items)*
+- Pro tips reviewed *(or "skipped" for returning users)*
+- First prompt sent to Claude Code
+- Your idea on localhost ✓ **🎯 THE AH-HA MOMENT**
+
+**Phase 4: Scope** *(static, 3 items)*
+- MVP scope locked
+- Requirements backlog captured
+- User journey mapped
+
+**Phase 5: Design** *(static, 3 items)*
+- Design direction set
+- Visual identity rendering on localhost
+- Design review complete
+
+**Phase 6: Build Out** *(dynamic — one item per MVP feature, populated from Phase 4)*
+- [Feature 1 name] — from her MVP list
+- [Feature 2 name]
+- [Feature 3 name]
+- ... (typically 3-7 features, depending on her scope)
+- All MVP features shipped ✓
+
+This phase scales with her scope — 3 features = 3 checkmarks, 7 features = 7. The panel literally visualizes *her* MVP plan, which makes progress deeply personal.
+
+**Phase 7: Ship & Share** *(mixed, 3-4 items)*
+- Production site deployed
+- *(conditional)* Custom domain connected — only if she chose to buy one
+- Project published to gallery
+- Shared ✓ — fires when she clicks any share action
+
+**Total: ~25-30 checklist items across 7 phases.** Dense enough for frequent progress hits (average ~4 per phase), sparse enough not to overwhelm.
+
+### Interaction behavior
+
+- **Checkmark fires** → celebratory animation on that item → phase progress indicator updates → if final item of phase, phase tick fires and next phase expands
+- **Completed phase collapses** with a subtle summary (e.g., *"Phase 2 · Set Up ✓ — completed in 42 min"*). Time is shown post-hoc for Morgan's own reference, not pressure — contrast with the rejected time-budget meter.
+- **Hover or click a teammate badge** → small tooltip with full name and one-line role summary (*"POE — Product Optimization Expert · shapes your idea and keeps scope on track"*). Light education without UX burden.
+- **Click a future phase** → peek modal (not full takeover) showing the unpersonalized default curriculum for that phase with a clear *"Preview — personalized when you reach this phase"* indicator. Respects browse-ahead policy.
+- **"Refresh this lesson"** button available inside current-phase items that are not yet complete (per [§5.1](#51-dynamic-bespoke-content-generation)). Regenerates using latest state. Unavailable post-completion.
+
+### Why this design works
+
+- **Frequent celebration moments.** ~4 checkmarks per phase, each with its own visual tick. Dopamine keeps up.
+- **Phase 2 is front-loaded with wins.** 7 checkmarks in the hardest phase — critical because dev ops is where we historically lose people. Turning "I'm setting up GitHub" into "I'm crossing checkboxes" makes friction feel productive.
+- **Mini-ah-has pre-main-ah-ha.** Phase 2's "Starter site live" is a real moment at ~35 min — she has a URL on the internet before she's even built anything herself. Confidence boost before Phase 3.
+- **Dynamic and personalized.** Phase 6 items differ per user. Phase 7 "Custom domain" only appears for buyers. Pro Tips state reflects her skip/review choice. Left panel is literally *her* progress through *her* project.
+- **No time countdown.** Checkmarks and phase progression only. Per [§7.1](#71-engagement-mechanics).
+- **Teammate continuity signals.** POE shown twice (Phases 1 + 4), BEA twice (Phases 3 + 6). Reinforces that these are persistent partners, not one-phase visitors.
+
+### 5.6 Time commitment
 
 **Design target: 4-6 hours total.** "A focused weekend" or "two evenings," not "work on it whenever." Fragmenting across weeks kills completion. "Greatness" is explicitly out of scope for v1 — our job ends when Morgan ships her first thing. Iteration and polish are her job after graduation.
 
