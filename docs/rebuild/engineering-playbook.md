@@ -34,7 +34,7 @@
 
 ### 1.1 Who does what
 
-Mike is the builder. Josh occasionally contributes copy. Claude Code is the primary implementer for both.
+Mike builds. Josh does copy, brand, and growth. Claude Code is the primary implementer for both.
 
 ### 1.2 What this doc is for
 
