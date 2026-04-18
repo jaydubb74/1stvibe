@@ -56,7 +56,7 @@ Every AI teammate conversation, every artifact produced, every success and aband
 
 ### 2.1 Pricing
 
-- **Working price: under $50. Gut pick: $39.** Range to A/B test at launch: $29 / $39 / $49.
+- **Working price: under $50. Gut pick: $39.** Facilitates impulse buys and hassle-free expense reports.
 - **One-time payment, no subscription, no trials.** Matches the one-and-done business model.
 - **No comp codes in v1.** Flat price for everyone. Promo / referral / influencer codes are a future lever.
 
@@ -145,10 +145,10 @@ POE (Product Teammate) runs Phase 1 free, ~15-20 min, producing `01-project-spar
 
 **Conversation arc (~15-20 min):**
 
-- **Opening (2-3 min):** POE introduces itself. Generic opener: *"What brings you to 1stvibe — something at work driving you crazy, a side idea you've been kicking around, or just curious about this vibe coding thing?"* First motivation signal logged.
+- **Opening (2-3 min):** POE introduces itself. Generic opener: *"Hi, I'm POE (Product Optimization Expert), what brings you to 1stvibe — an annoying manual workflow on the job, a side idea you've been kicking around, or just curious about vibe coding?"* First motivation signal logged.
 - **Discovery (5-7 min):** mostly structured choices to minimize token spend. Role pick from 6 launch roles + "other" (loads role config). Project frame via structured choices (self/team/customer, work/personal). Free-form idea intake (chat, image upload, link drop).
 - **Shaping (5-7 min):** POE does heavy lifting per the collaboration model ([§4.4](#44-collaboration-model-heavy-lifting-with-user-owning-the-calls)). "One thing" anchor question, user-journey probe. POE drafts the spark spec in real-time. Morgan sees it materialize (visible artifact materialization — see engagement mechanics [§7.1](#71-engagement-mechanics)).
-- **Close (2-3 min):** POE presents the finished spark spec with celebratory treatment. Warm pitch: *"This is your starting point. In the next ~5 hours, we can build this into a live site on the internet. It's $39 — your employer can almost certainly expense it. Ready?"* Stripe checkout expands. On success: Phase 2 begins.
+- **Close (2-3 min):** POE presents the finished spark spec with celebratory treatment. Warm pitch: *"This is your starting point. Over the course of this tutorial, we can build this into a live site on the internet. It's $39 — your employer can almost certainly expense it. Ready?"* Stripe checkout expands. On success: Phase 2 begins.
 
 **Cost tolerance:** Phase 1 for non-converters costs ~$0.10-$0.15 in LLM. At 10% conversion, ~$1-$1.50 per paying customer on free-tier spend. Acceptable at $39.
 
@@ -166,13 +166,13 @@ See [§2.4 Payment flow](#24-payment-flow) for full detail. Key UX properties: e
 
 DOT runs Phase 2. BEA joins mid-phase.
 
-**Step 1 (0:00–5:00): Welcome + preview.** DOT appears in main panel (State 1), introduces itself, shows Morgan a one-screen preview of what's ahead ("5 things, 5 checkboxes, ~45 minutes"). Reduces anxiety.
+**Step 1 (0:00–5:00): Welcome + preview.** DOT appears in main panel (State 1), introduces itself (Hi, I'm DOT (your Development Operations Teammate), my goal is to help get you set up to develop your project. DOT shows Morgan a one-screen preview of what's ahead ("5 things, 5 checkboxes, ~45 minutes"). Reduces anxiety.
 
-**Step 2 (5:00–10:00): GitHub account.** New users: DOT guides through GitHub signup with deep-links and pre-filled fields. Existing users: sign in, 30 seconds. DOT doesn't ask Morgan to "understand GitHub" — one-line explanation: *"this is where your code lives online."*
+**Step 2 (5:00–10:00): GitHub account.** New users: DOT guides through GitHub signup with deep-links and pre-filled fields. Existing users: sign in, 30 seconds. DOT doesn't ask Morgan to "understand GitHub", but can answer questions about commits, pull requests, branches, etc. DOT proffers a one-line explanation to start: *"this is where your code lives online."*
 
-**Step 3 (10:00–20:00): Create repo from 1stvibe template + install GitHub App.** Template is the 1stvibe starter repo (Next.js + Tailwind + `/.1stvibe/` scaffold, our opinionated defaults). Deep-link to GitHub's "Use this template" flow with repo name pre-filled. Install the 1stvibe GitHub App on the new repo — **read-only permissions at this step** (write upgrade happens later at artifact-mirror consent). DOT's narration is 1-2 sentence bites, optional to read deeply.
+**Step 3 (10:00–20:00): Create repo from 1stvibe template + install GitHub App.** Template is the 1stvibe starter repo (Next.js + Tailwind + `/.1stvibe/` scaffold, our opinionated defaults). Deep-link to GitHub's "Use this template" flow with repo name pre-filled. Install the 1stvibe GitHub App on the new repo — **read-only permissions at this step** (write upgrade happens later at artifact-mirror consent). DOT's narration is 1-2 sentence bites, optional to read deeply in expandable 'learn more - dive deeper' content trays.
 
-**Step 4 (20:00–30:00): Install Claude Code + 1stvibe Skill pack.** Download Claude Code desktop from Anthropic. Deep-link to Claude Code auth. One CLI command: `npx 1stvibe-skills install` installs BEA's Skill pack and our MCP server into Morgan's Claude Code. BEA appears in her terminal Claude Code with an introductory message. DOT walks through each step with screenshots.
+**Step 4 (20:00–30:00): Install Claude Code + 1stvibe Skill pack.** Download Claude Code desktop from Anthropic. Deep-link to Claude Code auth. One CLI command: `npx 1stvibe-skills install` installs BEA's Skill pack and our MCP server into Morgan's Claude Code. BEA appears in her terminal Claude Code with an introductory message. "Hi, I'm BEA (your Build Experience Associate), I'm here to X, Y, Z.". DOT walks through each step with screenshots.
 
 **Step 5 (30:00–40:00): Vercel connect + first deploy.** Sign in to Vercel with GitHub (inherited identity, no separate password). Import the 1stvibe template repo into a Vercel project (one click from guidance). Vercel auto-deploys the template — within 90 seconds, Morgan has a live URL with the starter page. **This is a mini-ah-ha before she's built anything of her own** — reinforces confidence.
 
