@@ -56,9 +56,10 @@ Every AI teammate conversation, every artifact produced, every success and aband
 
 ### 2.1 Pricing
 
-- **Working price: under $50. Gut pick: $39.** Facilitates impulse buys and hassle-free expense reports.
+- **V1 price: $39, flat.** Facilitates impulse buys and hassle-free expense reports. Stays under sub-$50 no-approval-required expense threshold at virtually every US employer.
 - **One-time payment, no subscription, no trials.** Matches the one-and-done business model.
 - **No comp codes in v1.** Flat price for everyone. Promo / referral / influencer codes are a future lever.
+- **No A/B testing at launch.** Pricing experimentation deferred until we have baseline conversion data and enough traffic to run meaningful tests. Kept as a potential future lever once we see real conversion numbers.
 
 **Strategic rationale — optimize for the referral funnel, not the cold funnel.** Our #1 purchase trigger is social FOMO ("coworker shared a link to their shipped project"). In a warm-referral funnel, the endorsement *is* the legitimacy signal — so price should be minimum-friction. Cold-landing premium-pricing data (Maven's 50-100% conversion lift at $950+) doesn't apply because cold-from-ads is at most our tertiary channel. Optimizing for premium positioning would slow the viral flywheel that is the actual business model.
 
@@ -1370,7 +1371,7 @@ Doing the rebuild inside the existing git repo using tags + branches. No zip fil
 
 **Still unresolved, genuinely open:**
 
-- **Exact price within sub-$50 range.** A/B test $29 / $39 / $49 at launch; let the market pick.
+- **Exact price within sub-$50 range.** $39 flat at launch. Revisit pricing with real conversion data before considering variants.
 - **Day of week for the weekly ritual.** Mike + Josh pick what fits.
 - **Domain registrar partner.** Pick one based on affiliate economics.
 - **Launch date / readiness criteria.** When do we cut over `v2-rebuild` → `main`?

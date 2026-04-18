@@ -132,7 +132,17 @@ All choices researched and decided. Alternatives evaluated where relevant — se
 | **Error tracking** | Sentry | Next.js App Router integration; release tracking; source maps |
 | **Logging** | `pino` | Structured JSON logs; shipped via Sentry or Vercel Log Drains |
 
-### 2.7 Development experience
+### 2.7 Content generation
+
+| Layer | Choice | Why |
+|---|---|---|
+| **Transactional email rendering** | `@react-email/components` + `@react-email/render` | React-based email templates, great DX, good email-client compatibility |
+| **Email send** | Resend (already chosen for auth) | Reuse the same provider for transactional emails |
+| **PDF generation** | `@react-pdf/renderer` | Server-renderable React-based PDFs; declarative; Works in serverless functions |
+| **Screenshot capture** | Vercel OG (`@vercel/og`) + Puppeteer fallback | OG for simple screenshots; Puppeteer via Inngest job for full-fidelity captures when needed |
+| **Animation** | Framer Motion | Celebration animations, milestone firings, teammate handoff ceremonies |
+
+### 2.8 Development experience
 
 | Layer | Choice | Why |
 |---|---|---|
@@ -146,7 +156,7 @@ All choices researched and decided. Alternatives evaluated where relevant — se
 | **Secrets** | Vercel env vars + Zod-validated `lib/env.ts` | Sufficient for 2-person team; upgrade to Doppler if headcount grows |
 | **Validation** | Zod | Everywhere — input, env, webhook payloads, LLM structured outputs |
 
-### 2.8 External partners (integrations we connect to, not build)
+### 2.9 External partners (integrations we connect to, not build)
 
 | Service | Role | Integration method |
 |---|---|---|
@@ -627,6 +637,116 @@ export const dsarKindEnum = pgEnum('dsar_kind', ['export', 'deletion'])
 export const dsarStatusEnum = pgEnum('dsar_status', ['pending', 'processing', 'completed', 'failed'])
 ```
 
+```typescript
+// drizzle/schema/curriculum.ts
+
+export const lessonRenders = pgTable('lesson_renders', {
+  id: uuid('id').defaultRandom().primaryKey(),
+  learningSessionId: uuid('learning_session_id').notNull().references(() => learningSessions.id, { onDelete: 'cascade' }),
+  phaseId: phaseEnum('phase_id').notNull(),
+  state: lessonStateEnum('state').notNull().default('active'),
+  content: jsonb('content').$type<Lesson>().notNull(),  // rendered Lesson object (see §7.5)
+  generationTokens: integer('generation_tokens'),
+  generationCostCents: integer('generation_cost_cents'),
+  generatedAt: timestamptz('generated_at').notNull().defaultNow(),
+  lockedAt: timestamptz('locked_at'),
+})
+// Unique: (learningSessionId, phaseId)
+
+export const lessonStateEnum = pgEnum('lesson_state', ['generating', 'active', 'locked'])
+
+// Per-user checklist progress (static bullets persisted here;
+// dynamic Phase 6 feature items included when they're rendered)
+export const checklistItemCompletions = pgTable('checklist_item_completions', {
+  id: uuid('id').defaultRandom().primaryKey(),
+  learningSessionId: uuid('learning_session_id').notNull().references(() => learningSessions.id, { onDelete: 'cascade' }),
+  phaseId: phaseEnum('phase_id').notNull(),
+  itemId: text('item_id').notNull(),  // matches Lesson.checklistItems[].id
+  completedAt: timestamptz('completed_at').notNull().defaultNow(),
+  triggeredBy: completionTriggerEnum('triggered_by').notNull(),
+  externalEventId: text('external_event_id'),  // e.g., github.push event ID
+})
+// Unique: (learningSessionId, phaseId, itemId)
+
+export const completionTriggerEnum = pgEnum('completion_trigger', [
+  'teammate_confirm', 'artifact_produced', 'user_mark', 'external_event',
+])
+```
+
+```typescript
+// drizzle/schema/admin.ts
+
+export const impersonationSessions = pgTable('impersonation_sessions', {
+  id: uuid('id').defaultRandom().primaryKey(),
+  adminUserId: uuid('admin_user_id').notNull().references(() => users.id),
+  targetUserId: uuid('target_user_id').notNull().references(() => users.id),
+  startedAt: timestamptz('started_at').notNull().defaultNow(),
+  expiresAt: timestamptz('expires_at').notNull(),
+  endedAt: timestamptz('ended_at'),
+  endedReason: impersonationEndedReasonEnum('ended_reason'),
+})
+
+export const impersonationEndedReasonEnum = pgEnum('impersonation_ended_reason', [
+  'admin_exit', 'expired', 'admin_logout', 'security_override',
+])
+```
+
+```typescript
+// drizzle/schema/integrations.ts — ADD
+
+export const mcpTokens = pgTable('mcp_tokens', {
+  id: uuid('id').defaultRandom().primaryKey(),
+  userId: uuid('user_id').notNull().references(() => users.id, { onDelete: 'cascade' }),
+  tokenHash: text('token_hash').notNull().unique(),  // bcrypt-hashed; never store raw
+  label: text('label'),                              // e.g., "Claude Code on MacBook"
+  lastUsedAt: timestamptz('last_used_at'),
+  expiresAt: timestamptz('expires_at'),              // optional; null = no expiry
+  revokedAt: timestamptz('revoked_at'),
+  createdAt: timestamptz('created_at').notNull().defaultNow(),
+})
+// Index: (userId), (tokenHash) unique
+```
+
+```typescript
+// drizzle/schema/email.ts
+
+export const emailSends = pgTable('email_sends', {
+  id: uuid('id').defaultRandom().primaryKey(),
+  userId: uuid('user_id').references(() => users.id, { onDelete: 'set null' }),
+  toEmail: text('to_email').notNull(),
+  ccEmail: text('cc_email'),                         // expense alias for receipts
+  kind: emailKindEnum('kind').notNull(),
+  idempotencyKey: text('idempotency_key').notNull().unique(),  // e.g., `wrap_up:${sessionId}`
+  resendMessageId: text('resend_message_id'),
+  unsubscribeToken: text('unsubscribe_token'),       // one-click unsubscribe
+  metadata: jsonb('metadata'),
+  sentAt: timestamptz('sent_at').notNull().defaultNow(),
+  openedAt: timestamptz('opened_at'),
+  clickedAt: timestamptz('clicked_at'),
+  bouncedAt: timestamptz('bounced_at'),
+})
+// Index: (userId, kind, sentAt DESC), (idempotencyKey) unique
+
+export const emailKindEnum = pgEnum('email_kind', [
+  'auth_magic_link',
+  'payment_receipt',
+  'wrap_up',
+  'retention_spark_24h', 'retention_spark_3d', 'retention_spark_7d', 'retention_spark_14d',
+  'retention_paid_7d', 'retention_paid_30d',
+  'gallery_1w_views', 'gallery_1m_interview', 'gallery_3m_next_project',
+  'dsar_export_ready', 'dsar_deletion_confirm', 'dsar_deletion_complete',
+  'domain_addon_prompt',
+])
+
+export const unsubscribePreferences = pgTable('unsubscribe_preferences', {
+  userId: uuid('user_id').primaryKey().references(() => users.id, { onDelete: 'cascade' }),
+  retentionEmails: boolean('retention_emails').notNull().default(true),
+  galleryUpdates: boolean('gallery_updates').notNull().default(true),
+  productUpdates: boolean('product_updates').notNull().default(true),
+  updatedAt: timestamptz('updated_at').notNull().defaultNow(),
+})
+```
+
 ### 4.2 Identity column strategy
 
 - **UUID v7** for all user-visible resources (users, learning_sessions, artifacts, gallery_projects). Time-sortable, better index locality than v4.
@@ -1034,7 +1154,48 @@ export async function tokenBudget(ctx: RouteContext, session: LearningSession): 
 
 Chain order matters: rate limit (cheap) → token budget (cheap) → compaction check → teammate call.
 
-### 6.5 Portable BEA into Claude Code
+### 6.5 Returning-user account detection
+
+Phase 2 compresses from ~45 min to ~5-10 min for returning Morgans by detecting pre-existing setup. Implemented as a service called once at the start of Phase 2:
+
+```typescript
+// lib/orchestrator/returning-user-detection.ts
+
+export async function detectExistingSetup(userId: string): Promise<SetupState> {
+  const [githubInstall, vercelProject, mcpToken, priorJourneys] = await Promise.all([
+    db.query.githubInstallations.findFirst({
+      where: and(eq(githubInstallations.userId, userId), isNull(githubInstallations.removedAt)),
+    }),
+    db.query.vercelProjects.findFirst({ where: eq(vercelProjects.userId, userId) }),
+    db.query.mcpTokens.findFirst({
+      where: and(eq(mcpTokens.userId, userId), isNull(mcpTokens.revokedAt)),
+    }),
+    db.query.paidJourneys.findMany({
+      where: and(eq(paidJourneys.userId, userId), eq(paidJourneys.status, 'paid')),
+    }),
+  ])
+
+  return {
+    isReturningUser: priorJourneys.length > 0,
+    hasGithubAccount: !!githubInstall,
+    hasVercelAccount: !!vercelProject,
+    hasClaudeCodeSkillPack: !!mcpToken,
+    journeyNumber: priorJourneys.length + 1,
+    // Phase 2 steps that can be skipped this time:
+    skippableSteps: [
+      githubInstall ? 'create_github_account' : null,
+      githubInstall ? 'install_1stvibe_app' : null,
+      mcpToken ? 'install_claude_code' : null,
+      mcpToken ? 'install_skill_pack' : null,
+      vercelProject ? 'connect_vercel' : null,
+    ].filter(Boolean),
+  }
+}
+```
+
+DOT's Phase 2 orchestration reads this state and dynamically skips checklist items that no longer apply. Detection also populates the `learningSessions.phaseState.returning_user_setup` for teammate prompt context.
+
+### 6.6 Portable BEA into Claude Code
 
 BEA's Skill pack is published as an npm package `@1stvibe/skills`.
 
@@ -1432,7 +1593,240 @@ Skills included:
 
 (Other teammates live in our web app; BEA is the one that follows Morgan into Claude Code.)
 
-### 9.5 Stripe integration
+### 9.5 Email infrastructure & retention scheduling
+
+All outbound email flows through a single pipeline: Resend for delivery, `@react-email/render` for templates, Inngest for scheduling, `emailSends` table for idempotency + observability.
+
+**Template structure:**
+
+```
+content/emails/
+├── auth-magic-link.tsx
+├── payment-receipt.tsx            # receipt + forward-to-manager CTA
+├── wrap-up.tsx                    # post-completion summary
+├── retention/
+│   ├── spark-24h.tsx              # registered-but-didn't-pay
+│   ├── spark-3d.tsx
+│   ├── spark-7d.tsx
+│   ├── spark-14d.tsx
+│   ├── paid-7d.tsx                # paid-but-didn't-finish
+│   └── paid-30d.tsx
+├── gallery/
+│   ├── one-week-views.tsx         # "your project had N views"
+│   ├── one-month-interview.tsx    # agent-led interview trigger
+│   └── three-month-next.tsx       # "ready for round 2?"
+├── dsar/
+│   ├── export-ready.tsx
+│   ├── deletion-confirm.tsx
+│   └── deletion-complete.tsx
+└── domain-addon-prompt.tsx        # post-launch custom domain CTA
+```
+
+**Email send service:**
+
+```typescript
+// lib/email/send.ts
+
+export async function sendEmail(params: {
+  to: string
+  cc?: string
+  kind: EmailKind
+  template: React.ReactElement
+  idempotencyKey: string
+  metadata?: Record<string, unknown>
+}): Promise<{ messageId: string }> {
+  // Idempotency check
+  const existing = await db.query.emailSends.findFirst({
+    where: eq(emailSends.idempotencyKey, params.idempotencyKey),
+  })
+  if (existing) {
+    logger.info({ idempotencyKey: params.idempotencyKey }, 'Email already sent, skipping')
+    return { messageId: existing.resendMessageId ?? '' }
+  }
+
+  // Check unsubscribe preferences (skip auth + receipts; always send those)
+  if (!ALWAYS_SEND_KINDS.includes(params.kind)) {
+    const prefs = await getUnsubscribePreferences(params.to)
+    if (!prefs[unsubscribeCategory(params.kind)]) return { messageId: '' }
+  }
+
+  const html = await render(params.template)
+  const unsubscribeToken = generateUnsubscribeToken({ email: params.to, kind: params.kind })
+
+  const result = await resend.emails.send({
+    from: 'hello@1stvibe.ai',
+    to: params.to,
+    cc: params.cc,
+    subject: subjectFor(params.kind, params.metadata),
+    html: injectUnsubscribeFooter(html, unsubscribeToken),
+    headers: {
+      'List-Unsubscribe': `<${env.APP_URL}/unsubscribe?token=${unsubscribeToken}>`,
+      'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click',
+    },
+  })
+
+  await db.insert(emailSends).values({
+    userId: params.metadata?.userId ?? null,
+    toEmail: params.to,
+    ccEmail: params.cc,
+    kind: params.kind,
+    idempotencyKey: params.idempotencyKey,
+    resendMessageId: result.data?.id,
+    unsubscribeToken,
+    metadata: params.metadata,
+  })
+
+  return { messageId: result.data?.id ?? '' }
+}
+```
+
+**Retention scheduling via Inngest:**
+
+```typescript
+// lib/queue/retention.ts
+
+// Triggered when registration completes without payment
+export const scheduleSparkRetention = inngest.createFunction(
+  { id: 'spark-retention-schedule' },
+  { event: 'spark/completed_without_payment' },
+  async ({ event, step }) => {
+    const { userId, sessionId } = event.data
+
+    await step.sleep('wait-24h', '24h')
+    await step.run('check-and-send-24h', async () => {
+      if (await hasPaid(userId)) return 'already_paid'
+      return sendRetentionEmail({ userId, sessionId, kind: 'retention_spark_24h' })
+    })
+
+    await step.sleep('wait-3d', '3d')
+    await step.run('check-and-send-3d', async () => {
+      if (await hasPaid(userId)) return 'already_paid'
+      return sendRetentionEmail({ userId, sessionId, kind: 'retention_spark_3d' })
+    })
+
+    await step.sleep('wait-7d', '7d')
+    await step.run('check-and-send-7d', async () => {
+      if (await hasPaid(userId)) return 'already_paid'
+      return sendRetentionEmail({ userId, sessionId, kind: 'retention_spark_7d' })
+    })
+
+    await step.sleep('wait-14d', '14d')
+    await step.run('check-and-send-14d', async () => {
+      if (await hasPaid(userId)) return 'already_paid'
+      return sendRetentionEmail({ userId, sessionId, kind: 'retention_spark_14d' })
+    })
+  }
+)
+```
+
+Each step is its own idempotent Inngest step function; the `check-and-send-*` pattern short-circuits if Morgan converted in the meantime. Similar flows for paid-but-didn't-finish and post-completion nudges.
+
+**Unsubscribe endpoint:**
+
+```typescript
+// app/unsubscribe/route.ts
+
+export async function GET(req: Request) {
+  const token = new URL(req.url).searchParams.get('token')
+  if (!token) return redirect('/')
+
+  const { email, kind } = verifyUnsubscribeToken(token)
+  const category = unsubscribeCategory(kind)
+  
+  await db.update(unsubscribePreferences)
+    .set({ [category]: false, updatedAt: sql`now()` })
+    .where(eq(unsubscribePreferences.userId, /* resolve from email */))
+
+  return new Response(renderUnsubscribeConfirmation({ email, category }))
+}
+```
+
+### 9.6 Gallery publishing flow
+
+When Morgan publishes a project to the gallery:
+
+```typescript
+// actions/gallery.ts
+
+'use server'
+
+export async function publishProjectToGallery(input: PublishInput) {
+  const user = await requireAuthUser()
+  const parsed = PublishInputSchema.parse(input)
+  
+  // Create draft galleryProject row
+  const project = await db.insert(galleryProjects).values({
+    userId: user.id,
+    learningSessionId: parsed.sessionId,
+    liveUrl: parsed.liveUrl,
+    projectName: parsed.projectName,
+    isPublic: false,  // draft until screenshot + summary ready
+  }).returning()
+
+  // Async: screenshot + AI summary via Inngest
+  await inngest.send({
+    name: 'gallery/project.publish_requested',
+    data: { projectId: project[0].id, liveUrl: parsed.liveUrl },
+  })
+
+  return { projectId: project[0].id, status: 'processing' }
+}
+```
+
+**Inngest job — screenshot + summary:**
+
+```typescript
+// lib/queue/gallery.ts
+
+export const processGalleryPublish = inngest.createFunction(
+  { id: 'gallery-publish' },
+  { event: 'gallery/project.publish_requested' },
+  async ({ event, step }) => {
+    const { projectId, liveUrl } = event.data
+
+    const screenshot = await step.run('capture-screenshot', async () => {
+      return await captureScreenshot(liveUrl)  // Vercel OG or Puppeteer
+    })
+
+    const blobKey = await step.run('upload-screenshot', async () => {
+      return await uploadToBlob(screenshot, `gallery/${projectId}.png`)
+    })
+
+    const summary = await step.run('generate-summary', async () => {
+      return await generateProjectSummary({ projectId, liveUrl })  // Haiku 4.5 via Batch API
+    })
+
+    await step.run('mark-public', async () => {
+      await db.update(galleryProjects)
+        .set({
+          screenshotBlobKey: blobKey,
+          aiSummary: summary,
+          isPublic: true,
+          publishedAt: sql`now()`,
+        })
+        .where(eq(galleryProjects.id, projectId))
+    })
+
+    await step.run('fire-graduation-events', async () => {
+      // Check if this also completes the learning session
+      const project = await db.query.galleryProjects.findFirst({
+        where: eq(galleryProjects.id, projectId),
+      })
+      if (project) {
+        await publishEvent(project.learningSessionId, {
+          type: 'phase_completed',
+          phaseId: 'phase_7_ship',
+        })
+        await triggerWrapUpEmail(project.userId, project.learningSessionId)
+      }
+    })
+  }
+)
+```
+
+### 9.7 Stripe integration
+
+**V1: single flat price of $39** (one Stripe Price ID — `STRIPE_PRICE_ID_STANDARD`). No A/B testing at launch; no variants. Pricing experimentation deferred until we have baseline conversion data to compare against.
 
 ```typescript
 // actions/billing.ts
@@ -1454,11 +1848,62 @@ export async function createCheckoutSession(input: CreateCheckoutInput) {
     payment_intent_data: {
       description: '1stvibe Professional Development Course',
     },
+    invoice_creation: { enabled: true },  // generate Stripe invoice we can attach to receipt email
   })
   
   return { checkoutUrl: session.url }
 }
 ```
+
+**Webhook handler includes receipt email with optional expense-alias CC:**
+
+```typescript
+// app/api/webhooks/stripe/route.ts (continued from below)
+
+async function handleStripeEvent(event: Stripe.Event) {
+  if (event.type === 'checkout.session.completed') {
+    const session = event.data.object as Stripe.Checkout.Session
+    const userId = session.metadata?.userId
+    const learningSessionId = session.metadata?.learningSessionId
+    if (!userId) throw new Error('Missing userId in Stripe metadata')
+
+    // Mark paid journey + upgrade user
+    await markPaidJourney({ userId, learningSessionId, session })
+
+    // Generate branded PDF receipt
+    const pdfBuffer = await renderReceiptPdf({
+      userId,
+      amountCents: session.amount_total,
+      purchasedAt: new Date(session.created * 1000),
+      stripeInvoiceNumber: session.invoice,
+    })
+    const pdfBlobKey = await uploadToBlob(pdfBuffer, `receipts/${session.id}.pdf`)
+
+    // Look up expense alias (null if user hasn't set it yet)
+    const user = await db.query.users.findFirst({ where: eq(users.id, userId) })
+    
+    // Send receipt email with expense alias CC if set
+    await sendEmail({
+      to: user!.email,
+      cc: user!.expenseEmailAlias ?? undefined,
+      kind: 'payment_receipt',
+      template: PaymentReceiptTemplate({
+        userName: user!.name,
+        amountCents: session.amount_total ?? 3900,
+        pdfUrl: await generateSignedUrl(pdfBlobKey, { expiresIn: '30d' }),
+        forwardToManagerUrl: generateManagerNotifyLink(userId),
+      }),
+      idempotencyKey: `receipt:${session.id}`,
+      metadata: { userId, stripeSessionId: session.id },
+    })
+  }
+  // ... other event types
+}
+```
+
+**Post-payment expense alias capture** happens on the transition screen after Stripe success redirect — a small optional field that `PATCH /api/users/me`'s `expenseEmailAlias`. Every subsequent receipt auto-CCs it.
+
+**Completion summary PDF** is a separate `@react-pdf/renderer` component rendered by a different Inngest job at graduation, attached to the wrap-up email.
 
 Webhook:
 
