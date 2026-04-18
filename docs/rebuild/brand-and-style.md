@@ -628,20 +628,175 @@ The wordmark is always set in **DM Sans Bold**. Approved color combinations:
 
 ## 10. v2 Component Patterns
 
-*Placeholder — v2-specific visual patterns get added here as we design and build. Candidates currently under discussion (see conversation for latest status):*
+Component patterns introduced in v2 to support the AI teammate system, curriculum checklist, celebration moments, and gallery. Specified here at a level that shapes implementation without pinning every pixel — refined during build.
 
-- **10.1 Teammate identity system** — acronym naming (POE, DAX, ED, DOT, BEA, GAL), subtle accent per teammate, handoff visual language
-- **10.2 Teammate icon states** — collapsed (idle), alive (pulsing), expanded chat bubble, main-panel takeover
-- **10.3 Handoff ceremony transitions** — between-teammate visual flow
-- **10.4 Curriculum checklist visual language** — phase header, check glyphs (✓ done, ◉ active, ○ pending), progress indicators
-- **10.5 Milestone celebrations** — repo created, localhost live, first deploy, first build, ship moment — consistent visual language
-- **10.6 Artifact materialization** — how produced markdowns appear with celebratory treatment
-- **10.7 Two-panel learning environment** — left panel / main panel proportions, divider styling, responsive behavior
-- **10.8 Gallery card treatment** — project cards, veteran builder badge, follow-up indicator
-- **10.9 Builder profile** — multi-project layout, first-ever-ship highlight
-- **10.10 Admin UI conventions** — dashboard cards, signal review queue, impersonation banner
+### 10.1 Teammate identity system
 
-These get filled in as we design and build. Edits flow through the normal PR workflow.
+Each of the six teammates has a subtle accent color used for badges, pill backgrounds (at 10-20% opacity), icon color on hover, and left-accent borders on their chat bubbles. Never used as page-level background fills or large color blocks.
+
+| Teammate | Role | Accent | Hex |
+|---|---|---|---|
+| **POE** | Product Optimization Expert | Burnt Orange *(brand primary)* | `#D35400` |
+| **DAX** | Design And eXperience | Amber Yellow | `#F5A623` |
+| **ED** | Engineering & Development | Deep Teal *(new)* | `#2C7A7B` |
+| **DOT** | Dev Ops Tutor | Slate Gray | `#636E72` |
+| **BEA** | Build Experience Associate | Terracotta *(new)* | `#C86F4E` |
+| **GAL** | Growth Audience Launch | Plum *(new)* | `#7D5283` |
+
+**Palette extensions:** Deep Teal, Terracotta, and Plum are new additions to extend the warm brand palette. All are desaturated enough to harmonize with the existing set and avoid fighting the brand primary. They exist primarily in the teammate-identity context; use in other UI elements sparingly.
+
+**Tailwind token additions** (add to `globals.css`):
+
+```css
+--color-teammate-poe:  #D35400;  /* = brand */
+--color-teammate-dax:  #F5A623;  /* = amber */
+--color-teammate-ed:   #2C7A7B;  /* new: deep teal */
+--color-teammate-dot:  #636E72;  /* = slate */
+--color-teammate-bea:  #C86F4E;  /* new: terracotta */
+--color-teammate-gal:  #7D5283;  /* new: plum */
+```
+
+**Usage examples:**
+
+```html
+<!-- Teammate pill badge (in nav, in chat headers) -->
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full
+             bg-teammate-bea/15 text-teammate-bea border border-teammate-bea/20
+             text-xs font-semibold tracking-wide">BEA</span>
+
+<!-- Chat bubble with teammate accent border -->
+<div class="bg-white rounded-2xl p-4 border-l-4 border-teammate-poe shadow-sm">
+  <!-- conversation content -->
+</div>
+```
+
+**Accessibility:** all six accents pass WCAG AA (4.5:1 minimum) for text on white and text on charcoal. When used as a background fill, pair with the standard text contrasts from §4.9.
+
+### 10.2 Teammate icon — four states
+
+The teammate icon lives as a floating circular badge (~40px diameter) positioned bottom-right in the main content area. It carries the teammate's acronym in DM Sans Bold on their accent color, and responds to state changes with animation.
+
+| State | Appearance | Trigger |
+|---|---|---|
+| **Collapsed (idle)** | ~40px circle, teammate accent background, white text, `shadow-xl`, static | Default after lesson body begins |
+| **Alive (pulsing)** | Collapsed icon + `animate-ping` amber halo at 20% opacity | Morgan returns from external tool, idle detected, contextual pro-tip available, webhook signal |
+| **Expanded (chat bubble)** | Morgan clicks icon → expands upward as a floating chat bubble, 320-400px wide, `shadow-2xl`, close-X in top-right | User-initiated |
+| **Main-panel takeover** | Icon fades, teammate re-enters main content panel for significant moments | Teammate-initiated: decision points, artifact production, phase handoff, milestone, error-state coaching |
+
+**Spring physics (Framer Motion):** state transitions use `spring(stiffness: 300, damping: 25)` for tactile feel. Icon-to-bubble expansion: 280ms. Bubble-to-main-panel: 400ms crossfade.
+
+### 10.3 Handoff ceremony transitions
+
+When Morgan moves between curriculum phases (and thus teammates), the handoff is a small, warm visual ceremony — not a page transition, but a moment.
+
+**Sequence (3-4 seconds total):**
+
+1. **Current teammate wraps** — chat message summarizing accomplishments of the phase. Amber highlight on produced-artifact links.
+2. **Fade + settle** — teammate's chat bubble dissolves with a gentle downward motion. Left-panel checklist item ticks with the "just completed" burst animation (§10.4).
+3. **New teammate arrives** — incoming teammate's icon swoops in from the right, expands to bubble, introductory line streams in with a typewriter effect over ~800ms.
+4. **Lesson opens** — new phase's lesson content materializes in the main panel.
+
+Narrates as one coherent moment rather than a series of clicks. Morgan doesn't need to dismiss anything; the handoff flows.
+
+### 10.4 Curriculum checklist glyphs
+
+On-brand progression replacing generic radio/check treatments. Each item has four visual states:
+
+**Pending:**
+- 14px circle
+- 1.5px `border-gray-200` stroke
+- `bg-white` fill
+- Quiet, not attention-drawing
+
+**Active (current step):**
+- 14px circle
+- 1.5px `border-brand` stroke
+- Tiny 4px inner dot in `bg-brand`
+- `animate-ping` amber halo at 20% opacity, 2s cycle
+- Alive — draws attention without aggression
+
+**Just-completed (300-400ms burst animation on state change):**
+- Expanding amber ring emits from center, fades out
+- Inner dot grows to fill the circle as brand-color fades in
+- Subtle ✨ sparkle particles at corners (per §10.5 micro-tier)
+- Then settles into →
+
+**Done:**
+- 14px solid `bg-brand` circle
+- White Lucide `Check` icon at `size={10}` centered
+- Resting state — satisfying, clearly complete
+
+**Implementation:** Framer Motion for state transitions. Confetti library (`canvas-confetti`) for the sparkle burst at micro tier.
+
+**Spacing:** 12px between glyph and label text, 10px vertical gap between checklist items.
+
+### 10.5 Celebration moments — confetti + animation tiers
+
+All milestone / celebration moments use a consistent confetti vocabulary, strictly in brand-warm colors:
+
+```ts
+// lib/celebration.ts
+export const BRAND_CONFETTI_COLORS = [
+  '#D35400',  // Burnt Orange
+  '#F5A623',  // Amber Yellow
+  '#FDEBD0',  // Soft Peach
+  '#C86F4E',  // Terracotta
+] as const
+```
+
+No rainbow; never. Keeps celebrations feeling branded rather than generic.
+
+**Three intensity tiers, chosen by moment significance:**
+
+| Tier | When to use | Particles | Duration | Spread |
+|---|---|---|---|---|
+| **Micro** | Checklist item tick | 8-12 | 400ms | Local burst from glyph |
+| **Phase** | Phase completes (entire phase ticks off) | 30-40 | 800ms | Wider arc from center-top of left panel |
+| **Mega** | Ship moment / gallery publish / graduation | 100+ | 1.5s | Full viewport from top-left and top-right |
+
+All use the same 4-color palette. Only count + duration + spread change. This keeps celebrations feeling like a family, scaled by significance.
+
+**Additional celebratory treatments (not confetti):**
+
+- **Artifact materialization** (when a teammate produces a markdown artifact): artifact card slides in from right with spring physics, brand-colored left accent border, amber subtle pulse on first appearance
+- **Milestone banner** (repo created, localhost live, first deploy): thin banner slides down from top, amber-gradient background, warm copy, 3-second dismiss
+- **Ship moment** (full graduation): main content area dims, celebration takeover card fills center with the shipped URL, "You built this" headline in DM Sans ExtraBold, mega confetti, CTA buttons for gallery publish / share
+
+### 10.6 Artifact materialization
+
+Specific treatment for when a teammate produces a markdown artifact (project brief, backlog, design notes, etc.):
+
+- Card slides in from right of main panel, 280ms spring
+- Brand-colored left accent border (4px, teammate's accent color)
+- Header: "Just created: [Artifact name]" in DM Sans SemiBold
+- Preview: first ~3 lines of content truncated with fade-out
+- Actions: "View full" / "Edit" / ✓ Approve buttons
+- Micro-confetti burst from top-right corner on first appearance
+
+### 10.7 Two-panel learning environment
+
+**Desktop (>= 1024px):**
+- Left panel: 280px fixed width, curriculum checklist
+- Vertical divider: 1px `border-gray-100`
+- Right panel: flex-grow, main content area, max-width `4xl` centered
+
+**Tablet (768-1023px):**
+- Left panel: collapsible drawer, trigger icon in top-left of content
+- Right panel: full-width
+
+**Mobile (< 768px):**
+- Left panel: hidden by default, hamburger opens as overlay drawer
+- Right panel: full viewport width
+
+**Teammate floating icon** (§10.2) lives in bottom-right of the right panel, always within the content area's bounds — never overlapping the left panel.
+
+### 10.8-10.10 (deferred, filled during build)
+
+- **10.8 Gallery card treatment** — awaiting first real-project mockups
+- **10.9 Builder profile** — awaiting data shape decisions
+- **10.10 Admin UI conventions** — awaiting /admin build phase
+
+These will be specified when we reach those implementation phases; the patterns in §10.1-§10.7 are the load-bearing ones for the core learning experience.
 
 ---
 
