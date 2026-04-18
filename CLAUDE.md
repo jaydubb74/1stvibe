@@ -1,57 +1,134 @@
-# 1stvibe.ai
+# 1stvibe.ai — Claude Code guidance
 
-The fastest path from "I want a website" to a real, deployed site. Built for non-technical creators — instant AI demo → guided tutorial → real deployment.
+> This repo is in the middle of a **v2 rebuild**. The v1 codebase is archived in `_legacy/` (reference only, not wired into the build). Active v2 design lives in `docs/rebuild/`.
 
-## Quick Reference
+## Orient yourself here first
 
-```bash
-npm run dev          # Start dev server (localhost:3000)
-npm run build        # Production build (catches TS/ESLint errors)
-npx drizzle-kit push # Push schema changes to Neon DB
-npx drizzle-kit studio # Browse database in Drizzle Studio
+Before writing any code, read these in order:
+
+1. **[docs/rebuild/persona.md](./docs/rebuild/persona.md)** — who we're building for. Morgan archetype.
+2. **[docs/rebuild/prd-notes.md](./docs/rebuild/prd-notes.md)** — what we're building. Product definition with 13 sections covering strategy, user journey, AI teammates, curriculum, integrations, admin, security, and launch scope.
+3. **[docs/rebuild/technical-architecture.md](./docs/rebuild/technical-architecture.md)** — how we build it. Full technical blueprint — stack choices, data model, LLM strategy, orchestrator shape, security implementation, testing strategy.
+4. **[docs/rebuild/brand-and-style.md](./docs/rebuild/brand-and-style.md)** — visual identity and voice.
+5. *(Coming)* **docs/rebuild/engineering-playbook.md** — conventions for how we build (git workflow, Claude Code conventions, testing patterns). Not yet drafted.
+6. *(Coming)* **docs/rebuild/build-plan.md** — sequenced implementation plan. Not yet drafted.
+
+## Project at a glance
+
+**What it is:** A paid ($39), AI-coached learning experience that takes a non-engineer professional from "I've heard of vibe coding" to "I shipped a live website I built myself with Claude Code" in a focused 4-6 hour weekend.
+
+**Differentiator:** Six specialized AI teammates (POE / DAX / ED / DOT / BEA / GAL) walk the user through product distillation, dev ops, design, engineering, build, and GTM. We compete on coaching quality, not output quality.
+
+**Defensibility:** A data flywheel — every user interaction makes the next user's teammates sharper.
+
+## Repository structure (v2)
+
+```
+1stvibe/
+├── docs/
+│   ├── rebuild/           # Active v2 design docs (authoritative)
+│   └── _legacy/           # Archived v1 docs (reference only)
+├── _legacy/               # Archived v1 code (reference only, not built)
+├── public/                # Brand assets (logo, fonts)
+├── app/                   # (empty — v2 Next.js routes will live here)
+├── components/            # (empty — v2 React components)
+├── lib/                   # (empty — v2 utilities)
+├── drizzle/               # (empty — v2 database schema)
+├── content/               # (empty — v2 config-as-code: teammates, curriculum, emails, etc.)
+├── packages/              # (planned — @1stvibe/skills npm package)
+├── tests/                 # (planned — Vitest + Playwright + Promptfoo)
+├── package.json, next.config.ts, tsconfig.json, etc. — carry-forward base configs
+└── CLAUDE.md              # this file
 ```
 
-## Tech Stack
+The empty active directories will fill up as we execute the build plan.
 
-- **Framework:** Next.js 15 (App Router) + React 19 + TypeScript
-- **Styling:** Tailwind CSS v4 (CSS-based config — no tailwind.config.js)
-- **Database:** Neon PostgreSQL + Drizzle ORM
-- **Auth:** NextAuth v5 beta + Resend magic links
-- **AI:** OpenAI GPT-4o (demo generation + moderation)
-- **Images:** Pixabay API (stock photos for generated sites)
-- **Icons:** Lucide React (always use this, never inline SVGs)
-- **Deployment:** Vercel
+## Tech stack (decided, per technical-architecture.md)
 
-## Project Structure
+| Layer | Choice |
+|---|---|
+| Framework | Next.js 15 (App Router) + React 19 + TypeScript strict |
+| Styling | Tailwind CSS v4 (CSS-based config) |
+| Database | Neon Postgres + Drizzle ORM |
+| Auth | Auth.js v5 + Resend magic links |
+| AI | Anthropic Claude (Sonnet 4.6 default, Haiku 4.5 for hot path, Opus 4.6/4.7 for rare high-stakes coaching) |
+| LLM streaming | Vercel AI SDK v5 |
+| Teammate primitive | Anthropic Skills |
+| Orchestrator | Lightweight in-house (~300-500 LOC), no LangGraph/CrewAI |
+| Payments | Stripe embedded Checkout |
+| Observability | PostHog (analytics + replay + flags) + Langfuse (LLM traces) + Sentry (errors) |
+| Background jobs | Inngest |
+| Rate limiting | Upstash Redis + @upstash/ratelimit |
+| Object storage | Vercel Blob |
+| MCP server | Co-located at `/api/mcp/[...]` with Streamable HTTP transport |
+| Lint + format | Biome |
+| Tests | Vitest + Playwright + Promptfoo |
 
-```
-app/                  # Pages + API routes (Next.js App Router)
-components/           # React components (demo/, tutorial/, ui/)
-lib/                  # Shared utilities (openai, auth, db, ratelimit)
-content/tutorial/     # MDX tutorial content (5 sections, 19 steps)
-drizzle/              # Database schema
-docs/                 # Full documentation (see docs/INDEX.md)
-```
+See `technical-architecture.md` §2 for full rationale.
 
-## Key Conventions
+## Key architectural principles
 
-- **Tailwind v4** — config is in CSS (`globals.css`), not a JS config file
-- **Primary color:** `bg-brand` (`#D35400` Burnt Orange) — see `docs/guides/style-guide.md` and `docs/strategy/brand-kit.md` for full palette
-- **Fonts:** DM Sans (headings, `--font-dm-sans`) + Open Sans (body, `--font-open-sans`) via `next/font/google`
-- **Icons:** Lucide React — see style guide for sizing conventions
-- **Class merging:** Use `cn()` from `lib/utils.ts` (clsx + tailwind-merge)
-- **Database access:** Always use `getDb()` from `lib/db.ts` (lazy singleton)
-- **Component location:** `components/` grouped by feature
-- **No `any`** — TypeScript strict mode, no unused variables (ESLint enforced)
+- **TypeScript strict everywhere.** No `any`. Types are documentation.
+- **Zod at every boundary.** Env vars, API inputs, webhook payloads, LLM structured outputs — all runtime-validated.
+- **Server Actions over REST.** Route handlers reserved for webhooks, MCP, SSE streams, and AI SDK endpoints.
+- **Config-as-code.** All product behavior (teammate prompts, role configs, curriculum bullets, pro-tips, email templates) lives in `content/` as git-versioned files.
+- **Small files (<300 lines).** Helps Claude Code load and reason fully.
+- **Explicit over magical.** Middleware, orchestrator steps, observability — visible in the file where they're used.
+- **Single source of truth per decision.** Cross-reference between docs, don't duplicate.
 
-## Brand Voice (One-Liner)
+## Non-goals
 
-Friendly coach — encouraging, approachable, casual, occasionally funny. See `docs/strategy/brand-voice.md`.
+Called out to prevent scope creep:
 
-## Customer (One-Liner)
+- No GraphQL
+- No tRPC (Server Actions + Zod is sufficient)
+- No microservices
+- No LangGraph / CrewAI / AutoGen
+- No OpenTelemetry full stack
+- No event sourcing
+- No custom admin UI framework
+- No Docker / Kubernetes
 
-Non-technical creators who want a website but don't code. See `docs/strategy/customer-profile.md`.
+## Brand constraints (unchanged from v1)
 
-## Full Documentation
+Preserved exactly:
 
-See **[docs/INDEX.md](docs/INDEX.md)** for the complete documentation index covering strategy, architecture, guides, and features.
+- **Primary color:** `bg-brand` (Burnt Orange `#D35400`)
+- **Typography:** DM Sans (headings) + Open Sans (body) via `next/font/google`
+- **Voice:** Friendly coach — encouraging, approachable, casual, occasionally funny
+- **Terminology:** `1stvibe.ai`, `vibe coding`, `Builder`, `Project`
+
+Full details in `docs/rebuild/brand-and-style.md`.
+
+## Working in this repo
+
+### Git workflow
+
+- `main` — still points at live v1 site. Do not touch during rebuild.
+- `archive/v1` branch + `v1-final` tag — frozen v1 snapshot for reference / rollback.
+- `v2-rebuild` — active development branch for v2. All rebuild work happens here.
+- Cutover at launch: merge `v2-rebuild` → `main`.
+
+### Editing product behavior
+
+Per `prd-notes.md §8`, all product-behavior changes flow through git + PR. Specifically:
+
+- Teammate Skills, role configs, project-type configs, curriculum YAMLs, pro-tips, email templates, landing copy — edit in `content/`, open a PR, ship.
+- Never add a CRUD UI for product-behavior editing. Claude-Code-editing-in-the-repo is the workflow.
+
+### Operational admin
+
+Per `prd-notes.md §8`, admin UI lives at `/admin/**` (to be built). Scope is deliberate: dashboard, users, signal review queue, moderation, support, audit. Other operational work (session replay, LLM traces, error tracking) lives in third-party tools (PostHog, Langfuse, Sentry).
+
+### Don't touch `_legacy/`
+
+`_legacy/` is preserved v1 code for reference. Never import from it. Never edit files there. If you need a pattern from v1, copy it explicitly into the v2 location and adapt. See `_legacy/README.md`.
+
+## When in doubt
+
+- **Product question?** Check `prd-notes.md`. If unclear, ask.
+- **Implementation question?** Check `technical-architecture.md`. If unclear, ask.
+- **Style / UI question?** Check `brand-and-style.md`. If unclear, ask.
+- **Anything else?** Ask.
+
+Every decision we've made is in one of these docs. Docs + git history are the source of truth, not this file. This file points you at them.
